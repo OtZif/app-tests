@@ -1,0 +1,17 @@
+.svgX {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    text-align: center;
+
+    svg {
+      fill: #979494;
+      transition: all .3s ease;
+
+      &:hover {
+        fill: #000;
+      }
+    }
+}

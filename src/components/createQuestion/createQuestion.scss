@@ -1,0 +1,26 @@
+.create-question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  button {
+    text-align: center;
+    margin: 8px 0;
+    border: 1px solid #28b351;
+    border-radius: 4px;
+    background-color: #28b351;
+    padding: 24px;
+    color: #fff;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #24a249;
+      border-color: #24a249;
+    }
+
+    &:active {
+      box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+      background-color: rgba(40, 179, 81, 0.9);
+      border-color: rgba(40, 179, 81, 0.9);
+    }
+  }
+}

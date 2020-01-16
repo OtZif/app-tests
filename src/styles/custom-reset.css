@@ -28,6 +28,9 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+  font-size: 16px;
+  font-family: -apple-system,BlinkMacSystemFont,San Francisco,HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Segoe UI,Fira Sans,Roboto,Oxygen,Ubuntu,Droid Sans,Arial,sans-serif;
+  font-weight: 400;
 }
 
 :focus {

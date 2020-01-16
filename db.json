@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "login": "admin",
+      "pass": "admin"
+    },
+    {
+      "login": "user",
+      "pass": "user"
+    }
+  ],
+  "tests": [
+    {
+      "id": "0",
+      "testTitle": "Test 1",
+      "date":"2020-01-10T12:32:17.728Z",
+      "questions": [
+        {
+          "id": "1322", 
+          "answerType": "radio",
+          "question": "question 1?",
+          "answers": [
+            {
+              "id": "1",
+              "answer": "answer 1",
+              "currect": "false"
+            },
+            {
+              "id": "2",
+              "answer": "answer 2",
+              "currect": "true"
+            },
+            {
+              "id": "3",
+              "answer": "answer 4",
+              "currect": "false"
+            }
+          ]
+        },
+        {
+          "id": "1324",
+          "answerType": "checkbox",
+          "question": "Question 2?",
+          "answers": [
+            {
+              "id": "1125",
+              "answer": "Hey",
+              "currect": "false"
+            },
+            {
+              "id": "1126",
+              "answer": "Hoo",
+              "currect": "true"
+            },
+            {
+              "id": "1127",
+              "answer": "Huuu",
+              "currect": "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "testTitle": "Test 2",
+      "date":"2020-01-10T12:32:17.728Z",
+      "questions": [
+        {
+          "id": "13223", 
+          "answerType": "radio",
+          "question": "question 1?",
+          "answers": [
+            {
+              "id": "12",
+              "answer": "answer 1",
+              "currect": "false"
+            },
+            {
+              "id": "22",
+              "answer": "answer 2",
+              "currect": "true"
+            },
+            {
+              "id": "32",
+              "answer": "answer 4",
+              "currect": "false"
+            }
+          ]
+        },
+        {
+          "id": "13242",
+          "answerType": "checkbox",
+          "question": "Question 2?",
+          "answers": [
+            {
+              "id": "11251",
+              "answer": "Hey",
+              "currect": "false"
+            },
+            {
+              "id": "11262",
+              "answer": "Hoo",
+              "currect": "true"
+            },
+            {
+              "id": "11273",
+              "answer": "Huuu",
+              "currect": "false"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

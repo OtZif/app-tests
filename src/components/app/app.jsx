@@ -1,12 +1,49 @@
 import React from "react";
 
-import './app.scss'
-import Autorisation from "../autorisation/autorisation";
+import "./app.scss";
+import Modal from "../modal/modal";
 
-const App = () => {
+import Header from "../header/header";
+import Main from "../main/main";
+import WelcomePage from "../welcomePage/welcomePage";
+
+
+const App = ({
+  authorized,
+  userName,
+  admin,
+  users,
+  modal,
+  test,
+  actions,
+  autorisation,
+  addTitle,
+  filter,
+  filterTrack,
+  modalAddQuestion,
+  idTest,
+}) => {
+  const { loginAction } = actions;
   return (
-    <div className='app'>
-      <Autorisation />
+    <div className={`app ${modal ? "app__overflow" : ""}`}>
+      {modal ? (
+        <Modal
+          actions={actions}
+          users={users}
+          autorisation={autorisation}
+          addTitle={addTitle}
+          modalAddQuestion={modalAddQuestion}
+          idTest={idTest}
+        />
+      ) : (
+        ""
+      )}
+      <Header actions={actions} userName={userName} authorized={authorized} filterTrack={filterTrack} />
+      {authorized ? (
+        <Main admin={admin} test={test} actions={actions} filter={filter}/>
+      ) : (
+        <WelcomePage login={loginAction} />
+      )}
     </div>
   );
 };

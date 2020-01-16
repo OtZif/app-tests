@@ -1,0 +1,62 @@
+.questionForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid #212121;
+  padding: 4px;
+  box-shadow: 0 0 15px orange;
+
+  input[type='text'] {
+    border: 1px solid #212121;
+    padding: 4px 6px;
+    margin-bottom: 3px;
+  }
+  input[type='button'] {
+    color: blue;
+    font-size: 14px;
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+
+  .inputs--block {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .buttons--block {
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid orange;
+    padding: 15px 0 12px;
+    margin-top: 15px;
+  }
+
+  .button {
+    color: #fff;
+    font-weight: bolder;
+    font-size: 18px;
+    width: 100px;
+    text-align: center;
+    padding: 6px;
+    border-radius: 8px;
+  }
+  .save {
+    background: green;
+  }
+  .cancel {
+    background: red;
+  }
+  .new--answer{
+    display: flex;
+    align-items: center;
+
+    input[type='checkbox'] {
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+    input[type='text'] {
+      width: 100%;
+    }
+  }
+}
