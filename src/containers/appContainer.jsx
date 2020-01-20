@@ -21,6 +21,8 @@ const AppContainer = ({
   filterTrack,
   modalAddQuestion,
   idTest,
+  currentEdit,
+  questionEdit,
 }) => {
   return (
     <Router>
@@ -38,6 +40,8 @@ const AppContainer = ({
         filterTrack={filterTrack}
         modalAddQuestion={modalAddQuestion}
         idTest={idTest}
+        currentEdit={currentEdit}
+        questionEdit={questionEdit}
       />
     </Router>
   );
@@ -56,6 +60,8 @@ const mapStateToProps = state => ({
   filterTrack: filterTrackSelector(state),
   modalAddQuestion: state.modalAddQuestion,
   idTest: state.idTest,
+  currentEdit: state.currentEdit,
+  questionEdit: state.questionEdit,
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

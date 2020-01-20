@@ -22,6 +22,8 @@ const App = ({
   filterTrack,
   modalAddQuestion,
   idTest,
+  currentEdit,
+  questionEdit,
 }) => {
   const { loginAction } = actions;
   return (
@@ -34,13 +36,15 @@ const App = ({
           addTitle={addTitle}
           modalAddQuestion={modalAddQuestion}
           idTest={idTest}
+          currentEdit={currentEdit}
+          questionEdit={questionEdit}
         />
       ) : (
         ""
       )}
       <Header actions={actions} userName={userName} authorized={authorized} filterTrack={filterTrack} />
       {authorized ? (
-        <Main admin={admin} test={test} actions={actions} filter={filter}/>
+        <Main admin={admin} test={test} actions={actions} filter={filter} currentEdit={currentEdit}/>
       ) : (
         <WelcomePage login={loginAction} />
       )}

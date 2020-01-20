@@ -108,16 +108,16 @@
       }
     }
 
-    .check--box{
-      display: flex;
-      align-items: center;
+    // .check--box{
+    //   display: flex;
+    //   align-items: center;
 
-      input[type='checkbox'], input[type='radio'] {
-        width: 20px;
-        margin-left: 4px;
-        margin-right: 10px;
-      }
-    }
+    //   input[type='checkbox'], input[type='radio'] {
+    //     width: 20px;
+    //     margin-left: 4px;
+    //     margin-right: 10px;
+    //   }
+    // }
 
     &--is_open {
       .dropdown--button-box{       
@@ -142,6 +142,21 @@
 
     &--is_open .dropdown--content {
       display: block;
+    }
+  }
+  .check--box{
+    display: flex;
+    align-items: center;
+
+    input[type='checkbox'], input[type='radio'] {
+      width: 20px;
+      margin-left: 4px;
+      margin-right: 10px;
+    }
+  }
+  .anwers-box {
+    input {
+      padding: 8px 24px;
     }
   }
 }

@@ -7,7 +7,7 @@ import {ESC_KEY} from '../../constants/otherConstants'
 import SvgX from "../svgX/svgX";
 import AddQuestion from '../addQuestion/addQuestion'
 
-const Modal = ({ actions, users, autorisation, addTitle, addQuestion, modalAddQuestion, idTest }) => {
+const Modal = ({ actions, users, autorisation, addTitle, currentEdit, modalAddQuestion, idTest, questionEdit }) => {
   const handleClose = () => {
     actions.closeModal();
   };
@@ -21,16 +21,15 @@ const Modal = ({ actions, users, autorisation, addTitle, addQuestion, modalAddQu
       <div className="modal--bg" onClick={handleClose}></div>
       <div className="modal--info">
         <div className="modal--content">
-          <div className="modal--header">
-            {/* <h3>{addTitle && "Add Test Title"} </h3> */}
-            <button className="modal--close" onClick={handleClose} >
-              <SvgX />
-            </button>
-          </div>
+          <button className="modal--close" onClick={handleClose}>
+            <SvgX />
+          </button>
           <div className="modal--body">
             {autorisation && <Autorisation users={users} actions={actions} />}
             {addTitle && <TestTitle actions={actions} />}
-            {modalAddQuestion && <AddQuestion actions={actions} idTest={idTest}/>}
+            {modalAddQuestion && (
+              <AddQuestion actions={actions} idTest={idTest} questionEdit={questionEdit}  currentEdit={currentEdit} />
+            )}
           </div>
         </div>
       </div>

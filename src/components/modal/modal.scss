@@ -18,6 +18,8 @@
     background-color: rgba(0,0,0,.35)
   }
 
+
+
   &--info {
     width: 520px;
     // height: 100vh;
@@ -111,7 +113,14 @@
     position: relative;
   }
 
-  &--header {
-    z-index: 1;
+  &--close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0!important;
   }
+
+  // &--header {
+  //   z-index: 1;
+  // }
 }

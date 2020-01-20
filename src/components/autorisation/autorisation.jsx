@@ -18,7 +18,6 @@ const Autorisation = ({ users, actions }) => {
       actions.authorizedAction()
       actions.closeModal();
     } else {
-      console.log('');
       setValue(true)
     }
     

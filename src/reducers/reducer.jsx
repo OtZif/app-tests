@@ -13,7 +13,11 @@ import {
   SORT_BY_DATE,
   SEARCH_TEST,
   RESET_FILTER_TRACK,
-  MODAL_ADD_QUESTION
+  MODAL_ADD_QUESTION,
+  EDIT_TEST_NAME,
+  SAVE_TEST_NAME,
+  EDITING_QUESTION,
+  SAVE_EDITED_QUESTION,
 } from "../constants/actionConstants";
 
 const initialState = {
@@ -27,6 +31,8 @@ const initialState = {
   filter: false,
   filterTrack: "",
   idTest: "",
+  currentEdit:'',
+  questionEdit: false,
   users: [
     {
       name: "Капитан Админ",
@@ -52,7 +58,7 @@ const initialState = {
       questions: [
         {
           id: 1322,
-          answerType: "radio", // radio - one currect answer, checkbox - some curr. answ., numeric - num. answer
+          answerType: "Single", // radio - one currect answer, checkbox - some curr. answ., numeric - num. answer
           question: "question 1?",
           answers: [
             {
@@ -75,7 +81,7 @@ const initialState = {
         },
         {
           id: 1329, // id = (+new Date).toString(10);
-          answerType: "checkbox", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
+          answerType: "Some", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
           question: "question 2?",
           // answers: ["answer 1", "answer 2", "answer 3"],
           answers: [
@@ -99,7 +105,7 @@ const initialState = {
         },
         {
           id: 1324,
-          answerType: "numeric", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
+          answerType: "Numeric", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
           question: "question 3?",
           answers: [
             {
@@ -192,7 +198,9 @@ export const reducer = (state = initialState, action) => {
         modal: false,
         autorisation: false,
         addTitle: false,
-        modalAddQuestion: false
+        modalAddQuestion: false,
+        questionEdit: false,
+        currentEdit: '',
       };
 
     case LOGIN:
@@ -269,6 +277,53 @@ export const reducer = (state = initialState, action) => {
         modalAddQuestion: true,
         idTest: action.idTest
       };
+
+    case SAVE_TEST_NAME:
+      return {
+        ...state,
+        currentEdit: '',
+        tests: state.tests.map( el=> {
+          if (el.id === action.id) {
+            return {
+              ...el,
+              testTitle: action.name,
+            }
+          }
+
+          return el;
+        })
+      };
+    
+    case EDIT_TEST_NAME:
+      return {
+        ...state,
+        currentEdit: action.id,
+      }
+
+    case EDITING_QUESTION:
+      const x = state.tests.filter(test=> test.id === action.id).shift().questions.filter(el=> el.id === action.questionId).shift();
+      console.log('hey ', x);
+      return {
+        ...state,
+        modal: true,
+        modalAddQuestion: true,
+        questionEdit: true,
+        currentEdit: state.tests
+          .filter(test => test.id === action.id)
+          .shift()
+          .questions.filter(el => el.id === action.questionId)
+          .shift()
+      };
+
+    case SAVE_EDITED_QUESTION:
+      return {
+        ...state,
+        modal: false,
+        modalAddQuestion: false,
+        questionEdit: false,
+        currentEdit: '',
+
+      }
 
     default:
       return state;

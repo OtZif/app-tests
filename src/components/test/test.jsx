@@ -3,48 +3,62 @@ import React from "react";
 import "./test.scss";
 import SvgX from "../svgX/svgX";
 import CreateQuestion from "../createQuestion/createQuestion";
+import { ENTER_KEY } from "../../constants/otherConstants";
 
-const Test = ({ actions, test, testId, admin, currentEdit, currentField, }) => {
-  // console.log(test);
+const Test = ({ actions, test, testId, admin, currentEdit }) => {
   const handleDeleteQuestion = (testId, questionId) => () => {
     actions.deleteQuestionAction(testId, questionId);
-    // console.log("hello", testId, questionId);
   };
-  const handleChangeCurrentField = (id, name) => {
-    return () => actions.changeCurrentField(id, name);
+  const handleChangeCurrentField = (id, title) => e => {
+    if (e.target.value.trim() === '') e.target.value = title;
+    actions.saveTestNameAction(id, e.target.value);
   };
 
+  const handlKeyUp = (id, title) => e => {
+    if (e.keyCode === ENTER_KEY) {
+      if (e.target.value.trim() === "") e.target.value = title;
+        actions.saveTestNameAction(id, e.target.value);
+    }
+  }
+
+  const handlEditTestTitle = (id) => {
+    return () => actions.editTestNameAction(id)
+  }
+
+  const handlClickToEditQuestion = (idTest, idQuestion) => () => {
+    console.log('EDITING ---> ', idTest, idQuestion);
+    actions.editingQuestionAction(idTest, idQuestion);
+  }
+
   const element = test.map(elem => {
-    // console.log("testID", testId);
-    // console.log("elID", elem.id);
     if (parseInt(elem.id, 10) === testId) {
-      // console.log(elem);
       return (
-        <div className="test" key={+new Date()*Math.random(100)}>
+        <div className="test" key={+new Date() * Math.random(100)}>
           <div className="test--body">
-            <h2 className="test--title">{elem.testTitle}</h2>
+            {currentEdit === testId ? (
+              <input
+                className="edit-input"
+                autoFocus
+                defaultValue={elem.testTitle}
+                onKeyUp={handlKeyUp(testId, elem.testTitle)}
+                onBlur={handleChangeCurrentField(testId, elem.testTitle)}
+              />
+            ) : (
+              <h2
+                className="test--title"
+                title="double click to edit"
+                onDoubleClick={handlEditTestTitle(testId)}
+              >
+                {elem.testTitle}
+              </h2>
+            )}
 
             {elem.questions.map(el => (
               <div className="question" key={el.id}>
-                {currentEdit === el.id && currentField === "question" ? (
-                  <input
-                    className=""
-                    autoFocus
-                    defaultValue={el.performer}
-                    // onKeyUp={}
-                    // onBlur={}
-                  />
-                ) : (
-                  <h3
-                    className="question--title"
-                    onDoubleClick={handleChangeCurrentField(el.id, "question")}
-                  >
-                    {el.question}
-                  </h3>
-                )}
+                <h3 className="question--title">{el.question}</h3>
                 <div className="question--answers">
-                  {/* {console.log("el.ans", el.answers)} */}
-                  {el.answers && el.answerType === 'radio' &&
+                  {el.answers &&
+                    el.answerType === "Single" &&
                     el.answers.map(ans => (
                       <div className="answers--box" key={ans.id}>
                         <div className="check--indicator">
@@ -62,14 +76,14 @@ const Test = ({ actions, test, testId, admin, currentEdit, currentField, }) => {
                       </div>
                     ))}
 
-                    {el.answers && el.answerType === 'checkbox' &&
+                  {el.answers &&
+                    el.answerType === "Some" &&
                     el.answers.map(ans => (
                       <div className="answers--box" key={ans.id}>
                         <div className="check--indicator">
                           <input
                             type="checkbox"
                             className="checkbox"
-                            // name={el.id}
                             id={ans.id}
                           />
                           <label htmlFor={ans.id}></label>
@@ -80,29 +94,37 @@ const Test = ({ actions, test, testId, admin, currentEdit, currentField, }) => {
                       </div>
                     ))}
 
-                  {el.answers && el.answerType === 'numeric' &&
+                  {el.answers &&
+                    el.answerType === "Numeric" &&
                     el.answers.map(ans => (
                       <div className="answers--box" key={ans.id}>
-                        <input type="number" id={ans.id} placeholder='type answer'/>
+                        <input
+                          type="number"
+                          id={ans.id}
+                          placeholder="type answer"
+                        />
                       </div>
                     ))}
-
                 </div>
                 {admin && (
-                  <button
-                    className="remove"
-                    onClick={handleDeleteQuestion(elem.id, el.id)}
-                  >
-                    <SvgX key={+new Date()*Math.random(100)}/>
-                  </button>
+                  <div className='admin--tools'>
+                    <button 
+                      className="edit" 
+                      onClick={handlClickToEditQuestion(elem.id, el.id)} />
+                    <button
+                      className="remove"
+                      onClick={handleDeleteQuestion(elem.id, el.id)}
+                    >
+                      <SvgX key={+new Date() * Math.random(100)} />
+                    </button>
+                  </div>
                 )}
               </div>
             ))}
           </div>
-          {/*test--body*/}
           {admin && (
             <div className="test--controls">
-              <CreateQuestion  actions={actions} testId={testId}/>
+              <CreateQuestion actions={actions} testId={testId} />
             </div>
           )}
         </div>

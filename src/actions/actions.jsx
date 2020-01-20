@@ -14,6 +14,10 @@ import {
   SEARCH_TEST,
   RESET_FILTER_TRACK,
   MODAL_ADD_QUESTION,
+  EDIT_TEST_NAME,
+  SAVE_TEST_NAME,
+  EDITING_QUESTION,
+  SAVE_EDITED_QUESTION,
 } from "../constants/actionConstants";
 
 export const addTest = testTitle => {
@@ -118,5 +122,37 @@ export const modalAddQuestionAction = (idTest) => {
   return {
     type: MODAL_ADD_QUESTION,
     idTest: idTest
+  }
+}
+
+export const saveTestNameAction = (id, name) => {
+  return {
+    type: SAVE_TEST_NAME,
+    id,
+    name
+  }
+}
+
+export const editTestNameAction = id => {
+  return {
+    type: EDIT_TEST_NAME,
+    id,
+  }
+}
+
+export const editingQuestionAction = (id, questionId) => {
+  return {
+    type: EDITING_QUESTION,
+    id,
+    questionId,
+  }
+}
+
+export const saveEditedQuestion = (id, questionId, question) => {
+  return {
+    type: SAVE_EDITED_QUESTION,
+    id,
+    questionId,
+    question
   }
 }
