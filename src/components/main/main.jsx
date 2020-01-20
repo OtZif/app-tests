@@ -10,13 +10,23 @@ const Main = ({ admin, test, actions, filter, currentEdit }) => {
       <Route
         path="/"
         exact
-        render={() => <Tests test={test} actions={actions} admin={admin} filter={filter} />}
+        render={() => (
+          <Tests test={test} actions={actions} admin={admin} filter={filter} />
+        )}
       />
       <Route
         path="/test/:id"
         exact
         render={({ match }) => {
-          return <Test test={test} testId={+match.params.id} admin={admin} actions={actions} currentEdit={currentEdit} />;
+          return (
+            <Test
+              test={test}
+              testId={+match.params.id}
+              admin={admin}
+              actions={actions}
+              currentEdit={currentEdit}
+            />
+          );
         }}
       />
       <Redirect to="/" />

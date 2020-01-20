@@ -17,10 +17,10 @@ import {
   EDIT_TEST_NAME,
   SAVE_TEST_NAME,
   EDITING_QUESTION,
-  SAVE_EDITED_QUESTION,
+  SAVE_EDITED_QUESTION
 } from "../constants/actionConstants";
 
-export const addTest = testTitle => {
+export const addTestAction = testTitle => {
   const id = Date.now();
   const date = new Date();
   return {
@@ -30,14 +30,14 @@ export const addTest = testTitle => {
     date
   };
 };
-export const addingNewTest = () => {
+
+export const addingNewTestAction = () => {
   return {
     type: ADDING_NEW_TEST
   };
 };
 
 export const addQuestionAction = (id, question, answerType, answers) => {
-  // console.log('id in new ', answers);
   return {
     type: ADD_QUESTION,
     id,
@@ -47,14 +47,14 @@ export const addQuestionAction = (id, question, answerType, answers) => {
   };
 };
 
-export const deleteTest = id => {
+export const deleteTestAction = id => {
   return {
     type: DELETE_TEST,
     id
   };
 };
 
-export const closeModal = () => {
+export const closeModalAction = () => {
   return {
     type: CLOSE_MODAL
   };
@@ -68,7 +68,7 @@ export const loginAction = () => {
 
 export const logoutAction = () => {
   return {
-    type: LOGOUT,
+    type: LOGOUT
   };
 };
 
@@ -80,14 +80,14 @@ export const adminAction = () => {
 
 export const authorizedAction = () => {
   return {
-    type: AUTHORIZED,
+    type: AUTHORIZED
   };
 };
 
-export const setUserNameAction = (name) => {
+export const setUserNameAction = name => {
   return {
     type: SET_USER_NAME,
-    name: name,
+    name: name
   };
 };
 
@@ -95,64 +95,64 @@ export const deleteQuestionAction = (testId, questionId) => {
   return {
     type: DELETE_QUESTION,
     testId: testId,
-    questionId: questionId,
-  }
-}
+    questionId: questionId
+  };
+};
 
 export const sortByDateAction = () => {
   return {
-    type: SORT_BY_DATE,
-  }
-}
+    type: SORT_BY_DATE
+  };
+};
 
-export const searchTest = text => {
+export const searchTestAction = text => {
   return {
     type: SEARCH_TEST,
     text
   };
 };
 
-export const resetFilterTrackAction =() => {
+export const resetFilterTrackAction = () => {
   return {
-    type: RESET_FILTER_TRACK,
-  }
-}
+    type: RESET_FILTER_TRACK
+  };
+};
 
-export const modalAddQuestionAction = (idTest) => {
+export const modalAddQuestionAction = idTest => {
   return {
     type: MODAL_ADD_QUESTION,
     idTest: idTest
-  }
-}
+  };
+};
 
 export const saveTestNameAction = (id, name) => {
   return {
     type: SAVE_TEST_NAME,
     id,
     name
-  }
-}
+  };
+};
 
 export const editTestNameAction = id => {
   return {
     type: EDIT_TEST_NAME,
-    id,
-  }
-}
+    id
+  };
+};
 
 export const editingQuestionAction = (id, questionId) => {
   return {
     type: EDITING_QUESTION,
     id,
-    questionId,
-  }
-}
+    questionId
+  };
+};
 
-export const saveEditedQuestion = (id, questionId, question) => {
+export const saveEditedQuestionAction = (question, answerType, answers) => {
   return {
     type: SAVE_EDITED_QUESTION,
-    id,
-    questionId,
-    question
-  }
-}
+    question,
+    answerType,
+    answers
+  };
+};

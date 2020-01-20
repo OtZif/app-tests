@@ -1,19 +1,28 @@
 import React from "react";
 
 import "./modal.scss";
-import Autorisation from "../autorisation/autorisation"
-import TestTitle from '../addTestTitle/addTestTitle'
-import {ESC_KEY} from '../../constants/otherConstants'
+import Autorisation from "../autorisation/autorisation";
+import TestTitle from "../addTestTitle/addTestTitle";
+import { ESC_KEY } from "../../constants/otherConstants";
 import SvgX from "../svgX/svgX";
-import AddQuestion from '../addQuestion/addQuestion'
+import AddQuestion from "../addQuestion/addQuestion";
 
-const Modal = ({ actions, users, autorisation, addTitle, currentEdit, modalAddQuestion, idTest, questionEdit }) => {
+const Modal = ({
+  actions,
+  users,
+  autorisation,
+  addTitle,
+  currentEdit,
+  modalAddQuestion,
+  idTest,
+  questionEdit
+}) => {
   const handleClose = () => {
-    actions.closeModal();
+    actions.closeModalAction();
   };
   const handleCloseKeyUp = e => {
     if (e.keyCode === ESC_KEY) {
-      actions.closeModal();
+      actions.closeModalAction();
     }
   };
   return (
@@ -28,7 +37,12 @@ const Modal = ({ actions, users, autorisation, addTitle, currentEdit, modalAddQu
             {autorisation && <Autorisation users={users} actions={actions} />}
             {addTitle && <TestTitle actions={actions} />}
             {modalAddQuestion && (
-              <AddQuestion actions={actions} idTest={idTest} questionEdit={questionEdit}  currentEdit={currentEdit} />
+              <AddQuestion
+                actions={actions}
+                idTest={idTest}
+                questionEdit={questionEdit}
+                currentEdit={currentEdit}
+              />
             )}
           </div>
         </div>

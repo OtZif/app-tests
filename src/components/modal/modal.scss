@@ -18,18 +18,11 @@
     background-color: rgba(0,0,0,.35)
   }
 
-
-
   &--info {
     width: 520px;
-    // height: 100vh;
     position: relative;
     z-index: 1;
     box-shadow: 0 20px 60px -2px rgba(27,33,58,.4);
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
 
     .title {
       font-size: 32px;
@@ -103,7 +96,6 @@
       margin: 8px 0;
       font-size: 20px;
     }
-
   }
 
   &--content {
@@ -119,8 +111,4 @@
     right: 20px;
     margin: 0!important;
   }
-
-  // &--header {
-  //   z-index: 1;
-  // }
 }

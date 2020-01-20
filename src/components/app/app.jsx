@@ -7,7 +7,6 @@ import Header from "../header/header";
 import Main from "../main/main";
 import WelcomePage from "../welcomePage/welcomePage";
 
-
 const App = ({
   authorized,
   userName,
@@ -23,7 +22,7 @@ const App = ({
   modalAddQuestion,
   idTest,
   currentEdit,
-  questionEdit,
+  questionEdit
 }) => {
   const { loginAction } = actions;
   return (
@@ -42,9 +41,20 @@ const App = ({
       ) : (
         ""
       )}
-      <Header actions={actions} userName={userName} authorized={authorized} filterTrack={filterTrack} />
+      <Header
+        actions={actions}
+        userName={userName}
+        authorized={authorized}
+        filterTrack={filterTrack}
+      />
       {authorized ? (
-        <Main admin={admin} test={test} actions={actions} filter={filter} currentEdit={currentEdit}/>
+        <Main
+          admin={admin}
+          test={test}
+          actions={actions}
+          filter={filter}
+          currentEdit={currentEdit}
+        />
       ) : (
         <WelcomePage login={loginAction} />
       )}

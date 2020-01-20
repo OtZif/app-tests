@@ -8,7 +8,7 @@ const TestTitle = ({ actions }) => {
 
   const handlClickSave = () => {
     if (value !== "") {
-      actions.addTest(value);
+      actions.addTestAction(value);
     } else {
       setError(true);
     }
@@ -19,14 +19,14 @@ const TestTitle = ({ actions }) => {
       if (e.target.value.trim() === "") {
         setError(true);
       } else {
-        actions.addTest(e.target.value);
+        actions.addTestAction(e.target.value);
         e.target.value = "";
       }
     }
   };
 
   const handleClickCancel = e => {
-    actions.closeModal();
+    actions.closeModalAction();
   };
 
   return (

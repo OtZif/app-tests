@@ -2,37 +2,37 @@ import React, { useState } from "react";
 
 import "./autorisation.scss";
 
-
 const Autorisation = ({ users, actions }) => {
-  const [login, setLogin] = useState('');
-  const [pass, setPass] = useState('');
-  const [value, setValue] = useState('');
-  const checkLogin =() => {
-    const newPerson = users.filter(user => user.login === login && user.pass === pass);
-    console.log(newPerson);
-    if (newPerson.length > 0 ) {
-      actions.setUserNameAction(newPerson[0].name)
-      if(login === 'admin') {
+  const [login, setLogin] = useState("");
+  const [pass, setPass] = useState("");
+  const [value, setValue] = useState("");
+  const checkLogin = () => {
+    const newPerson = users.filter(
+      user => user.login === login && user.pass === pass
+    );
+    if (newPerson.length > 0) {
+      actions.setUserNameAction(newPerson[0].name);
+      if (login === "admin") {
         actions.adminAction();
       }
-      actions.authorizedAction()
-      actions.closeModal();
+      actions.authorizedAction();
+      actions.closeModalAction();
     } else {
-      setValue(true)
+      setValue(true);
     }
-    
-  }
+  };
   return (
     <form
       action=""
       className="autorisation--form"
       onSubmit={event => {
-        //console.log("form submited", login, pass);
         event.preventDefault();
         checkLogin();
       }}
     >
-      <h2 className='title' autoFocus>LOGIN</h2>
+      <h2 className="title" autoFocus>
+        LOGIN
+      </h2>
       <input
         type="text"
         placeholder="Username"
@@ -44,8 +44,8 @@ const Autorisation = ({ users, actions }) => {
         placeholder="Password"
         onChange={e => setPass(e.target.value)}
       />
-      <p className={`error ${value? 'errorText' : ''}`}>User not found</p>
-      <button type="submit" className='modal--button'>
+      <p className={`error ${value ? "errorText" : ""}`}>User not found</p>
+      <button type="submit" className="modal--button">
         Login
       </button>
     </form>

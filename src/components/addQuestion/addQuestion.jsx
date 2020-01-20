@@ -4,21 +4,20 @@ import "./addQuestion.scss";
 class AddQuestion extends Component {
   state = {
     isOpen: false,
-    questionType: "Question Type",
-    answerType: '',
+    answerType: "Choose Type",
     singleAnswer: false,
     someAnswers: false,
     numericAnswer: false,
     question: "",
-    ansValue1: '',
+    ansValue1: "",
     ansCheck1: false,
-    ansValue2: '',
+    ansValue2: "",
     ansCheck2: false,
-    ansValue3: '',
+    ansValue3: "",
     ansCheck3: false,
-    ansValue4: '',
+    ansValue4: "",
     ansCheck4: false,
-    ansValue5: '',
+    ansValue5: "",
     ansCheck5: false
   };
 
@@ -28,58 +27,54 @@ class AddQuestion extends Component {
     });
   };
 
-  // handleBlur = () => {
-  //   if (this.state.isOpen){
-  //     this.setState({
-  //       isOpen: false
-  //     });
-  //   }
-  // }
-
   handleCloseModal = () => {
     const { actions } = this.props;
-    actions.closeModal();
+    actions.closeModalAction();
   };
 
-  handlChoseQuestionType = text => () => {
-    this.setState({
-      isOpen: false,
-      questionType: text
-    });
+  handlChangeType = text => {
     switch (text) {
-      case 'Single':
-        // console.log("Single");
+      case "Single":
         this.setState({
           singleAnswer: true,
           someAnswers: false,
           numericAnswer: false,
-          answerType: 'Single',
+          ansCheck1: false,
+          ansCheck2: false,
+          ansCheck3: false,
+          ansCheck4: false,
+          ansCheck5: false
         });
         break;
 
       case "Some":
-       // console.log("Some");
         this.setState({
           singleAnswer: false,
           someAnswers: true,
-          numericAnswer: false,
-          answerType: 'Some'
+          numericAnswer: false
         });
         break;
 
       case "Numeric":
-       // console.log("Numeric");
         this.setState({
           singleAnswer: false,
           someAnswers: false,
-          numericAnswer: true,
-          answerType: 'Numeric'
+          numericAnswer: true
         });
         break;
 
       default:
         break;
     }
+  };
+
+  handlChoseQuestionType = text => () => {
+    this.setState({
+      isOpen: !this.state.isOpen,
+      answerType: text
+    });
+
+    this.handlChangeType(text);
   };
 
   handlTypeQuestion = e => {
@@ -89,46 +84,93 @@ class AddQuestion extends Component {
   };
 
   handlTypeAnswer = text => e => {
-    // console.log("text ---- >", text);
     this.setState({
       [text]: e.target.value
     });
   };
 
-  handleCheckCurrect = text => e => {
+  handleCheckCurrect = text => () => {
     this.setState({
       [text]: !this.state[text]
     });
   };
 
-  // componentWillMount() {
-  //   const {questionEdit, currentEdit} = this.props;
-  //   // const {answerType} = this.state;
-  //   // this.handlChoseQuestionType("Single");
+  handleCheckCurrectRadio = text => e => {
+    switch (text) {
+      case "ansCheck1":
+        this.setState({
+          ansCheck1: true,
+          ansCheck2: false,
+          ansCheck3: false,
+          ansCheck4: false,
+          ansCheck5: false
+        });
+        break;
 
+      case "ansCheck2":
+        this.setState({
+          ansCheck1: false,
+          ansCheck2: true,
+          ansCheck3: false,
+          ansCheck4: false,
+          ansCheck5: false
+        });
+        break;
 
-  //   if (questionEdit) {
-  //     currentEdit.answers.map(el => {
-  //       this.setState({
-  //         ansValue1: el.answer,
-  //         ansCheck1: el.currect
-  //       })
-  //       console.log('ansVal', el);
-  //       return el;
-  //     })
-  //   }
-  // }
+      case "ansCheck3":
+        this.setState({
+          ansCheck1: false,
+          ansCheck2: false,
+          ansCheck3: true,
+          ansCheck4: false,
+          ansCheck5: false
+        });
+        break;
 
-  // shouldComponentUpdate(nextProps) {
-  //   if (this.state.isOpen === nextProps.isOpen) {
-  //     console.log('doo')
-  //     this.handlChoseQuestionType("Single");
-  //   }
-  // }
+      case "ansCheck4":
+        this.setState({
+          ansCheck1: false,
+          ansCheck2: false,
+          ansCheck3: false,
+          ansCheck4: true,
+          ansCheck5: false
+        });
+        break;
+
+      case "ansCheck5":
+        this.setState({
+          ansCheck1: false,
+          ansCheck2: false,
+          ansCheck3: false,
+          ansCheck4: false,
+          ansCheck5: true
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  componentDidMount() {
+    const { questionEdit, currentEdit } = this.props;
+    if (questionEdit) {
+      this.setState({
+        answerType: currentEdit.answerType,
+        question: currentEdit.question
+      });
+      this.handlChangeType(currentEdit.answerType);
+      for (let i = 0; i < currentEdit.answers.length; i++) {
+        this.setState({
+          ["ansValue" + (i + 1)]: currentEdit.answers[i].answer,
+          ["ansCheck" + (i + 1)]: currentEdit.answers[i].currect
+        });
+      }
+    }
+  }
 
   render() {
     const {
-      questionType,
       answerType,
       singleAnswer,
       someAnswers,
@@ -146,8 +188,6 @@ class AddQuestion extends Component {
       ansCheck5
     } = this.state;
     const { actions, idTest, questionEdit, currentEdit } = this.props;
-
-    // console.log('willMount', currentEdit.answerType, 'hel', answerType)
 
     return (
       <form
@@ -208,39 +248,46 @@ class AddQuestion extends Component {
           ].filter(el => el.answer);
           const numAnswer = [
             {
-              id: Math.round(
-                +new Date() *
-                  Math.random()
-                    .toString(10)
-              ),
-              answer: '',
-              currect: ansValue1,
+              id: Math.round(+new Date() * Math.random().toString(10)),
+              answer: "",
+              currect: ansValue1
             }
-          ]
-          if (question !== '') {
-            if ((singleAnswer || someAnswers) && (
-                (ansCheck1 && ansValue1 !== '') ||
-                (ansCheck2 && ansValue2 !== '') ||
-                (ansCheck3 && ansValue3 !== '') ||
-                (ansCheck4 && ansValue4 !== '') ||
-                (ansCheck5 && ansValue5 !== '')) && (answers.length > 2)
-              ) {
-                questionEdit ? actions.saveEditedQuestion()
-                :  
-                actions.addQuestionAction(idTest, question, answerType, answers);
+          ];
+          if (question !== "") {
+            if (
+              (singleAnswer || someAnswers) &&
+              ((ansCheck1 && ansValue1 !== "") ||
+                (ansCheck2 && ansValue2 !== "") ||
+                (ansCheck3 && ansValue3 !== "") ||
+                (ansCheck4 && ansValue4 !== "") ||
+                (ansCheck5 && ansValue5 !== "")) &&
+              answers.length > 2
+            ) {
+              questionEdit
+                ? actions.saveEditedQuestionAction(question, answerType, answers)
+                : actions.addQuestionAction(
+                    idTest,
+                    question,
+                    answerType,
+                    answers
+                  );
             }
-            if (numericAnswer && ansValue1 !=='') {
-
-              questionEdit ? actions.saveEditedQuestion()
-              : 
-              actions.addQuestionAction(idTest, question, answerType, numAnswer);
+            if (numericAnswer && ansValue1 !== "") {
+              questionEdit
+                ? actions.saveEditedQuestionAction(question, answerType, numAnswer)
+                : actions.addQuestionAction(
+                    idTest,
+                    question,
+                    answerType,
+                    numAnswer
+                  );
             }
           }
           event.preventDefault();
         }}
       >
         <h2 className="title" autoFocus>
-          {questionEdit? 'Edit Question' : 'Add New Question'}
+          {questionEdit ? "Edit Question" : "Add New Question"}
         </h2>
         <p className="description">Chose type of question</p>
         <div
@@ -252,9 +299,8 @@ class AddQuestion extends Component {
               type="button"
               className="dropdown--button"
               onClick={this.handleClick}
-              // onBlur={this.handleClick}
             >
-              {questionEdit ? currentEdit.answerType : questionType}
+              {answerType}
             </button>
           </div>
           <div className="dropdown--content">
@@ -281,156 +327,169 @@ class AddQuestion extends Component {
           </div>
         </div>
 
-        {(singleAnswer || someAnswers || numericAnswer) && <input
+        {(singleAnswer || someAnswers || numericAnswer) && (
+          <input
             type="text"
             placeholder="Type question"
             onChange={this.handlTypeQuestion}
-            defaultValue={currentEdit.question}
-          />}
+            defaultValue={question}
+          />
+        )}
 
-          {singleAnswer && (
-            <div className="anwers-box">
-              <div className="check--box">
-                <input
-                  name='radio'
-                  type="radio"
-                  //checked={ansCheck1}
-                  onChange={this.handleCheckCurrect("ansCheck1")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue1")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  name='radio'
-                  type="radio"
-                  //checked={ansCheck2}
-                  onChange={this.handleCheckCurrect("ansCheck2")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  // defaultValue={ansValue2}
-                  onChange={this.handlTypeAnswer("ansValue2")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  name='radio'
-                  type="radio"
-                  //checked={ansCheck3}
-                  onChange={this.handleCheckCurrect("ansCheck3")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue3")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  name='radio'
-                  type="radio"
-                  //checked={ansCheck4}
-                  onChange={this.handleCheckCurrect("ansCheck4")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue4")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  name='radio'
-                  type="radio"
-                  //checked={ansCheck5}
-                  onChange={this.handleCheckCurrect("ansCheck5")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue5")}
-                />
-              </div>
-            </div>
-          )}
-          {someAnswers && (
-            <div className="anwers-box">
-              <div className="check--box">
-                <input
-                  type="checkbox"
-                  checked={ansCheck1}
-                  onChange={this.handleCheckCurrect("ansCheck1")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue1")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  type="checkbox"
-                  checked={ansCheck2}
-                  onChange={this.handleCheckCurrect("ansCheck2")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  // defaultValue={ansValue2}
-                  onChange={this.handlTypeAnswer("ansValue2")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  type="checkbox"
-                  checked={ansCheck3}
-                  onChange={this.handleCheckCurrect("ansCheck3")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue3")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  type="checkbox"
-                  checked={ansCheck4}
-                  onChange={this.handleCheckCurrect("ansCheck4")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue4")}
-                />
-              </div>
-
-              <div className="check--box">
-                <input
-                  type="checkbox"
-                  checked={ansCheck5}
-                  onChange={this.handleCheckCurrect("ansCheck5")}
-                />
-                <input
-                  placeholder="Some answer here"
-                  onChange={this.handlTypeAnswer("ansValue5")}
-                />
-              </div>
-            </div>
-          )}
-          {numericAnswer && (
-            <div className="anwers-box">
+        {(singleAnswer ||
+          (singleAnswer && currentEdit.answerType === "Single")) && (
+          <div className="anwers-box">
+            <div className="check--box">
               <input
-                placeholder="Type currect numeric answer here"
-                type="number"
+                name="radio"
+                type="radio"
+                checked={ansCheck1}
+                onChange={this.handleCheckCurrectRadio("ansCheck1")}
+              />
+              <input
+                placeholder="Some answer here"
                 onChange={this.handlTypeAnswer("ansValue1")}
-                // defaultValue = {currentEdit.answers.map(el=>el.currect)}
+                defaultValue={ansValue1}
               />
             </div>
-          )}
+
+            <div className="check--box">
+              <input
+                name="radio"
+                type="radio"
+                checked={ansCheck2}
+                onChange={this.handleCheckCurrectRadio("ansCheck2")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue2")}
+                defaultValue={ansValue2}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                name="radio"
+                type="radio"
+                checked={ansCheck3}
+                onChange={this.handleCheckCurrectRadio("ansCheck3")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue3")}
+                defaultValue={ansValue3}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                name="radio"
+                type="radio"
+                checked={ansCheck4}
+                onChange={this.handleCheckCurrectRadio("ansCheck4")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue4")}
+                defaultValue={ansValue4}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                name="radio"
+                type="radio"
+                checked={ansCheck5}
+                onChange={this.handleCheckCurrectRadio("ansCheck5")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue5")}
+                defaultValue={ansValue5}
+              />
+            </div>
+          </div>
+        )}
+        {(someAnswers ||
+          (someAnswers && currentEdit.answerType === "Some")) && (
+          <div className="anwers-box">
+            <div className="check--box">
+              <input
+                type="checkbox"
+                checked={ansCheck1}
+                onChange={this.handleCheckCurrect("ansCheck1")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue1")}
+                defaultValue={ansValue1}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                type="checkbox"
+                checked={ansCheck2}
+                onChange={this.handleCheckCurrect("ansCheck2")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue2")}
+                defaultValue={ansValue2}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                type="checkbox"
+                checked={ansCheck3}
+                onChange={this.handleCheckCurrect("ansCheck3")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue3")}
+                defaultValue={ansValue3}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                type="checkbox"
+                checked={ansCheck4}
+                onChange={this.handleCheckCurrect("ansCheck4")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue4")}
+                defaultValue={ansValue4}
+              />
+            </div>
+
+            <div className="check--box">
+              <input
+                type="checkbox"
+                checked={ansCheck5}
+                onChange={this.handleCheckCurrect("ansCheck5")}
+              />
+              <input
+                placeholder="Some answer here"
+                onChange={this.handlTypeAnswer("ansValue5")}
+                defaultValue={ansValue5}
+              />
+            </div>
+          </div>
+        )}
+        {(numericAnswer ||
+          (numericAnswer && currentEdit.answerType === "Numeric")) && (
+          <div className="anwers-box">
+            <input
+              placeholder="Type currect numeric answer here"
+              type="number"
+              onChange={this.handlTypeAnswer("ansValue1")}
+              defaultValue={questionEdit ? currentEdit.answers[0].currect : ""}
+            />
+          </div>
+        )}
         <button className="modal--button" type="submit">
           Save
         </button>

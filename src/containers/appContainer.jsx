@@ -2,7 +2,22 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as action from "../actions/actions";
-import { authorizedSelector, userNameSelector, filterTrackSelector, testsFilteredSelector } from "../selectors/index";
+import {
+  authorizedSelector,
+  userNameSelector,
+  filterTrackSelector,
+  testsFilteredSelector,
+  adminSelector,
+  modalSelector,
+  autorisationSelector,
+  addTitleSelector,
+  userSelector,
+  filterSelector,
+  modalAddQuestionSelector,
+  idTestSelector,
+  currentEditSelector,
+  questionEditSelector
+} from "../selectors/index";
 
 import App from "../components/app/app";
 import { connect } from "react-redux";
@@ -22,7 +37,7 @@ const AppContainer = ({
   modalAddQuestion,
   idTest,
   currentEdit,
-  questionEdit,
+  questionEdit
 }) => {
   return (
     <Router>
@@ -50,18 +65,18 @@ const AppContainer = ({
 const mapStateToProps = state => ({
   authorized: authorizedSelector(state),
   userName: userNameSelector(state),
-  admin: state.admin,
-  modal: state.modal,
-  autorisation: state.autorisation,
-  addTitle: state.addTitle,
+  admin: adminSelector(state),
+  modal: modalSelector(state),
+  autorisation: autorisationSelector(state),
+  addTitle: addTitleSelector(state),
   test1: testsFilteredSelector(state),
-  users: state.users,
-  filter: state.filter,
+  users: userSelector(state),
+  filter: filterSelector(state),
   filterTrack: filterTrackSelector(state),
-  modalAddQuestion: state.modalAddQuestion,
-  idTest: state.idTest,
-  currentEdit: state.currentEdit,
-  questionEdit: state.questionEdit,
+  modalAddQuestion: modalAddQuestionSelector(state),
+  idTest: idTestSelector(state),
+  currentEdit: currentEditSelector(state),
+  questionEdit: questionEditSelector(state)
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

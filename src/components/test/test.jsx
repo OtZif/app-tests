@@ -26,7 +26,6 @@ const Test = ({ actions, test, testId, admin, currentEdit }) => {
   }
 
   const handlClickToEditQuestion = (idTest, idQuestion) => () => {
-    console.log('EDITING ---> ', idTest, idQuestion);
     actions.editingQuestionAction(idTest, idQuestion);
   }
 

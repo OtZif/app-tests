@@ -17,7 +17,7 @@ import {
   EDIT_TEST_NAME,
   SAVE_TEST_NAME,
   EDITING_QUESTION,
-  SAVE_EDITED_QUESTION,
+  SAVE_EDITED_QUESTION
 } from "../constants/actionConstants";
 
 const initialState = {
@@ -31,7 +31,8 @@ const initialState = {
   filter: false,
   filterTrack: "",
   idTest: "",
-  currentEdit:'',
+  id: "",
+  currentEdit: "",
   questionEdit: false,
   users: [
     {
@@ -58,7 +59,7 @@ const initialState = {
       questions: [
         {
           id: 1322,
-          answerType: "Single", // radio - one currect answer, checkbox - some curr. answ., numeric - num. answer
+          answerType: "Single",
           question: "question 1?",
           answers: [
             {
@@ -80,10 +81,9 @@ const initialState = {
           currectAnswer: ["answer 2"]
         },
         {
-          id: 1329, // id = (+new Date).toString(10);
-          answerType: "Some", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
+          id: 1329,
+          answerType: "Some",
           question: "question 2?",
-          // answers: ["answer 1", "answer 2", "answer 3"],
           answers: [
             {
               id: 2122,
@@ -105,7 +105,7 @@ const initialState = {
         },
         {
           id: 1324,
-          answerType: "Numeric", // 1 - one currect answer, 2 - some curr. answ., 0 - num. answer
+          answerType: "Numeric",
           question: "question 3?",
           answers: [
             {
@@ -113,16 +113,6 @@ const initialState = {
               answer: "",
               currect: "223"
             }
-            // {
-            //   id: 1126,
-            //   answer: "answer 2",
-            //   currect: true
-            // },
-            // {
-            //   id: 1127,
-            //   answer: "answer 4",
-            //   currect: false
-            // }
           ],
           currectAnswer: ["answer 3"]
         }
@@ -159,7 +149,6 @@ export const reducer = (state = initialState, action) => {
         modalAddQuestion: false,
         tests: state.tests.map(el => {
           if (el.id === state.idTest) {
-            // console.log('reducer', action.id, action.question);
             const newId = +new Date();
             return {
               ...el,
@@ -172,7 +161,6 @@ export const reducer = (state = initialState, action) => {
                   answers: action.answers
                 }
               ]
-              //[el.answers]: [...action.answers]
             };
           }
           return el;
@@ -200,7 +188,7 @@ export const reducer = (state = initialState, action) => {
         addTitle: false,
         modalAddQuestion: false,
         questionEdit: false,
-        currentEdit: '',
+        currentEdit: ""
       };
 
     case LOGIN:
@@ -281,33 +269,33 @@ export const reducer = (state = initialState, action) => {
     case SAVE_TEST_NAME:
       return {
         ...state,
-        currentEdit: '',
-        tests: state.tests.map( el=> {
+        currentEdit: "",
+        tests: state.tests.map(el => {
           if (el.id === action.id) {
             return {
               ...el,
-              testTitle: action.name,
-            }
+              testTitle: action.name
+            };
           }
 
           return el;
         })
       };
-    
+
     case EDIT_TEST_NAME:
       return {
         ...state,
-        currentEdit: action.id,
-      }
+        currentEdit: action.id
+      };
 
     case EDITING_QUESTION:
-      const x = state.tests.filter(test=> test.id === action.id).shift().questions.filter(el=> el.id === action.questionId).shift();
-      console.log('hey ', x);
       return {
         ...state,
         modal: true,
         modalAddQuestion: true,
         questionEdit: true,
+        idTest: action.id,
+        id: action.questionId,
         currentEdit: state.tests
           .filter(test => test.id === action.id)
           .shift()
@@ -321,9 +309,29 @@ export const reducer = (state = initialState, action) => {
         modal: false,
         modalAddQuestion: false,
         questionEdit: false,
-        currentEdit: '',
-
-      }
+        currentEdit: "",
+        tests: state.tests.map(test => {
+          if (test.id === state.idTest) {
+            return {
+              ...test,
+              questions: test.questions.map(el => {
+                if (el.id === state.id) {
+                  return {
+                    ...el,
+                    question: action.question,
+                    answerType: action.answerType,
+                    answers: action.answers
+                  };
+                }
+                return el;
+              })
+            };
+          }
+          return test;
+        }),
+        idTest: "",
+        id: ""
+      };
 
     default:
       return state;
