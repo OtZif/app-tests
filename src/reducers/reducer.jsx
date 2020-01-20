@@ -21,9 +21,9 @@ import {
 } from "../constants/actionConstants";
 
 const initialState = {
-  authorized: true,
+  authorized: false,
   userName: "LogIn",
-  admin: true,
+  admin: false,
   modal: false,
   autorisation: false,
   modalAddQuestion: false,
