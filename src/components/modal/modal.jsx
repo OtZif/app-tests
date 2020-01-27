@@ -15,7 +15,7 @@ const Modal = ({
   currentEdit,
   modalAddQuestion,
   idTest,
-  questionEdit
+  isQuestionEdit
 }) => {
   const handleClose = () => {
     actions.closeModalAction();
@@ -40,7 +40,7 @@ const Modal = ({
               <AddQuestion
                 actions={actions}
                 idTest={idTest}
-                questionEdit={questionEdit}
+                isQuestionEdit={isQuestionEdit}
                 currentEdit={currentEdit}
               />
             )}

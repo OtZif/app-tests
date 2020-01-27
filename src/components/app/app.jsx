@@ -8,26 +8,27 @@ import Main from "../main/main";
 import WelcomePage from "../welcomePage/welcomePage";
 
 const App = ({
-  authorized,
+  isAuthorized,
   userName,
-  admin,
+  isAdmin,
   users,
-  modal,
+  isModal,
   test,
   actions,
   autorisation,
   addTitle,
-  filter,
+  isFiltered,
   filterTrack,
   modalAddQuestion,
   idTest,
   currentEdit,
-  questionEdit
+  isQuestionEdit,
+  questions
 }) => {
   const { loginAction } = actions;
   return (
-    <div className={`app ${modal ? "app__overflow" : ""}`}>
-      {modal ? (
+    <div className={`app ${isModal ? "app__overflow" : ""}`}>
+      {isModal ? (
         <Modal
           actions={actions}
           users={users}
@@ -36,7 +37,7 @@ const App = ({
           modalAddQuestion={modalAddQuestion}
           idTest={idTest}
           currentEdit={currentEdit}
-          questionEdit={questionEdit}
+          isQuestionEdit={isQuestionEdit}
         />
       ) : (
         ""
@@ -44,16 +45,17 @@ const App = ({
       <Header
         actions={actions}
         userName={userName}
-        authorized={authorized}
+        isAuthorized={isAuthorized}
         filterTrack={filterTrack}
       />
-      {authorized ? (
+      {isAuthorized ? (
         <Main
-          admin={admin}
+          isAdmin={isAdmin}
           test={test}
           actions={actions}
-          filter={filter}
+          isFiltered={isFiltered}
           currentEdit={currentEdit}
+          questions={questions}
         />
       ) : (
         <WelcomePage login={loginAction} />

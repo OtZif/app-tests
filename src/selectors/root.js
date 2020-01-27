@@ -1,1 +1,3 @@
-export default state => state;
+export default function(state) {
+  return state;
+}

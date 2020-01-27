@@ -1,0 +1,5 @@
+{
+  "/tests/:id": "/tests/:id",
+  "/tests/:id/questions": "/questions?testsId=:id",
+  "/tests/:id/questions/:questionsId": "/questions/:questionsId?&testsId=:id"
+}

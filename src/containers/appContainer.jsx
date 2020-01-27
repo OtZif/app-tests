@@ -1,82 +1,87 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import * as action from "../actions/actions";
+import * as action from "../actions/index";
 import {
-  authorizedSelector,
+  isAuthorizedSelector,
   userNameSelector,
   filterTrackSelector,
-  testsFilteredSelector,
-  adminSelector,
-  modalSelector,
+  filterSelector,
+  isAdminSelector,
+  isModalSelector,
   autorisationSelector,
   addTitleSelector,
   userSelector,
-  filterSelector,
+  isFilteredSelector,
   modalAddQuestionSelector,
   idTestSelector,
   currentEditSelector,
-  questionEditSelector
+  isQuestionEditSelector,
+  questionsSelector
 } from "../selectors/index";
 
 import App from "../components/app/app";
 import { connect } from "react-redux";
 
 const AppContainer = ({
-  authorized,
+  isAuthorized,
   userName,
-  admin,
+  isAdmin,
   users,
-  modal,
-  test1,
+  isModal,
+  test,
   actions,
   autorisation,
   addTitle,
-  filter,
+  isFiltered,
   filterTrack,
   modalAddQuestion,
   idTest,
   currentEdit,
-  questionEdit
+  isQuestionEdit,
+  questions
 }) => {
   return (
     <Router>
       <App
-        authorized={authorized}
+        isAuthorized={isAuthorized}
         userName={userName}
-        admin={admin}
+        isAdmin={isAdmin}
         users={users}
-        modal={modal}
-        test={test1}
+        isModal={isModal}
+        test={test}
         actions={actions}
         addTitle={addTitle}
         autorisation={autorisation}
-        filter={filter}
+        isFiltered={isFiltered}
         filterTrack={filterTrack}
         modalAddQuestion={modalAddQuestion}
         idTest={idTest}
         currentEdit={currentEdit}
-        questionEdit={questionEdit}
+        isQuestionEdit={isQuestionEdit}
+        questions={questions}
       />
     </Router>
   );
 };
 
 const mapStateToProps = state => ({
-  authorized: authorizedSelector(state),
+  isAuthorized: isAuthorizedSelector(state),
   userName: userNameSelector(state),
-  admin: adminSelector(state),
-  modal: modalSelector(state),
+  isAdmin: isAdminSelector(state),
+  isModal: isModalSelector(state),
   autorisation: autorisationSelector(state),
   addTitle: addTitleSelector(state),
-  test1: testsFilteredSelector(state),
+
+  isFiltered: filterSelector(state),
+  test: isFilteredSelector(state),
   users: userSelector(state),
-  filter: filterSelector(state),
   filterTrack: filterTrackSelector(state),
   modalAddQuestion: modalAddQuestionSelector(state),
   idTest: idTestSelector(state),
   currentEdit: currentEditSelector(state),
-  questionEdit: questionEditSelector(state)
+  isQuestionEdit: isQuestionEditSelector(state),
+  questions: questionsSelector(state)
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

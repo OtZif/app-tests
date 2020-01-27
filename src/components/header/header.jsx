@@ -7,9 +7,9 @@ import user from "../../images/user.png";
 import filter from "../../images/filter.png";
 import { ENTER_KEY } from "../../constants/otherConstants";
 
-const Header = ({ actions, userName, authorized, filterTrack, history }) => {
+const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
   const handleLogin = () => {
-    if (authorized) {
+    if (isAuthorized) {
       actions.logoutAction();
       actions.resetFilterTrackAction();
       history.push("/");
@@ -46,7 +46,7 @@ const Header = ({ actions, userName, authorized, filterTrack, history }) => {
         <img src={home} alt="home logo" title="Home" className="logo" />
       </Link>
       <div className="header--right">
-        {authorized && (
+        {isAuthorized && (
           <div className="search-box">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -64,13 +64,13 @@ const Header = ({ actions, userName, authorized, filterTrack, history }) => {
             />
           </div>
         )}
-        {authorized && (
+        {isAuthorized && (
           <div className="filter-box" onClick={handleSort}>
             <img src={filter} alt="Filter" title="Filter" />
           </div>
         )}
         <div className="users-box" onClick={handleLogin}>
-          <p>{authorized ? `Logout ${userName}` : userName}</p>
+          <p>{isAuthorized ? `Logout ${userName}` : userName}</p>
           <img
             src={user}
             alt="user imgage"

@@ -13,7 +13,7 @@ const TestTitle = ({ actions }) => {
       setError(true);
     }
   };
-  
+
   const handleAddItemKeyUp = e => {
     if (e.keyCode === ENTER_KEY) {
       if (e.target.value.trim() === "") {
@@ -43,8 +43,13 @@ const TestTitle = ({ actions }) => {
       <p className={`error ${error ? "errorText" : ""}`}>
         Title field is empty or has invalid format
       </p>
-      <button onClick={handlClickSave} className="modal--button">Save</button>
-      <button onClick={handleClickCancel} className=" modal--button modal--button__red">
+      <button onClick={handlClickSave} className="modal--button">
+        Save
+      </button>
+      <button
+        onClick={handleClickCancel}
+        className=" modal--button modal--button__red"
+      >
         Cancel
       </button>
     </div>

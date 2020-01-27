@@ -4,14 +4,14 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Tests from "../tests/tests";
 import Test from "../test/test";
 
-const Main = ({ admin, test, actions, filter, currentEdit }) => {
+const Main = ({ isAdmin, test, actions, isFiltered, currentEdit, questions }) => {
   return (
     <Switch>
       <Route
         path="/"
         exact
         render={() => (
-          <Tests test={test} actions={actions} admin={admin} filter={filter} />
+          <Tests test={test} actions={actions} isAdmin={isAdmin} isFiltered={isFiltered} />
         )}
       />
       <Route
@@ -22,9 +22,10 @@ const Main = ({ admin, test, actions, filter, currentEdit }) => {
             <Test
               test={test}
               testId={+match.params.id}
-              admin={admin}
+              isAdmin={isAdmin}
               actions={actions}
               currentEdit={currentEdit}
+              questions={questions}
             />
           );
         }}

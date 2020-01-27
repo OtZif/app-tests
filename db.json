@@ -1,116 +1,209 @@
 {
   "users": [
     {
+      "name": "ADMIN",
       "login": "admin",
       "pass": "admin"
     },
     {
+      "name": "Vasya Pupkin",
       "login": "user",
       "pass": "user"
     }
   ],
   "tests": [
     {
-      "id": "0",
-      "testTitle": "Test 1",
-      "date":"2020-01-10T12:32:17.728Z",
-      "questions": [
+      "id": 1,
+      "testTitle": "Test Edited",
+      "date": "2020-01-10T12:32:17.728Z"
+    },
+    {
+      "id": 1579870415330,
+      "date": "2020-01-24T12:53:35.330Z",
+      "testTitle": "new"
+    },
+    {
+      "id": 1580070648748,
+      "date": "2020-01-26T20:30:48.748Z",
+      "testTitle": "fdfd"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1322,
+      "testsId": 1,
+      "answerType": "Single",
+      "question": " Test-1-question 1?",
+      "answers": [
         {
-          "id": "1322", 
-          "answerType": "radio",
-          "question": "question 1?",
-          "answers": [
-            {
-              "id": "1",
-              "answer": "answer 1",
-              "currect": "false"
-            },
-            {
-              "id": "2",
-              "answer": "answer 2",
-              "currect": "true"
-            },
-            {
-              "id": "3",
-              "answer": "answer 4",
-              "currect": "false"
-            }
-          ]
+          "id": 1122,
+          "answer": "answer 1",
+          "currect": false
         },
         {
-          "id": "1324",
-          "answerType": "checkbox",
-          "question": "Question 2?",
-          "answers": [
-            {
-              "id": "1125",
-              "answer": "Hey",
-              "currect": "false"
-            },
-            {
-              "id": "1126",
-              "answer": "Hoo",
-              "currect": "true"
-            },
-            {
-              "id": "1127",
-              "answer": "Huuu",
-              "currect": "false"
-            }
-          ]
+          "id": 1123,
+          "answer": "answer 2",
+          "currect": true
+        },
+        {
+          "id": 1124,
+          "answer": "answer 4",
+          "currect": false
         }
       ]
     },
     {
-      "id": "1",
-      "testTitle": "Test 2",
-      "date":"2020-01-10T12:32:17.728Z",
-      "questions": [
+      "id": 1329,
+      "testsId": 1,
+      "answerType": "Some",
+      "question": "TEST-1-question 2?",
+      "answers": [
         {
-          "id": "13223", 
-          "answerType": "radio",
-          "question": "question 1?",
-          "answers": [
-            {
-              "id": "12",
-              "answer": "answer 1",
-              "currect": "false"
-            },
-            {
-              "id": "22",
-              "answer": "answer 2",
-              "currect": "true"
-            },
-            {
-              "id": "32",
-              "answer": "answer 4",
-              "currect": "false"
-            }
-          ]
+          "id": 2122,
+          "answer": "answer 1",
+          "currect": false
         },
         {
-          "id": "13242",
-          "answerType": "checkbox",
-          "question": "Question 2?",
-          "answers": [
-            {
-              "id": "11251",
-              "answer": "Hey",
-              "currect": "false"
-            },
-            {
-              "id": "11262",
-              "answer": "Hoo",
-              "currect": "true"
-            },
-            {
-              "id": "11273",
-              "answer": "Huuu",
-              "currect": "false"
-            }
-          ]
+          "id": 3123,
+          "answer": "answer 2",
+          "currect": true
+        },
+        {
+          "id": 4124,
+          "answer": "answer 4",
+          "currect": false
         }
       ]
+    },
+    {
+      "id": 1324434354,
+      "testsId": 1,
+      "answerType": "Numeric",
+      "question": "TETS-1-question 3?",
+      "answers": [
+        {
+          "id": 1125,
+          "answer": "",
+          "currect": "223"
+        }
+      ]
+    },
+    {
+      "id": 1579870433264,
+      "question": "dfdfdf",
+      "answerType": "Single",
+      "answers": [
+        {
+          "id": 1579870423995,
+          "answer": "fdfdf",
+          "currect": false
+        },
+        {
+          "id": 1579870429065,
+          "answer": "fdfdfd",
+          "currect": true
+        },
+        {
+          "id": 1579870430748,
+          "answer": "fdffdf",
+          "currect": false
+        }
+      ]
+    },
+    {
+      "id": 1579870574737,
+      "question": "fdfd",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579870572143,
+          "answer": "",
+          "currect": "45454"
+        }
+      ]
+    },
+    {
+      "id": 1579870634147,
+      "question": "fdfdfdfd",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579870630760,
+          "answer": "",
+          "currect": "4545454"
+        }
+      ]
+    },
+    {
+      "id": 1579870654776,
+      "question": "fdfd",
+      "answerType": "Single",
+      "answers": [
+        {
+          "id": 1579870646478,
+          "answer": "545454",
+          "currect": false
+        },
+        {
+          "id": 1579870651723,
+          "answer": "5454",
+          "currect": true
+        }
+      ]
+    },
+    {
+      "newId": 1579871045196,
+      "question": "fdfdfd",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579871040373,
+          "answer": "",
+          "currect": "54545454545"
+        }
+      ],
+      "id": 1579870654777
+    },
+    {
+      "newId": 1579871122132,
+      "question": "54545",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579871119155,
+          "answer": "",
+          "currect": "4545"
+        }
+      ],
+      "id": 1579870654778
+    },
+    {
+      "newId": 1579871273209,
+      "testsId": 1579870415330,
+      "question": "fdfd",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579871268673,
+          "answer": "",
+          "currect": "5454"
+        }
+      ],
+      "id": 1579870654779
+    },
+    {
+      "newId": 1579871592566,
+      "testsId": 1579870415330,
+      "question": "fdfdf",
+      "answerType": "Numeric",
+      "answers": [
+        {
+          "id": 1579871589392,
+          "answer": "",
+          "currect": "454545"
+        }
+      ],
+      "id": 1579870654780
     }
   ]
 }
