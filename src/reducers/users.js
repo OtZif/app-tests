@@ -1,24 +1,8 @@
-import { LOGOUT, SET_USER_NAME } from "../constants/index";
+import { LOGOUT, SET_USER_NAME, SET_USER } from "../constants/index";
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem("testUser")) || {
   userName: "LogIn",
-  users: [
-    {
-      name: "Капитан Админ",
-      login: "admin",
-      pass: "admin"
-    },
-    {
-      name: "Вася Пупкин",
-      login: "user",
-      pass: "userpass"
-    },
-    {
-      name: "Валера Долгий",
-      login: "user",
-      pass: "user"
-    }
-  ]
+  users: []
 };
 
 export const users = (state = initialState, action) => {
@@ -26,13 +10,20 @@ export const users = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        userName: "LogIn"
+        userName: "LogIn",
+        users: []
       };
 
     case SET_USER_NAME:
       return {
         ...state,
         userName: action.name
+      };
+
+    case SET_USER:
+      return {
+        ...state,
+        users: action.result
       };
 
     default:

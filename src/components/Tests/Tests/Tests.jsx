@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 
-import logo from "../../images/file.png";
-import logo2 from "../../images/document.png";
+import logo from "../../../images/file.png";
+import logo2 from "../../../images/document.png";
 import "./tests.scss";
 
 class Tests extends Component {
@@ -15,6 +15,13 @@ class Tests extends Component {
   handleDeleteItem = id => {
     const {actions} = this.props;
     return actions.removeTestAction(id);
+  }
+
+  handlClickStart = () => {
+    const {actions, isAdmin} = this.props;
+    if(!isAdmin){
+      actions.startTestingAction()
+    }
   }
 
   componentDidMount() {
@@ -40,7 +47,7 @@ class Tests extends Component {
           })
           .map(el => (
             <div className="testBox" key={el.id}>
-              <Link to={`/test/${el.id}`} className="link">
+              <Link to={`/test/${el.id}`} className="link" onClick={this.handlClickStart}>
                 <div className="icon">
                   <img src={logo} alt="folder" />
                 </div>
@@ -54,7 +61,7 @@ class Tests extends Component {
                   Delete
                 </button>
               ) : (
-                <Link to={`/test/${el.id}`}>
+                <Link to={`/test/${el.id}`} onClick={this.handlClickStart}>
                   <button className="deleteTest">Start</button>
                 </Link>
               )}

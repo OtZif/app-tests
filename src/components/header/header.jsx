@@ -5,7 +5,7 @@ import "./header.scss";
 import home from "../../images/structural.png";
 import user from "../../images/user.png";
 import filter from "../../images/filter.png";
-import { ENTER_KEY } from "../../constants/otherConstants";
+import { ENTER_KEY } from "../../constants/index";
 
 const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
   const handleLogin = () => {

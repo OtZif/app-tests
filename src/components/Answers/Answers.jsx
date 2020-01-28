@@ -8,7 +8,6 @@ class Answers extends Component {
   };
 
   updateCheckbox = (id, currect) => {
-    //console.log(currect);
     this.setState({
       array: this.state.array.map(el => {
         if (el.id === id) {
@@ -23,7 +22,6 @@ class Answers extends Component {
   };
 
   updateRadio = (id, currect) => {
-    // console.log(id, currect);
     this.setState({
       array: this.state.array.map(el => {
         if (el.id !== id) {
@@ -42,7 +40,6 @@ class Answers extends Component {
   };
 
   updateAnswer = (id, text) => {
-    //console.log(text);
     this.setState({
       array: this.state.array.map(el => {
         if (el.id === id) {
@@ -121,18 +118,7 @@ class Answers extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const {answers} = this.props;
-  //   console.log('answers', answers)
-  //   if (answers.length > 0) {
-  //     this.setState({
-  //       array: answers
-  //     })
-  //   }
-  // }
-
   render() {
-    //console.log("array", this.state.array);
     const { type } = this.props;
     const { array } = this.state;
 

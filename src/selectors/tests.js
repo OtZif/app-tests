@@ -20,3 +20,13 @@ export const idTestSelector = createSelector(
   testsRootSelector,
   ({ idTest }) => idTest
 );
+
+export const isTestingSelector = createSelector(
+  testsRootSelector,
+  ({isTesting}) => isTesting
+)
+
+export const testResultSelector = createSelector(
+  testsRootSelector,
+  ({testResult}) =>testResult
+)

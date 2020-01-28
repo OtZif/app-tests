@@ -8,13 +8,19 @@ import {
   OPEN_MODAL_TO_ADD_QUESTION,
   ADD_QUESTION_SUCCSESS,
   SAVE_EDITED_QUESTION,
-  ADD_TEST_SUCCSESS
+  ADD_TEST_SUCCSESS,
+  RESET_FILTER_TRACK,
+  START_TEST,
+  FINISH_TESTING,
+  TEST_RESULT
 } from "../constants/index";
 
 const initialState = {
   idTest: "",
+  isTesting: false,
   addTitle: false,
-  tests: []
+  tests: [],
+  testResult: 0
 };
 
 export const tests = (state = initialState, action) => {
@@ -93,6 +99,29 @@ export const tests = (state = initialState, action) => {
         ...state,
         idTest: ""
       };
+
+    case START_TEST:
+      return {
+        ...state,
+        isTesting: true
+      }
+
+    case FINISH_TESTING:
+      return {
+        ...state,
+        isTesting: false,
+      }
+    case RESET_FILTER_TRACK:
+      return {
+        ...state,
+        isTesting: false,
+        testResult: 0
+      }
+    case TEST_RESULT:
+      return{
+        ...state,
+        testResult: action.result
+      }
 
     default:
       return state;

@@ -1,11 +1,12 @@
 import React from "react";
 
 import "./modal.scss";
-import Autorisation from "../autorisation/autorisation";
-import TestTitle from "../addTestTitle/addTestTitle";
-import { ESC_KEY } from "../../constants/otherConstants";
-import SvgX from "../svgX/svgX";
-import AddQuestion from "../addQuestion/addQuestion";
+import Autorisation from "../../Autorisation/Autorisation";
+import TestTitle from "../../AddTestTitle/AddTestTitle";
+import { ESC_KEY } from "../../../constants/index";
+import SvgX from "../../SvgX/SvgX";
+import AddQuestion from "../../AddQuestion/AddQuestion";
+import TestResults from '../../TestResult/TestResult'
 
 const Modal = ({
   actions,
@@ -15,7 +16,9 @@ const Modal = ({
   currentEdit,
   modalAddQuestion,
   idTest,
-  isQuestionEdit
+  isQuestionEdit,
+  isCalculation,
+  testResult
 }) => {
   const handleClose = () => {
     actions.closeModalAction();
@@ -44,6 +47,7 @@ const Modal = ({
                 currentEdit={currentEdit}
               />
             )}
+            {isCalculation && <TestResults actions={actions} testResult={testResult}/>}
           </div>
         </div>
       </div>

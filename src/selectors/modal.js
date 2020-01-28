@@ -15,3 +15,8 @@ export const modalAddQuestionSelector = createSelector(
   modalRootSelector,
   ({ modalAddQuestion }) => modalAddQuestion
 );
+
+export const isCalculationSelector = createSelector(
+  modalRootSelector,
+  ({isCalculation}) => isCalculation
+)

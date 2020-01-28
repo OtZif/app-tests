@@ -6,9 +6,9 @@ import {
   AUTHORIZED
 } from "../constants/index";
 
-const initialState = {
-  isAdmin: true,
-  isAuthorized: true,
+const initialState = JSON.parse(localStorage.getItem("testAuthorisation")) || {
+  isAdmin: false,
+  isAuthorized: false,
   autorisation: false
 };
 

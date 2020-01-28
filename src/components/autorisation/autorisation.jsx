@@ -1,55 +1,88 @@
-import React, { useState } from "react";
-
+import React, { Component } from "react";
 import "./autorisation.scss";
 
-const Autorisation = ({ users, actions }) => {
-  const [login, setLogin] = useState("");
-  const [pass, setPass] = useState("");
-  const [value, setValue] = useState("");
-  const checkLogin = () => {
-    const newPerson = users.filter(
-      user => user.login === login && user.pass === pass
-    );
-    if (newPerson.length > 0) {
-      actions.setUserNameAction(newPerson[0].name);
-      if (login === "admin") {
-        actions.adminAction();
-      }
-      actions.authorizedAction();
-      actions.closeModalAction();
-    } else {
-      setValue(true);
-    }
+class Autorisation extends Component {
+  state = {
+    login: "",
+    pass: "",
+    error: false
   };
-  return (
-    <form
-      action=""
-      className="autorisation--form"
-      onSubmit={event => {
-        event.preventDefault();
-        checkLogin();
-      }}
-    >
-      <h2 className="title" autoFocus>
-        LOGIN
-      </h2>
-      <input
-        type="text"
-        placeholder="Username"
-        autoFocus
-        onChange={e => setLogin(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={e => setPass(e.target.value)}
-      />
-      <p className={`error ${value ? "errorText" : ""}`}>User not found</p>
-      <button type="submit" className="modal--button">
-        Login
-      </button>
-    </form>
-  );
+
+  checkLogin = () => {
+    const { actions } = this.props;
+    const { login, pass } = this.state;
+    actions.fetchUserAction(login, pass);
+  };
+
+  handleSetLogin = e => {
+    this.setState({
+      login: e.target.value
+    });
+  };
+
+  handlSetPass = e => {
+    this.setState({
+      pass: e.target.value
+    });
+  };
+
+  componentDidMount() {
+    const { users } = this.props;
+    if (users.length === 0) {
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { users, actions } = this.props;
+    if (users !== prevProps.users) {
+      if (users.length > 0) {
+        actions.setUserNameAction(users[0].name);
+        if (this.state.login === "admin") {
+          actions.adminAction();
+        }
+        actions.authorizedAction();
+        actions.closeModalAction();
+      } else {
+        this.setState({
+          error: true
+        });
+      }
+    }
+  }
+
+  render() {
+    return (
+      <form
+        action=""
+        className="autorisation--form"
+        onSubmit={event => {
+          event.preventDefault();
+          this.checkLogin();
+        }}
+      >
+        <h2 className="title" autoFocus>
+          LOGIN
+        </h2>
+        <input
+          type="text"
+          placeholder="Username"
+          autoFocus
+          onChange={this.handleSetLogin}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={this.handlSetPass}
+        />
+        <p className={`error ${this.state.error ? "errorText" : ""}`}>
+          User not found
+        </p>
+        <button type="submit" className="modal--button">
+          Login
+        </button>
+      </form>
+    );
+  }
 };
 
 export default Autorisation;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./addTestTitle.scss";
-import { ENTER_KEY } from "../../constants/otherConstants";
+import { ENTER_KEY } from "../../constants/index";
 
 const TestTitle = ({ actions }) => {
   const [value, setValue] = useState("");

@@ -6,11 +6,13 @@ import {
   OPEN_MODAL_TO_ADD_QUESTION,
   EDITING_QUESTION,
   SAVE_EDITED_QUESTION,
-  ADD_TEST_SUCCSESS
+  ADD_TEST_SUCCSESS,
+  FINISH_TESTING
 } from "../constants/index";
 
 const initialState = {
-  isModal: false
+  isModal: false,
+  isCalculation: false
 };
 
 export const modal = (state = initialState, action) => {
@@ -31,7 +33,8 @@ export const modal = (state = initialState, action) => {
       return {
         ...state,
         isModal: false,
-        modalAddQuestion: false
+        modalAddQuestion: false,
+        isCalculation: false
       };
 
     case OPEN_MODAL_TO_ADD_TEST:
@@ -67,6 +70,13 @@ export const modal = (state = initialState, action) => {
         isModal: false,
         modalAddQuestion: false
       };
+
+    case FINISH_TESTING:
+      return{
+        ...state,
+        isModal: true,
+        isCalculation: true
+      }
 
     default:
       return state;

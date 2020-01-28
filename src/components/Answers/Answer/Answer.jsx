@@ -1,7 +1,7 @@
 import React from "react";
 import "./Answer.scss";
 
-import SvgX from "../../svgX/svgX";
+import SvgX from "../../SvgX/SvgX";
 
 const Answer = ({
   type,

@@ -8,6 +8,9 @@ import {
   SET_TESTS,
   REMOVE_TEST,
   SAVE_TEST_NAME_SUCCSESS,
+  START_TEST,
+  FINISH_TESTING,
+  TEST_RESULT
 } from "../constants/index";
 
 export const fetchTestsAction = () => {
@@ -53,7 +56,6 @@ export const removeTestSuccsessAction = id => {
   };
 };
 
-
 export const editTestNameAction = id => {
   return {
     type: EDIT_TEST_NAME,
@@ -74,5 +76,24 @@ export const saveTestNameSuccsessAction = (id, title) => {
     type: SAVE_TEST_NAME_SUCCSESS,
     id,
     title
+  };
+};
+
+export const startTestingAction = () => {
+  return {
+    type: START_TEST
+  };
+};
+
+export const finishTestingAction = () => {
+  return {
+    type: FINISH_TESTING,
+  };
+};
+
+export const testResultAction = (result) => {
+  return {
+    type: TEST_RESULT,
+    result
   };
 };

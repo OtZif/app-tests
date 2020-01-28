@@ -1,33 +1,18 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import Tests from "../tests/tests";
-import Test from "../test/test";
+import TestsContainer from "../Tests/TestsContainer";
+import TestContainer from "../Test/TestContainer";
 
-const Main = ({ isAdmin, test, actions, isFiltered, currentEdit, questions }) => {
+const Main = () => {
   return (
     <Switch>
-      <Route
-        path="/"
-        exact
-        render={() => (
-          <Tests test={test} actions={actions} isAdmin={isAdmin} isFiltered={isFiltered} />
-        )}
-      />
+      <Route path="/" exact render={() => <TestsContainer />} />
       <Route
         path="/test/:id"
         exact
         render={({ match }) => {
-          return (
-            <Test
-              test={test}
-              testId={+match.params.id}
-              isAdmin={isAdmin}
-              actions={actions}
-              currentEdit={currentEdit}
-              questions={questions}
-            />
-          );
+          return <TestContainer testId={+match.params.id} />;
         }}
       />
       <Redirect to="/" />
