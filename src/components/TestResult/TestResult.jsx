@@ -5,6 +5,7 @@ import "./testResult.scss";
 const TestResult = ({ actions, testResult }) => {
   const handleClose = () => {
     actions.closeModalAction();
+    actions.resetFilterTrackAction();
   };
   return (
     <div className="test-result">

@@ -77,7 +77,7 @@ export const questions = (state = initialState, action) => {
       return {
         ...state,
         isQuestionEdit: false,
-        currentEdit: ""
+        currentEdit: "",
       };
 
     case RESET_FILTER_TRACK:
