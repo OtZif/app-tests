@@ -30,7 +30,7 @@ export const addQuestionSuccsessAction = (
   return {
     type: ADD_QUESTION_SUCCSESS,
     testId,
-    newId,
+    id: newId,
     question,
     answerType,
     answers

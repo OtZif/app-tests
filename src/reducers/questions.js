@@ -30,7 +30,7 @@ export const questions = (state = initialState, action) => {
         questions: [
           ...state.questions,
           {
-            id: action.newId,
+            id: action.id,
             testsId: action.testId,
             question: action.question,
             answerType: action.answerType,
