@@ -12,7 +12,7 @@ class Test extends Component {
   };
   handleDeleteQuestion = (testId, questionId) => () => {
     const { actions } = this.props;
-    actions.removeQuestionAction(testId, questionId);
+    actions.openConfirmationAction("question", testId, questionId);
   };
   handleChangeCurrentField = (id, title) => e => {
     const { actions } = this.props;

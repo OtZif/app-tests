@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./addTestTitle.scss";
-import { ENTER_KEY } from "../../constants/index";
+import "./testTitle.scss";
+import { ENTER_KEY } from "../../../constants/index";
 
 const TestTitle = ({ actions }) => {
   const [value, setValue] = useState("");
@@ -14,7 +14,7 @@ const TestTitle = ({ actions }) => {
     }
   };
 
-  const handleAddItemKeyUp = e => {
+  const handlKeyUp = e => {
     if (e.keyCode === ENTER_KEY) {
       if (e.target.value.trim() === "") {
         setError(true);
@@ -23,6 +23,10 @@ const TestTitle = ({ actions }) => {
         e.target.value = "";
       }
     }
+  };
+
+  const handlChange = e => {
+    setValue(e.target.value);
   };
 
   const handleClickCancel = e => {
@@ -36,8 +40,8 @@ const TestTitle = ({ actions }) => {
       </h2>
       <input
         type="text"
-        onKeyUp={handleAddItemKeyUp}
-        onChange={e => setValue(e.target.value)}
+        onKeyUp={handlKeyUp}
+        onChange={handlChange}
         autoFocus
       />
       <p className={`error ${error ? "errorText" : ""}`}>

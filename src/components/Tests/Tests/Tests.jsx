@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "../../../images/file.png";
@@ -7,33 +7,33 @@ import "./tests.scss";
 
 class Tests extends Component {
   handlAddNewTest = () => {
-    const {actions} = this.props;
+    const { actions } = this.props;
 
     actions.addingNewTestAction();
-  }
+  };
 
   handleDeleteItem = id => {
-    const {actions} = this.props;
-    return actions.removeTestAction(id);
-  }
+    const { actions } = this.props;
+    return actions.openConfirmationAction("test", id);
+  };
 
   handlClickStart = () => {
-    const {actions, isAdmin} = this.props;
-    if(!isAdmin){
-      actions.startTestingAction()
+    const { actions, isAdmin } = this.props;
+    if (!isAdmin) {
+      actions.startTestingAction();
     }
-  }
+  };
 
   componentDidMount() {
-    const {test, actions} = this.props;
+    const { test, actions } = this.props;
 
     if (test.length === 0) {
       actions.fetchTestsAction();
     }
   }
 
-  render(){
-    const {isAdmin, test, isFiltered} = this.props
+  render() {
+    const { isAdmin, test, isFiltered } = this.props;
     return (
       <main className="main">
         {test
@@ -47,7 +47,11 @@ class Tests extends Component {
           })
           .map(el => (
             <div className="testBox" key={el.id}>
-              <Link to={`/test/${el.id}`} className="link" onClick={this.handlClickStart}>
+              <Link
+                to={`/test/${el.id}`}
+                className="link"
+                onClick={this.handlClickStart}
+              >
                 <div className="icon">
                   <img src={logo} alt="folder" />
                 </div>
@@ -67,7 +71,7 @@ class Tests extends Component {
               )}
             </div>
           ))}
-  
+
         {isAdmin ? (
           <div className="testBox" onClick={this.handlAddNewTest}>
             <div className="link">
@@ -83,9 +87,6 @@ class Tests extends Component {
       </main>
     );
   }
-};
+}
 
 export default Tests;
-
-
-// } = ({ admin, test, actions, filter }) => {

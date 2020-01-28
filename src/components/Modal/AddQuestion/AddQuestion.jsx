@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./addQuestion.scss";
-import Answers from "../Answers/Answers";
+import Answers from "../../Answers/Answers";
 
 class AddQuestion extends Component {
   state = {

@@ -6,14 +6,16 @@ import * as action from "../../actions/index";
 
 import {
   autorisationSelector,
-  addTitleSelector,
+  isAddingTitleSelector,
   userSelector,
-  modalAddQuestionSelector,
+  isModalAddQuestionSelector,
   idTestSelector,
   currentEditSelector,
   isQuestionEditSelector,
   isCalculationSelector,
-  testResultSelector
+  testResultSelector,
+  isRemovingSelector,
+  questionIdSelector
 } from "../../selectors/index";
 
 import { connect } from "react-redux";
@@ -22,12 +24,14 @@ const ModalContainer = ({
   users,
   actions,
   autorisation,
-  addTitle,
-  modalAddQuestion,
+  isAddingTitle,
+  isModalAddQuestion,
   idTest,
+  questionId,
   currentEdit,
   isQuestionEdit,
   isCalculation,
+  isRemoving,
   testResult
 }) => {
   return (
@@ -35,13 +39,15 @@ const ModalContainer = ({
     actions={actions}
     users={users}
     autorisation={autorisation}
-    addTitle={addTitle}
-    modalAddQuestion={modalAddQuestion}
+    isAddingTitle={isAddingTitle}
+    isModalAddQuestion={isModalAddQuestion}
     idTest={idTest}
+    questionId={questionId}
     currentEdit={currentEdit}
     isQuestionEdit={isQuestionEdit}
     isCalculation={isCalculation}
     testResult={testResult}
+    isRemoving={isRemoving}
   />
   );
 };
@@ -49,13 +55,15 @@ const ModalContainer = ({
 const mapStateToProps = state => ({
   users: userSelector(state),
   autorisation: autorisationSelector(state),
-  addTitle: addTitleSelector(state),
-  modalAddQuestion: modalAddQuestionSelector(state),
+  isAddingTitle: isAddingTitleSelector(state),
+  isModalAddQuestion: isModalAddQuestionSelector(state),
   idTest: idTestSelector(state),
+  questionId: questionIdSelector(state),
   currentEdit: currentEditSelector(state),
   isQuestionEdit: isQuestionEditSelector(state),
   isCalculation: isCalculationSelector(state),
-  testResult: testResultSelector(state)
+  testResult: testResultSelector(state),
+  isRemoving: isRemovingSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

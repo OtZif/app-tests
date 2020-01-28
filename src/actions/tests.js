@@ -63,11 +63,11 @@ export const editTestNameAction = id => {
   };
 };
 
-export const saveTestNameAction = (id, name) => {
+export const saveTestNameAction = (id, title) => {
   return {
     type: SAVE_TEST_NAME,
     id,
-    name
+    title
   };
 };
 

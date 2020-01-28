@@ -20,3 +20,8 @@ export const currentEditSelector = createSelector(
   questionsRootSelector,
   ({ currentEdit }) => currentEdit
 );
+
+export const questionIdSelector = createSelector(
+  questionsRootSelector,
+  ({ questionId }) => questionId
+);

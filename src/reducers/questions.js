@@ -7,13 +7,16 @@ import {
   CLOSE_MODAL,
   RESET_FILTER_TRACK,
   EDIT_TEST_NAME,
-  SAVE_TEST_NAME
+  SAVE_TEST_NAME,
+  OPEN_CONFIRMATION,
+  REMOVE_TEST_SUCCSESS
 } from "../constants/index";
 
 const initialState = {
   questions: [],
   isQuestionEdit: false,
-  currentEdit: ""
+  currentEdit: "",
+  questionId: ''
 };
 
 export const questions = (state = initialState, action) => {
@@ -40,10 +43,12 @@ export const questions = (state = initialState, action) => {
       };
 
     case REMOVE_QUESTION_SUCCSESS:
-      return Object.assign({}, state, {
+      return{
         ...state,
-        questions: state.questions.filter(elem => elem.id !== action.questionId)
-      });
+        questions: state.questions.filter(elem => elem.id !== action.questionId),
+        questionId: '',
+        currentEdit: ''
+      };
 
     case EDITING_QUESTION:
       return {
@@ -78,6 +83,7 @@ export const questions = (state = initialState, action) => {
         ...state,
         isQuestionEdit: false,
         currentEdit: "",
+        questionId: ''
       };
 
     case RESET_FILTER_TRACK:
@@ -97,6 +103,20 @@ export const questions = (state = initialState, action) => {
           ...state,
           currentEdit: "",
         };
+
+        case OPEN_CONFIRMATION:
+          return {
+            ...state,
+            currentEdit: action.name,
+            questionId: action.questionId
+          }
+
+          case REMOVE_TEST_SUCCSESS:
+            return {
+              ...state,
+              currentEdit: '',
+              questionId: ''
+            }
 
 
     default:

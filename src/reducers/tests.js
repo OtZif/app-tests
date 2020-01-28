@@ -2,7 +2,6 @@ import {
   SET_TESTS,
   REMOVE_TEST_SUCCSESS,
   // EDIT_TEST_NAME,
-  SAVE_TEST_NAME,
   CLOSE_MODAL,
   OPEN_MODAL_TO_ADD_TEST,
   OPEN_MODAL_TO_ADD_QUESTION,
@@ -12,13 +11,15 @@ import {
   RESET_FILTER_TRACK,
   START_TEST,
   FINISH_TESTING,
-  TEST_RESULT
+  TEST_RESULT,
+  SAVE_TEST_NAME_SUCCSESS,
+  OPEN_CONFIRMATION
 } from "../constants/index";
 
 const initialState = {
   idTest: "",
   isTesting: false,
-  addTitle: false,
+  isAddingTitle: false,
   tests: [],
   testResult: 0
 };
@@ -33,7 +34,7 @@ export const tests = (state = initialState, action) => {
 
     case ADD_TEST_SUCCSESS:
       return Object.assign({}, state, {
-        addTitle: false,
+        isAddingTitle: false,
         tests: [
           ...state.tests,
           {
@@ -45,24 +46,20 @@ export const tests = (state = initialState, action) => {
       });
 
     case REMOVE_TEST_SUCCSESS:
-      return Object.assign({}, state, {
-        tests: state.tests.filter(el => el.id !== action.id)
-      });
+      return {
+        ...state,
+        tests: state.tests.filter(el => el.id !== action.id),
+        idTest: ""
+      };
 
-    // case EDIT_TEST_NAME:
-    //   return {
-    //     ...state,
-    //     currentEdit: action.id
-    //   };
-
-    case SAVE_TEST_NAME:
+    case SAVE_TEST_NAME_SUCCSESS:
       return {
         ...state,
         tests: state.tests.map(el => {
           if (el.id === action.id) {
             return {
               ...el,
-              testTitle: action.name
+              testTitle: action.title
             };
           }
 
@@ -73,14 +70,14 @@ export const tests = (state = initialState, action) => {
     case CLOSE_MODAL:
       return {
         ...state,
-        addTitle: false,
+        isAddingTitle: false,
         idTest: ""
       };
 
     case OPEN_MODAL_TO_ADD_TEST:
       return {
         ...state,
-        addTitle: true
+        isAddingTitle: true
       };
 
     case OPEN_MODAL_TO_ADD_QUESTION:
@@ -89,11 +86,6 @@ export const tests = (state = initialState, action) => {
         idTest: action.idTest
       };
     case ADD_QUESTION_SUCCSESS:
-      return {
-        ...state,
-        idTest: ""
-      };
-
     case SAVE_EDITED_QUESTION:
       return {
         ...state,
@@ -104,24 +96,30 @@ export const tests = (state = initialState, action) => {
       return {
         ...state,
         isTesting: true
-      }
+      };
 
     case FINISH_TESTING:
       return {
         ...state,
-        isTesting: false,
-      }
+        isTesting: false
+      };
     case RESET_FILTER_TRACK:
       return {
         ...state,
         isTesting: false,
         testResult: 0
-      }
+      };
     case TEST_RESULT:
-      return{
+      return {
         ...state,
         testResult: action.result
-      }
+      };
+
+    case OPEN_CONFIRMATION:
+      return {
+        ...state,
+        idTest: action.id
+      };
 
     default:
       return state;

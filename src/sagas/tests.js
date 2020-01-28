@@ -4,7 +4,7 @@ import {
   FETCH_TESTS,
   ADD_TEST,
   REMOVE_TEST,
-  SAVE_TEST_NAME_SUCCSESS,
+  SAVE_TEST_NAME,
 } from "../constants/index";
 
 import {
@@ -73,6 +73,6 @@ export default function*() {
     takeEvery(FETCH_TESTS, fetchTestsSaga),
     takeEvery(ADD_TEST, addNewTestSaga),
     takeEvery(REMOVE_TEST, removeTestSaga),
-    takeEvery(SAVE_TEST_NAME_SUCCSESS, editTestNameSaga),
+    takeEvery(SAVE_TEST_NAME, editTestNameSaga),
   ]);
 }

@@ -7,22 +7,21 @@ import {
   EDITING_QUESTION,
   SAVE_EDITED_QUESTION,
   ADD_TEST_SUCCSESS,
-  FINISH_TESTING
+  FINISH_TESTING,
+  OPEN_CONFIRMATION,
+  REMOVE_TEST_SUCCSESS,
+  REMOVE_QUESTION_SUCCSESS
 } from "../constants/index";
 
 const initialState = {
   isModal: false,
-  isCalculation: false
+  isCalculation: false,
+  isModalAddQuestion: false,
+  isRemoving: false
 };
 
 export const modal = (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_MODAL_TO_LOGIN:
-      return {
-        ...state,
-        isModal: true
-      };
-
     case ADD_TEST_SUCCSESS:
       return {
         ...state,
@@ -33,10 +32,12 @@ export const modal = (state = initialState, action) => {
       return {
         ...state,
         isModal: false,
-        modalAddQuestion: false,
-        isCalculation: false
+        isModalAddQuestion: false,
+        isCalculation: false,
+        isRemoving: false
       };
 
+    case OPEN_MODAL_TO_LOGIN:
     case OPEN_MODAL_TO_ADD_TEST:
       return {
         ...state,
@@ -44,39 +45,48 @@ export const modal = (state = initialState, action) => {
       };
 
     case OPEN_MODAL_TO_ADD_QUESTION:
+    case EDITING_QUESTION:
       return {
         ...state,
         isModal: true,
-        modalAddQuestion: true
+        isModalAddQuestion: true
       };
 
     case ADD_QUESTION_SUCCSESS:
       return {
         ...state,
         isModal: false,
-        modalAddQuestion: false
-      };
-
-    case EDITING_QUESTION:
-      return {
-        ...state,
-        isModal: true,
-        modalAddQuestion: true
+        isModalAddQuestion: false
       };
 
     case SAVE_EDITED_QUESTION:
       return {
         ...state,
         isModal: false,
-        modalAddQuestion: false
+        isModalAddQuestion: false
       };
 
     case FINISH_TESTING:
-      return{
+      return {
         ...state,
         isModal: true,
         isCalculation: true
-      }
+      };
+
+    case OPEN_CONFIRMATION:
+      return {
+        ...state,
+        isRemoving: true,
+        isModal: true
+      };
+
+    case REMOVE_TEST_SUCCSESS:
+    case REMOVE_QUESTION_SUCCSESS:
+      return {
+        ...state,
+        isRemoving: false,
+        isModal: false
+      };
 
     default:
       return state;
