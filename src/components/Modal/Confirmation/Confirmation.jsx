@@ -4,7 +4,6 @@ import RedButton from "components/RedButton/RedButton";
 import style from "./Confirmation.module.scss";
 const Confirmation = ({ actions, idTest, questionId, currentEdit }) => {
   const handlClickYes = () => {
-    console.log(currentEdit);
     if (currentEdit === "test") {
       actions.removeTestAction(idTest);
     }
