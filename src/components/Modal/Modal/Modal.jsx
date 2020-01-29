@@ -1,13 +1,13 @@
 import React from "react";
 
-import "./modal.scss";
-import Autorisation from "../Autorisation/Autorisation";
-import TestTitle from "../TestTitle/TestTitle";
-import { ESC_KEY } from "../../../constants/index";
-import SvgX from "../../SvgX/SvgX";
-import AddQuestion from "../AddQuestion/AddQuestion";
-import TestResults from "../TestResult/TestResult";
-import Confirmation from "../Confirmation/Confirmation";
+import style from "./Modal.module.scss";
+import Autorisation from "components/Modal/Autorisation/Autorisation";
+import TestTitle from "components/Modal/TestTitle/TestTitle";
+import { ESC_KEY } from "constants/index";
+import SvgX from "components/SvgX/SvgX";
+import AddQuestion from "components/Modal/AddQuestion/AddQuestion";
+import TestResults from "components/Modal/TestResult/TestResult";
+import Confirmation from "components/Modal/Confirmation/Confirmation";
 
 const Modal = ({
   actions,
@@ -32,14 +32,14 @@ const Modal = ({
     }
   };
   return (
-    <div className="modal" onKeyUp={handleCloseKeyUp} tabIndex="-1">
-      <div className="modal--bg" onClick={handleClose}></div>
-      <div className="modal--info">
-        <div className="modal--content">
-          <button className="modal--close" onClick={handleClose}>
+    <div className={style.modal} onKeyUp={handleCloseKeyUp} tabIndex="-1">
+      <div className={style.modalBg} onClick={handleClose}></div>
+      <div className={style.modalInfo}>
+        <div className={style.modalContent}>
+          <button className={style.modalClose} onClick={handleClose}>
             <SvgX />
           </button>
-          <div className="modal--body">
+          <div className={style.modalBody}>
             {autorisation && <Autorisation users={users} actions={actions} />}
             {isAddingTitle && <TestTitle actions={actions} />}
             {isModalAddQuestion && (

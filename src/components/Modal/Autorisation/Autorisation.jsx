@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import "./autorisation.scss";
+import style from "./Autorisation.module.scss";
+
+import GreenButton from 'components/GreenButton/GreenButton'
 
 class Autorisation extends Component {
   state = {
@@ -54,13 +56,13 @@ class Autorisation extends Component {
     return (
       <form
         action=""
-        className="autorisation--form"
+        className={style.autorisationForm}
         onSubmit={event => {
           event.preventDefault();
           this.checkLogin();
         }}
       >
-        <h2 className="title" autoFocus>
+        <h2 className={style.title} autoFocus>
           LOGIN
         </h2>
         <input
@@ -74,12 +76,10 @@ class Autorisation extends Component {
           placeholder="Password"
           onChange={this.handlSetPass}
         />
-        <p className={`error ${this.state.error ? "errorText" : ""}`}>
+        <p className={`${style.error} ${this.state.error ? style.errorText : ""}`}>
           User not found
         </p>
-        <button type="submit" className="modal--button">
-          Login
-        </button>
+        <GreenButton  text = {'Login'}/>
       </form>
     );
   }

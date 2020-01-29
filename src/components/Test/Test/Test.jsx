@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
-import "./test.scss";
-import SvgX from "../../SvgX/SvgX";
-import CreateQuestion from "../../CreateQuestion/CreateQuestion";
-import { ENTER_KEY } from "../../../constants/index";
+import style from "./Test.module.scss";
+import SvgX from "components/SvgX/SvgX";
+import CreateQuestion from "components/CreateQuestion/CreateQuestion";
+import { ENTER_KEY } from "constants/index";
 
 class Test extends Component {
   state = {
-    array: [],
-    value: 0
+    currentAnswersArray: [],
+    currectAnswersCount: 0
   };
   handleDeleteQuestion = (testId, questionId) => () => {
     const { actions } = this.props;
@@ -53,23 +53,23 @@ class Test extends Component {
         ans: [y]
       };
 
-      if (this.state.array.length === 0) {
+      if (this.state.currentAnswersArray.length === 0) {
         this.setState({
-          array: this.state.array.concat(c)
+          currentAnswersArray: this.state.currentAnswersArray.concat(c)
         });
       }
 
-      if (this.state.array.length > 0) {
-        if (this.state.array.every(ar => ar.id !== questionId)) {
+      if (this.state.currentAnswersArray.length > 0) {
+        if (this.state.currentAnswersArray.every(ar => ar.id !== questionId)) {
           this.setState(state => {
-            const array = state.array.concat(c);
+            const currentAnswersArray = state.currentAnswersArray.concat(c);
             return {
-              array
+              currentAnswersArray
             };
           });
         } else {
           this.setState({
-            array: this.state.array.map(el => {
+            currentAnswersArray: this.state.currentAnswersArray.map(el => {
               if (el.id === questionId) {
                 return {
                   ...el,
@@ -96,17 +96,17 @@ class Test extends Component {
         ans: y
       };
 
-      if (this.state.array.length === 0) {
+      if (this.state.currentAnswersArray.length === 0) {
         this.setState({
-          array: this.state.array.concat(c)
+          currentAnswersArray: this.state.currentAnswersArray.concat(c)
         });
       }
 
-      if (this.state.array.length > 0) {
-        this.state.array.map(el => {
+      if (this.state.currentAnswersArray.length > 0) {
+        this.state.currentAnswersArray.map(el => {
           if (el.id === id) {
             this.setState({
-              array: this.state.array.map(ele => {
+              currentAnswersArray: this.state.currentAnswersArray.map(ele => {
                 if (ele.id === id) {
                   return {
                     ...ele,
@@ -118,9 +118,9 @@ class Test extends Component {
             });
           }
 
-          if (this.state.array.every(ar => ar.id !== id) && el.id !== id) {
+          if (this.state.currentAnswersArray.every(ar => ar.id !== id) && el.id !== id) {
             this.setState({
-              array: this.state.array.concat(c)
+              currentAnswersArray: this.state.currentAnswersArray.concat(c)
             });
           }
 
@@ -133,37 +133,37 @@ class Test extends Component {
   handlCheckboxAnswer = (id, ansId) => e => {
     const { questions, isTesting } = this.props;
     if (isTesting) {
-      const { array } = this.state;
+      const { currentAnswersArray } = this.state;
       let x = questions.filter(el => el.id === id).shift();
       let y = x.answers.filter(el => el.id === ansId);
       let c = {};
 
-      if (this.state.array.length === 0) {
+      if (this.state.currentAnswersArray.length === 0) {
         c = {
           id: id,
           type: x.answerType,
           ans: y
         };
         this.setState({
-          array: this.state.array.concat(c)
+          currentAnswersArray: this.state.currentAnswersArray.concat(c)
         });
       }
 
-      if (this.state.array.length > 0) {
+      if (this.state.currentAnswersArray.length > 0) {
         if (e.target.checked === true) {
-          if (this.state.array.every(ar => ar.id !== id)) {
+          if (this.state.currentAnswersArray.every(ar => ar.id !== id)) {
             c = {
               id: id,
               type: x.answerType,
               ans: y
             };
             this.setState({
-              array: array.concat(c)
+              currentAnswersArray: currentAnswersArray.concat(c)
             });
           } else {
             let z = y.shift();
             this.setState({
-              array: this.state.array.map(item => {
+              currentAnswersArray: this.state.currentAnswersArray.map(item => {
                 if (item.id === id) {
                   item.ans.push(z);
                 }
@@ -173,7 +173,7 @@ class Test extends Component {
           }
         } else {
           this.setState({
-            array: array.map(el => {
+            currentAnswersArray: currentAnswersArray.map(el => {
               if (el.id === id) {
                 return {
                   ...el,
@@ -202,15 +202,15 @@ class Test extends Component {
 
     if (isCalculation) {
       if (isCalculation !== prevProps.isCalculation) {
-        let clearArray = this.state.array.filter(el => el.ans.length !== 0);
+        let clearArray = this.state.currentAnswersArray.filter(el => el.ans.length !== 0);
         clearArray.map(el => {
           if (el.type === "Single") {
             el.ans.map(ans => {
               if (ans.currect === true) {
                 this.setState(state => {
-                  const value = state.value + 1;
+                  const currectAnswersCount = state.currectAnswersCount + 1;
                   return {
-                    value
+                    currectAnswersCount
                   };
                 });
               }
@@ -224,9 +224,9 @@ class Test extends Component {
             el.ans.map(ans => {
               if (ans.currect === true) {
                 this.setState(state => {
-                  const value = state.value + 1 / y;
+                  const currectAnswersCount = state.currectAnswersCount + 1 / y;
                   return {
-                    value
+                    currectAnswersCount
                   };
                 });
               }
@@ -237,9 +237,9 @@ class Test extends Component {
             el.ans.map(ans => {
               if (ans.answer === ans.currect) {
                 this.setState(state => {
-                  const value = state.value + 1;
+                  const currectAnswersCount = state.currectAnswersCount + 1;
                   return {
-                    value
+                    currectAnswersCount
                   };
                 });
               }
@@ -249,10 +249,10 @@ class Test extends Component {
           return el;
         });
       }
-      if (this.state.value !== prevState.value) {
+      if (this.state.currectAnswersCount !== prevState.currectAnswersCount) {
         const questionLen = questions.length;
 
-        let res = Math.round((this.state.value * 100) / questionLen);
+        let res = Math.round((this.state.currectAnswersCount * 100) / questionLen);
         actions.testResultAction(res);
       }
     }
@@ -269,13 +269,13 @@ class Test extends Component {
       isTesting
     } = this.props;
     return (
-      <div className="test">
-        <div className="test--body">
+      <div className={style.test}>
+        <div className={style.testBody}>
           {test.map(elem => {
             if (elem.id === testId) {
               return currentEdit === testId ? (
                 <input
-                  className="edit-input"
+                  className={style.editInput}
                   autoFocus
                   defaultValue={elem.testTitle}
                   onKeyUp={this.handlKeyUp(testId, elem.testTitle)}
@@ -284,7 +284,7 @@ class Test extends Component {
               ) : (
                 <h2
                   key={+new Date() * Math.random(100)}
-                  className="test--title"
+                  className={style.testTitle}
                   title="double click to edit"
                   onDoubleClick={this.handlEditTestTitle(testId)}
                 >
@@ -296,24 +296,24 @@ class Test extends Component {
           })}
 
           {questions.map(el => (
-            <div className="question" key={el.id}>
-              <h3 className="question--title">{el.question}</h3>
-              <div className="question--answers">
+            <div className={style.question} key={el.id}>
+              <h3 className={style.questionTitle}>{el.question}</h3>
+              <div className={style.questionAnswers}>
                 {el.answers &&
                   el.answerType === "Single" &&
                   el.answers.map(ans => (
-                    <div className="answers--box" key={ans.id}>
-                      <div className="check--indicator">
+                    <div className={style.answersBox} key={ans.id}>
+                      <div className={style.checkIndicator}>
                         <input
                           type="radio"
-                          className="radio"
+                          className={style.radio}
                           name={el.id}
                           id={ans.id}
                           onChange={this.handlRadioAnswer(el.id, ans.id)}
                         />
                         <label htmlFor={ans.id}></label>
                       </div>
-                      <label className="text" htmlFor={ans.id}>
+                      <label className={style.text} htmlFor={ans.id}>
                         {ans.answer}
                       </label>
                     </div>
@@ -322,17 +322,17 @@ class Test extends Component {
                 {el.answers &&
                   el.answerType === "Some" &&
                   el.answers.map(ans => (
-                    <div className="answers--box" key={ans.id}>
-                      <div className="check--indicator">
+                    <div className={style.answersBox} key={ans.id}>
+                      <div className={style.checkIndicator}>
                         <input
                           type="checkbox"
-                          className="checkbox"
+                          className={style.checkbox}
                           id={ans.id}
                           onChange={this.handlCheckboxAnswer(el.id, ans.id)}
                         />
                         <label htmlFor={ans.id}></label>
                       </div>
-                      <label className="text" htmlFor={ans.id}>
+                      <label className={style.text} htmlFor={ans.id}>
                         {ans.answer}
                       </label>
                     </div>
@@ -341,7 +341,7 @@ class Test extends Component {
                 {el.answers &&
                   el.answerType === "Numeric" &&
                   el.answers.map(ans => (
-                    <div className="answers--box" key={ans.id}>
+                    <div className={style.answersBox} key={ans.id}>
                       <input
                         type="number"
                         id={ans.id}
@@ -352,13 +352,13 @@ class Test extends Component {
                   ))}
               </div>
               {isAdmin && (
-                <div className="admin--tools">
+                <div className={style.adminTools}>
                   <button
-                    className="edit"
+                    className={style.edit}
                     onClick={this.handlClickToEditQuestion(el.id)}
                   />
                   <button
-                    className="remove"
+                    className={style.remove}
                     onClick={this.handleDeleteQuestion(testId, el.id)}
                   >
                     <SvgX key={+new Date() * Math.random(100)} />
@@ -368,7 +368,7 @@ class Test extends Component {
             </div>
           ))}
         </div>
-        <div className="test--controls">
+        <div className={style.testControls}>
           <CreateQuestion
             actions={actions}
             testId={testId}

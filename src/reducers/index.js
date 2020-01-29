@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-import tests from "./tests";
-import questions from "./questions";
-import users from "./users";
-import filters from "./filters";
-import authorisation from "./authorisation";
-import modal from "./modal";
+import tests from "models/tests/reducers/tests";
+import questions from "models/questions/reducers/questions";
+import users from "models/users/reducers/users";
+import filters from "models/filters/reducers/filters";
+import authorisation from "../models/authorisation/reducers/authorisation";
+import modal from "models/modal/reducers/modal";
 
 export default combineReducers({
   tests,

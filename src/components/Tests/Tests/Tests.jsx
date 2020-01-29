@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import logo from "../../../images/file.png";
-import logo2 from "../../../images/document.png";
-import "./tests.scss";
+import logo from "images/file.png";
+import logo2 from "images/document.png";
+import style from "./Tests.module.scss";
 
 class Tests extends Component {
   handlAddNewTest = () => {
@@ -35,7 +35,7 @@ class Tests extends Component {
   render() {
     const { isAdmin, test, isFiltered } = this.props;
     return (
-      <main className="main">
+      <main className={style.main}>
         {test
           .sort(function(a, b) {
             const dateA = new Date(a.date),
@@ -46,13 +46,13 @@ class Tests extends Component {
             return dateA - dateB;
           })
           .map(el => (
-            <div className="testBox" key={el.id}>
+            <div className={style.testBox} key={el.id}>
               <Link
                 to={`/test/${el.id}`}
-                className="link"
+                className={style.link}
                 onClick={this.handlClickStart}
               >
-                <div className="icon">
+                <div className={style.link}>
                   <img src={logo} alt="folder" />
                 </div>
                 <p>{el.testTitle}</p>
@@ -60,26 +60,26 @@ class Tests extends Component {
               {isAdmin ? (
                 <button
                   onClick={() => this.handleDeleteItem(el.id)}
-                  className="deleteTest"
+                  className={style.deleteTest}
                 >
                   Delete
                 </button>
               ) : (
                 <Link to={`/test/${el.id}`} onClick={this.handlClickStart}>
-                  <button className="deleteTest">Start</button>
+                  <button className={style.deleteTest}>Start</button>
                 </Link>
               )}
             </div>
           ))}
 
         {isAdmin ? (
-          <div className="testBox" onClick={this.handlAddNewTest}>
-            <div className="link">
-              <div className="icon">
+          <div className={style.testBox} onClick={this.handlAddNewTest}>
+            <div className={style.link}>
+              <div className={style.icon}>
                 <img src={logo2} alt="folder" width="120" />
               </div>
             </div>
-            <button className="deleteTest">Create new</button>
+            <button className={style.deleteTest}>Create new</button>
           </div>
         ) : (
           ""

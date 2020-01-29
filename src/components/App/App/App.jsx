@@ -1,16 +1,15 @@
 import React from "react";
+import style from "./App.module.scss";
+import ModalContainer from "components/Modal/ModalContainer";
 
-import "./app.scss";
-import ModalContainer from "../../Modal/ModalContainer";
-
-import Header from "../../Header/Header";
-import Main from "../../Main/Main";
-import WelcomePage from "../../WelcomePage/WelcomePage";
+import Header from "components/Header/Header";
+import Main from "components/Main/Main";
+import WelcomePage from "components/WelcomePage/WelcomePage";
 
 const App = ({ isAuthorized, userName, isModal, actions, filterTrack }) => {
   const { loginAction } = actions;
   return (
-    <div className={`app ${isModal ? "app__overflow" : ""}`}>
+    <div className={`${style.app} ${isModal ? style.appOverflow : ""}`}>
       {isModal ? <ModalContainer /> : ""}
       <Header
         actions={actions}

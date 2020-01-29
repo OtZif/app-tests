@@ -1,13 +1,13 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import * as action from "../../actions/index";
+import * as action from "actions/index";
 import {
   isAuthorizedSelector,
   userNameSelector,
   filterTrackSelector,
   isModalSelector
-} from "../../selectors/index";
+} from "selectors/index";
 
 import App from "./App/App";
 import { connect } from "react-redux";

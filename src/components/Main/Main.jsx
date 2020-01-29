@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import TestsContainer from "../Tests/TestsContainer";
-import TestContainer from "../Test/TestContainer";
+import TestsContainer from "components/Tests/TestsContainer";
+import TestContainer from "components/Test/TestContainer";
 
 const Main = () => {
   return (

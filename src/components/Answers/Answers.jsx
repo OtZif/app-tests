@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Answers.scss";
+import Styles from "./Answers.module.scss";
 import Answer from "./Answer/Answer";
 
 class Answers extends Component {
@@ -123,7 +123,7 @@ class Answers extends Component {
     const { array } = this.state;
 
     return (
-      <div className="answers">
+      <div className={Styles.answers}>
         {this.state.array.map(el => {
           return (
             <Answer

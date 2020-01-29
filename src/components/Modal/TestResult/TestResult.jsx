@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./testResult.scss";
+import style from "./TestResult.module.scss";
 
 const TestResult = ({ actions, testResult }) => {
   const handleClose = () => {
@@ -8,12 +8,12 @@ const TestResult = ({ actions, testResult }) => {
     actions.resetFilterTrackAction();
   };
   return (
-    <div className="test-result">
-      <h2 className="title" autoFocus>
+    <div className={style.testResult}>
+      <h2 className={style.title} autoFocus>
         Test Results
       </h2>
 
-      <p className="description">{`${testResult}%`}</p>
+      <p className={style.description}>{`${testResult}%`}</p>
       <Link to="/" onClick={handleClose}>
         Go to main page
       </Link>

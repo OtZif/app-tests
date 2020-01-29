@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import "./addQuestion.scss";
-import Answers from "../../Answers/Answers";
+import style from "./AddQuestion.module.scss";
+import Answers from "components/Answers/Answers";
+import RedButton from 'components/RedButton/RedButton'
+import GreenButton from 'components/GreenButton/GreenButton';
 
 class AddQuestion extends Component {
   state = {
@@ -58,7 +60,7 @@ class AddQuestion extends Component {
     return (
       <form
         action=""
-        className="add-question"
+        className={style.addQuestion}
         onSubmit={event => {
           if (question !== "") {
             const isTrue = answers.filter(el => el.currect === true).length;
@@ -86,25 +88,25 @@ class AddQuestion extends Component {
           event.preventDefault();
         }}
       >
-        <h2 className="title" autoFocus>
+        <h2 className={style.title} autoFocus>
           {isQuestionEdit ? "Edit Question" : "Add New Question"}
         </h2>
-        <p className="description">Chose type of question</p>
+        <p className={style.description}>Chose type of question</p>
         <div
-          className={`dropdown ${this.state.isOpen ? "dropdown--is_open" : ""}`}
+          className={`${style.dropdown} ${this.state.isOpen ? style.dropdownIsOpen : ""}`}
         >
-          <div className="dropdown--button-box">
-            <div className="arrow"></div>
+          <div className={style.dropdownButtonBox}>
+            <div className={style.arrow}></div>
             <button
               type="button"
-              className="dropdown--button"
+              className={style.dropdownButton}
               onClick={this.handleClick}
             >
               {answerType}
             </button>
           </div>
-          <div className="dropdown--content">
-            <div className="button--box">
+          <div className={style.dropdownContent}>
+            <div className={style.buttonBox}>
               <button
                 type="button"
                 onClick={this.handlChoseQuestionType("Single")}
@@ -144,15 +146,11 @@ class AddQuestion extends Component {
           answers={this.state.answers}
         />
 
-        <button className="modal--button" type="submit">
+        {/* <button className="modal--button" type="submit">
           Save
-        </button>
-        <button
-          className=" modal--button modal--button__red"
-          onClick={this.handleCloseModal}
-        >
-          Cancel
-        </button>
+        </button> */}
+        <GreenButton text={'Save'} />
+        <RedButton click={this.handleCloseModal} text={'Cancel'} />
       </form>
     );
   }

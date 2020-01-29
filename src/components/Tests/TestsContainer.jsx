@@ -1,11 +1,11 @@
 import React from "react";
 import { bindActionCreators } from "redux";
-import * as action from "../../actions/index";
+import * as action from "actions/index";
 import {
   isFilteredSelector,
   isAdminSelector,
   filterSelector,
-} from "../../selectors/index";
+} from "selectors/index";
 
 import Tests from "./Tests/Tests";
 import { connect } from "react-redux";

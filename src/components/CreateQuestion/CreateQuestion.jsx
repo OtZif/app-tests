@@ -1,5 +1,8 @@
 import React from "react";
-import "./createQuestion.scss";
+import style from "./CreateQuestion.module.scss";
+
+import GreenButton from 'components/GreenButton/GreenButton'
+import RedButton from 'components/RedButton/RedButton'
 
 const CreateQuestion = ({ actions, testId, isTesting, isAdmin }) => {
   const handlClick = () => {
@@ -14,12 +17,12 @@ const CreateQuestion = ({ actions, testId, isTesting, isAdmin }) => {
     actions.finishTestingAction()
   } 
   return (
-    isTesting ? <div className="create-question">
-      <button onClick={handlClickStopTest} className='red'>Stop Testing</button>
+    isTesting ? <div className={style.createQuestion}>
+      <RedButton click={handlClickStopTest} text={'Stop Testing'} />
     </div> :
-    isAdmin &&  <div className="create-question">
-      <button onClick={handlClick}>Add New Question</button>
-      <button onClick={handlClickStartTest}>Start Test</button>
+    isAdmin &&  <div className={style.createQuestion}>
+      <GreenButton click={handlClick} text = {'Add New Question'} />
+      <GreenButton click={handlClickStartTest} text = {'Start Test'} />
     </div>
   );
 };

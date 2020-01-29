@@ -1,7 +1,7 @@
 import React from "react";
-import "./Answer.scss";
+import Styles from './Answer.module.scss';
 
-import SvgX from "../../SvgX/SvgX";
+import SvgX from "components/SvgX/SvgX";
 
 const Answer = ({
   type,
@@ -30,7 +30,7 @@ const Answer = ({
     removeAnswer(id);
   };
   return (
-    <div className="check--box">
+    <div className={Styles.checkBox} >
       {type === "Single" && (
         <input
           name="radio"
@@ -59,7 +59,7 @@ const Answer = ({
         />
       )}
       {(type === "Single" || type === "Some") && (
-        <button onClick={handlRemove(id)} className="remove-answer">
+        <button onClick={handlRemove(id)} className={Styles.removeAnswer}>
           <SvgX />
         </button>
       )}

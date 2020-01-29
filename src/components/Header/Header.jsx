@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import "./header.scss";
-import home from "../../images/structural.png";
-import user from "../../images/user.png";
-import filter from "../../images/filter.png";
-import { ENTER_KEY } from "../../constants/index";
+import style from "./Header.module.scss";
+import home from "images/structural.png";
+import user from "images/user.png";
+import filter from "images/filter.png";
+import { ENTER_KEY } from "constants/index";
 
 const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
   const handleLogin = () => {
@@ -41,13 +41,13 @@ const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
   };
 
   return (
-    <div className="header">
+    <div className={style.header}>
       <Link to="/" onClick={handleClick}>
-        <img src={home} alt="home logo" title="Home" className="logo" />
+        <img src={home} alt="home logo" title="Home" className={style.logo} />
       </Link>
-      <div className="header--right">
+      <div className={style.headerRight}>
         {isAuthorized && (
-          <div className="search-box">
+          <div className={style.searchBox}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -58,24 +58,24 @@ const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
             <input
               type="text"
               value={filterTrack}
-              placeholder="Search"
+              placeholder="Search test"
               onChange={handleSearch}
               onKeyUp={handleKeyUp}
             />
           </div>
         )}
         {isAuthorized && (
-          <div className="filter-box" onClick={handleSort}>
+          <div className={style.filterBox} onClick={handleSort}>
             <img src={filter} alt="Filter" title="Filter" />
           </div>
         )}
-        <div className="users-box" onClick={handleLogin}>
+        <div className={style.usersBox} onClick={handleLogin}>
           <p>{isAuthorized ? `Logout ${userName}` : userName}</p>
           <img
             src={user}
             alt="user imgage"
             title="Login"
-            className="user-img"
+            className={style.userImg}
           />
         </div>
       </div>

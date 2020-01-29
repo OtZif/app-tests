@@ -5,7 +5,7 @@ export const fetchTestQuestion = id =>
   axios.get(`${api}/questions?testsId=${id}`);
 
 export const removeQuestion = (testId, questionId) =>
-  axios.delete(`${api}/tests/${testId}/questions/${questionId}`);
+  axios.delete(`${api}/questions/${questionId}?&testsId=${testId}`);
 
 export const addNewQuestion = (testsId, newId, question, answerType, answers) =>
   axios.post(`${api}/tests/${testsId}/questions`, {
@@ -23,7 +23,7 @@ export const edditQuestion = (
   answerType,
   answers
 ) =>
-  axios.put(`${api}/tests/${testsId}/questions/${questionId}`, {
+  axios.put(`${api}/questions/${questionId}?&testsId=${testsId}`, {
     testsId,
     question,
     answerType,

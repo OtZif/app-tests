@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import "./testTitle.scss";
-import { ENTER_KEY } from "../../../constants/index";
+import style from "./TestTitle.module.scss";
+import { ENTER_KEY } from "constants/index";
+import GreenButton from 'components/GreenButton/GreenButton'
+import RedButton from 'components/RedButton/RedButton'
 
 const TestTitle = ({ actions }) => {
   const [value, setValue] = useState("");
@@ -34,8 +36,8 @@ const TestTitle = ({ actions }) => {
   };
 
   return (
-    <div className="testTitle">
-      <h2 className="title" autoFocus>
+    <div className={style.testTitle}>
+      <h2 className={style.title} autoFocus>
         Add Test Title
       </h2>
       <input
@@ -44,18 +46,11 @@ const TestTitle = ({ actions }) => {
         onChange={handlChange}
         autoFocus
       />
-      <p className={`error ${error ? "errorText" : ""}`}>
+      <p className={`${style.error} ${error ? style.errorText : ""}`}>
         Title field is empty or has invalid format
       </p>
-      <button onClick={handlClickSave} className="modal--button">
-        Save
-      </button>
-      <button
-        onClick={handleClickCancel}
-        className=" modal--button modal--button__red"
-      >
-        Cancel
-      </button>
+      <GreenButton text={'Save'} click={handlClickSave} />
+      <RedButton text ={'Cancel'} click ={handleClickCancel} />
     </div>
   );
 };

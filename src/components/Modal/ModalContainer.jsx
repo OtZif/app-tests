@@ -2,7 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 
 import Modal from './Modal/Modal'
-import * as action from "../../actions/index";
+import * as action from "actions/index";
 
 import {
   autorisationSelector,
@@ -16,7 +16,7 @@ import {
   testResultSelector,
   isRemovingSelector,
   questionIdSelector
-} from "../../selectors/index";
+} from "selectors/index";
 
 import { connect } from "react-redux";
 
