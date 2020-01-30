@@ -26,9 +26,7 @@ export const addTestAction = title => ({
 
 export const addTestSuccsessAction = (id, date, testTitle) => ({
   type: ADD_TEST_SUCCSESS,
-  id,
-  date,
-  testTitle
+  payload: { id, date, testTitle }
 });
 
 export const removeTestAction = id => ({

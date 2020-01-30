@@ -21,8 +21,8 @@ const initialState = {
 };
 
 export const tests = (state = initialState, action) => {
-  const { payload } = action;
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case SET_TESTS:
       return {
         ...state,
@@ -33,11 +33,7 @@ export const tests = (state = initialState, action) => {
       return Object.assign({}, state, {
         tests: [
           ...state.tests,
-          {
-            id: action.id,
-            testTitle: action.testTitle,
-            date: action.date
-          }
+          payload
         ]
       });
 
