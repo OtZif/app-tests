@@ -1,30 +1,27 @@
 import {
   SET_TESTS,
   REMOVE_TEST_SUCCSESS,
-  // EDIT_TEST_NAME,
+  OPEN_MODAL,
   CLOSE_MODAL,
-  OPEN_MODAL_TO_ADD_TEST,
-  OPEN_MODAL_TO_ADD_QUESTION,
   ADD_QUESTION_SUCCSESS,
   SAVE_EDITED_QUESTION,
   ADD_TEST_SUCCSESS,
   RESET_FILTER_TRACK,
   START_TEST,
-  FINISH_TESTING,
   TEST_RESULT,
   SAVE_TEST_NAME_SUCCSESS,
-  OPEN_CONFIRMATION
+  REMOVE_QUESTION_SUCCSESS
 } from "models/constants/index";
 
 const initialState = {
   idTest: "",
   isTesting: false,
-  isAddingTitle: false,
   tests: [],
   testResult: 0
 };
 
 export const tests = (state = initialState, action) => {
+  const { payload } = action;
   switch (action.type) {
     case SET_TESTS:
       return {
@@ -34,7 +31,6 @@ export const tests = (state = initialState, action) => {
 
     case ADD_TEST_SUCCSESS:
       return Object.assign({}, state, {
-        isAddingTitle: false,
         tests: [
           ...state.tests,
           {
@@ -68,28 +64,20 @@ export const tests = (state = initialState, action) => {
       };
 
     case CLOSE_MODAL:
-      return {
-        ...state,
-        isAddingTitle: false,
-        idTest: ""
-      };
-
-    case OPEN_MODAL_TO_ADD_TEST:
-      return {
-        ...state,
-        isAddingTitle: true
-      };
-
-    case OPEN_MODAL_TO_ADD_QUESTION:
-      return {
-        ...state,
-        idTest: action.idTest
-      };
+    case REMOVE_QUESTION_SUCCSESS:
     case ADD_QUESTION_SUCCSESS:
     case SAVE_EDITED_QUESTION:
       return {
         ...state,
         idTest: ""
+      };
+
+    case OPEN_MODAL:
+      const { testId } = payload;
+      return {
+        ...state,
+        idTest: testId,
+        isTesting: false
       };
 
     case START_TEST:
@@ -98,11 +86,6 @@ export const tests = (state = initialState, action) => {
         isTesting: true
       };
 
-    case FINISH_TESTING:
-      return {
-        ...state,
-        isTesting: false
-      };
     case RESET_FILTER_TRACK:
       return {
         ...state,
@@ -113,12 +96,6 @@ export const tests = (state = initialState, action) => {
       return {
         ...state,
         testResult: action.result
-      };
-
-    case OPEN_CONFIRMATION:
-      return {
-        ...state,
-        idTest: action.id
       };
 
     default:

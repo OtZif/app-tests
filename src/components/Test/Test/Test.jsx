@@ -12,7 +12,8 @@ class Test extends Component {
   };
   handleDeleteQuestion = (testId, questionId) => () => {
     const { actions } = this.props;
-    actions.openConfirmationAction("question", testId, questionId);
+    const text = "Confirmation";
+    actions.openModalAction(text, testId, "question", questionId);
   };
   handleChangeCurrentField = (id, title) => e => {
     const { actions } = this.props;
@@ -28,16 +29,17 @@ class Test extends Component {
     }
   };
 
-  handlEditTestTitle = id => {
+  handlEditTestTitle = (text, id) => {
     const { actions, isAdmin } = this.props;
     if (isAdmin) {
-      return () => actions.editTestNameAction(id);
+      return () => actions.editTestNameAction(text, id);
     }
   };
 
   handlClickToEditQuestion = id => () => {
     const { actions } = this.props;
-    actions.editingQuestionAction(id);
+    const text = "AddQuestion";
+    actions.editingQuestionAction(text, id);
   };
 
   handleCheckAnswer = (questionId, ansId) => e => {
@@ -118,7 +120,10 @@ class Test extends Component {
             });
           }
 
-          if (this.state.currentAnswersArray.every(ar => ar.id !== id) && el.id !== id) {
+          if (
+            this.state.currentAnswersArray.every(ar => ar.id !== id) &&
+            el.id !== id
+          ) {
             this.setState({
               currentAnswersArray: this.state.currentAnswersArray.concat(c)
             });
@@ -198,11 +203,13 @@ class Test extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { isCalculation, questions, actions } = this.props;
+    const { modalType, questions, actions } = this.props;
 
-    if (isCalculation) {
-      if (isCalculation !== prevProps.isCalculation) {
-        let clearArray = this.state.currentAnswersArray.filter(el => el.ans.length !== 0);
+    if (modalType === "Calculation") {
+      if (modalType !== prevProps.modalType) {
+        let clearArray = this.state.currentAnswersArray.filter(
+          el => el.ans.length !== 0
+        );
         clearArray.map(el => {
           if (el.type === "Single") {
             el.ans.map(ans => {
@@ -252,7 +259,9 @@ class Test extends Component {
       if (this.state.currectAnswersCount !== prevState.currectAnswersCount) {
         const questionLen = questions.length;
 
-        let res = Math.round((this.state.currectAnswersCount * 100) / questionLen);
+        let res = Math.round(
+          (this.state.currectAnswersCount * 100) / questionLen
+        );
         actions.testResultAction(res);
       }
     }
@@ -273,7 +282,8 @@ class Test extends Component {
         <div className={style.testBody}>
           {test.map(elem => {
             if (elem.id === testId) {
-              return currentEdit === testId ? (
+              return currentEdit.id === testId &&
+                currentEdit.text === "title" ? (
                 <input
                   className={style.editInput}
                   autoFocus
@@ -286,7 +296,7 @@ class Test extends Component {
                   key={+new Date() * Math.random(100)}
                   className={style.testTitle}
                   title="double click to edit"
-                  onDoubleClick={this.handlEditTestTitle(testId)}
+                  onDoubleClick={this.handlEditTestTitle("title", testId)}
                 >
                   {elem.testTitle}
                 </h2>

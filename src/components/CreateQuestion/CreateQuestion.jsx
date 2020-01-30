@@ -6,7 +6,8 @@ import RedButton from 'components/RedButton/RedButton'
 
 const CreateQuestion = ({ actions, testId, isTesting, isAdmin }) => {
   const handlClick = () => {
-    actions.modalAddQuestionAction(testId);
+    const text = 'AddQuestion';
+    actions.openModalAction(text, testId);
   };
 
   const handlClickStartTest = () => {
@@ -14,7 +15,7 @@ const CreateQuestion = ({ actions, testId, isTesting, isAdmin }) => {
   }
 
   const handlClickStopTest = () => {
-    actions.finishTestingAction()
+    actions.openModalAction('Calculation')
   } 
   return (
     isTesting ? <div className={style.createQuestion}>

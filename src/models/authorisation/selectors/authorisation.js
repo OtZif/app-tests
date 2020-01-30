@@ -11,11 +11,6 @@ export const isAdminSelector = createSelector(
   ({ isAdmin }) => isAdmin
 );
 
-export const isAutorisationSelector = createSelector(
-  authorisationRootSelector,
-  ({ isAutorisation }) => isAutorisation
-);
-
 export const isAuthorizedSelector = createSelector(
   authorisationRootSelector,
   ({ isAuthorized }) => isAuthorized

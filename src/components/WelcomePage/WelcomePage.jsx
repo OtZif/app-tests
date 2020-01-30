@@ -2,9 +2,9 @@ import React from "react";
 import style from"./WelcomePage.module.scss";
 import shark from "images/shark.png";
 
-const WelcomePage = ({ login }) => {
+const WelcomePage = ({ openModalAction }) => {
   const handleLogin = () => {
-    login();
+    openModalAction('Autorisation');
   };
   return (
     <div className={style.welcomePage}>

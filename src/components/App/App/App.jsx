@@ -7,7 +7,7 @@ import Main from "components/Main/Main";
 import WelcomePage from "components/WelcomePage/WelcomePage";
 
 const App = ({ isAuthorized, userName, isModal, actions, searchLineText }) => {
-  const { loginAction } = actions;
+  const { openModalAction } = actions;
   return (
     <div className={`${style.app} ${isModal ? style.appOverflow : ""}`}>
       {isModal ? <ModalContainer /> : ""}
@@ -17,7 +17,7 @@ const App = ({ isAuthorized, userName, isModal, actions, searchLineText }) => {
         isAuthorized={isAuthorized}
         searchLineText={searchLineText}
       />
-      {isAuthorized ? <Main /> : <WelcomePage login={loginAction} />}
+      {isAuthorized ? <Main /> : <WelcomePage openModalAction={openModalAction} />}
     </div>
   );
 };

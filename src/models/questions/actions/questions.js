@@ -36,9 +36,9 @@ export const removeQuestionSuccsessAction = questionId => ({
   payload: { questionId }
 });
 
-export const editingQuestionAction = id => ({
+export const editingQuestionAction = (modalType, id) => ({
   type: EDITING_QUESTION,
-  payload: {id}
+  payload: {modalType, id}
 });
 
 export const editQuestionsServAction = (

@@ -8,7 +8,7 @@ export const removeQuestion = (testId, questionId) =>
   axios.delete(`${api}/questions/${questionId}?&testsId=${testId}`);
 
 export const addNewQuestion = (testsId, newId, question, answerType, answers) =>
-  axios.post(`${api}/tests/${testsId}/questions`, {
+  axios.post(`${api}/questions?testsId=${testsId}`, {
     id: newId,
     testsId,
     question,

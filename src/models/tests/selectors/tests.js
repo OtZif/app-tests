@@ -11,10 +11,6 @@ export const testsSelector = createSelector(
   ({ tests }) => tests
 );
 
-export const isAddingTitleSelector = createSelector(
-  testsRootSelector,
-  ({ isAddingTitle }) => isAddingTitle
-);
 
 export const idTestSelector = createSelector(
   testsRootSelector,

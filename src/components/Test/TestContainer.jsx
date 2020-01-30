@@ -7,7 +7,7 @@ import {
   currentEditSelector,
   questionsSelector,
   isTestingSelector,
-  isCalculationSelector
+  modalTypeSelector
 } from "models/selectors/index";
 
 import Test from "./Test/Test";
@@ -21,7 +21,7 @@ const TestContainer = ({
   testId,
   currentEdit,
   questions,
-  isCalculation
+  modalType
 }) => {
   return (
     <Test
@@ -32,7 +32,7 @@ const TestContainer = ({
       actions={actions}
       currentEdit={currentEdit}
       questions={questions}
-      isCalculation={isCalculation}
+      modalType={modalType}
     />
   );
 };
@@ -43,8 +43,7 @@ const mapStateToProps = state => ({
   currentEdit: currentEditSelector(state),
   questions: questionsSelector(state),
   isTesting: isTestingSelector(state),
-  isCalculation: isCalculationSelector(state)
-
+  modalType: modalTypeSelector(state)
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

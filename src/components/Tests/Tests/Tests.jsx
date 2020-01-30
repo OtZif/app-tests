@@ -8,13 +8,15 @@ import style from "./Tests.module.scss";
 class Tests extends Component {
   handlAddNewTest = () => {
     const { actions } = this.props;
+    const text = 'AddingTestTitle';
 
-    actions.addingNewTestAction();
+    actions.openModalAction(text);
   };
 
-  handleDeleteItem = id => {
+  handleDeleteItem = testId => {
     const { actions } = this.props;
-    return actions.openConfirmationAction("test", id);
+    const text = 'Confirmation';
+    return actions.openModalAction(text, testId, "test");
   };
 
   handlClickStart = () => {

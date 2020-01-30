@@ -9,7 +9,6 @@ import {
   REMOVE_TEST,
   SAVE_TEST_NAME_SUCCSESS,
   START_TEST,
-  FINISH_TESTING,
   TEST_RESULT
 } from "models/constants/index";
 
@@ -42,9 +41,9 @@ export const removeTestSuccsessAction = id => ({
   id
 });
 
-export const editTestNameAction = id => ({
+export const editTestNameAction = (text, id) => ({
   type: EDIT_TEST_NAME,
-  id
+  payload: { text, id }
 });
 
 export const saveTestNameAction = (id, title) => ({
@@ -60,8 +59,6 @@ export const saveTestNameSuccsessAction = (id, title) => ({
 });
 
 export const startTestingAction = () => ({ type: START_TEST });
-
-export const finishTestingAction = () => ({ type: FINISH_TESTING });
 
 export const testResultAction = result => ({
   type: TEST_RESULT,

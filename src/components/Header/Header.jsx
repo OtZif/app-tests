@@ -14,7 +14,7 @@ const Header = ({ actions, userName, isAuthorized, searchLineText, history }) =>
       actions.resetFilterTrackAction();
       history.push("/");
     } else {
-      actions.loginAction();
+      actions.openModalAction('Autorisation');
     }
   };
 

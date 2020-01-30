@@ -11,17 +11,7 @@ export const isModalSelector = createSelector(
   ({ isModal }) => isModal
 );
 
-export const isModalAddQuestionSelector = createSelector(
+export const modalTypeSelector = createSelector(
   modalRootSelector,
-  ({ isModalAddQuestion }) => isModalAddQuestion
+  ({ modalType }) => modalType
 );
-
-export const isCalculationSelector = createSelector(
-  modalRootSelector,
-  ({isCalculation}) => isCalculation
-)
-
-export const isRemovingSelector = createSelector(
-  modalRootSelector,
-  ({isRemoving}) => isRemoving
-)

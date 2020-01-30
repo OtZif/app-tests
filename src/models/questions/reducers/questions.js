@@ -8,7 +8,7 @@ import {
   RESET_FILTER_TRACK,
   EDIT_TEST_NAME,
   SAVE_TEST_NAME,
-  OPEN_CONFIRMATION,
+  OPEN_MODAL,
   REMOVE_TEST_SUCCSESS
 } from "models/constants/index";
 
@@ -16,7 +16,7 @@ const initialState = {
   questions: [],
   isQuestionEdit: false,
   currentEdit: "",
-  questionId: ''
+  questionId: ""
 };
 
 export const questions = (state = initialState, action) => {
@@ -31,26 +31,26 @@ export const questions = (state = initialState, action) => {
     case ADD_QUESTION_SUCCSESS:
       return {
         ...state,
-        questions: [
-          ...state.questions,
-          payload
-        ]
+        questions: [...state.questions, payload]
       };
 
     case REMOVE_QUESTION_SUCCSESS:
-      return{
+      return {
         ...state,
-        questions: state.questions.filter(elem => elem.id !== payload.questionId),
-        questionId: '',
-        currentEdit: ''
+        questions: state.questions.filter(
+          elem => elem.id !== payload.questionId
+        ),
+        questionId: "",
+        currentEdit: ""
       };
 
     case EDITING_QUESTION:
       return {
         ...state,
         isQuestionEdit: true,
-        currentEdit: state.questions
-          .filter(question => question.id === payload.id)[0]
+        currentEdit: state.questions.filter(
+          question => question.id === payload.id
+        )[0]
       };
 
     case SAVE_EDITED_QUESTION:
@@ -72,12 +72,19 @@ export const questions = (state = initialState, action) => {
         })
       };
 
+    case OPEN_MODAL:
+      return {
+        ...state,
+        currentEdit: payload.name || "",
+        questionId: payload.questionId
+      };
+
     case CLOSE_MODAL:
       return {
         ...state,
         isQuestionEdit: false,
         currentEdit: "",
-        questionId: ''
+        questionId: ""
       };
 
     case RESET_FILTER_TRACK:
@@ -86,32 +93,24 @@ export const questions = (state = initialState, action) => {
         questions: []
       };
 
-      case EDIT_TEST_NAME:
-        return {
-          ...state,
-          currentEdit: action.id
-        };
-  
-      case SAVE_TEST_NAME:
-        return {
-          ...state,
-          currentEdit: "",
-        };
+    case EDIT_TEST_NAME:
+      return {
+        ...state,
+        currentEdit: payload
+      };
 
-        case OPEN_CONFIRMATION:
-          return {
-            ...state,
-            currentEdit: action.name,
-            questionId: action.questionId
-          }
+    case SAVE_TEST_NAME:
+      return {
+        ...state,
+        currentEdit: ""
+      };
 
-          case REMOVE_TEST_SUCCSESS:
-            return {
-              ...state,
-              currentEdit: '',
-              questionId: ''
-            }
-
+    case REMOVE_TEST_SUCCSESS:
+      return {
+        ...state,
+        currentEdit: "",
+        questionId: ""
+      };
 
     default:
       return state;

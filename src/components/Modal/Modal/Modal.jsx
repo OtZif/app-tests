@@ -1,5 +1,4 @@
 import React from "react";
-
 import style from "./Modal.module.scss";
 import Autorisation from "components/Modal/Autorisation/Autorisation";
 import TestTitle from "components/Modal/TestTitle/TestTitle";
@@ -12,16 +11,13 @@ import Confirmation from "components/Modal/Confirmation/Confirmation";
 const Modal = ({
   actions,
   users,
-  isAutorisation,
-  isAddingTitle,
   currentEdit,
-  isModalAddQuestion,
   idTest,
   questionId,
   isQuestionEdit,
-  isCalculation,
-  isRemoving,
-  testResult
+  testResult,
+
+  modalType
 }) => {
   const handleClose = () => {
     actions.closeModalAction();
@@ -40,9 +36,11 @@ const Modal = ({
             <SvgX />
           </button>
           <div className={style.modalBody}>
-            {isAutorisation && <Autorisation users={users} actions={actions} />}
-            {isAddingTitle && <TestTitle actions={actions} />}
-            {isModalAddQuestion && (
+            {modalType === "Autorisation" && (
+              <Autorisation users={users} actions={actions} />
+            )}
+            {modalType === "AddingTestTitle" && <TestTitle actions={actions} />}
+            {modalType === "AddQuestion" && (
               <AddQuestion
                 actions={actions}
                 idTest={idTest}
@@ -50,10 +48,10 @@ const Modal = ({
                 currentEdit={currentEdit}
               />
             )}
-            {isCalculation && (
+            {modalType === "Calculation" && (
               <TestResults actions={actions} testResult={testResult} />
             )}
-            {isRemoving && (
+            {modalType === "Confirmation" && (
               <Confirmation
                 actions={actions}
                 idTest={idTest}
