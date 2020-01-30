@@ -26,7 +26,7 @@ export const tests = (state = initialState, action) => {
     case SET_TESTS:
       return {
         ...state,
-        tests: action.tests
+        tests: payload.tests
       };
 
     case ADD_TEST_SUCCSESS:
@@ -40,7 +40,7 @@ export const tests = (state = initialState, action) => {
     case REMOVE_TEST_SUCCSESS:
       return {
         ...state,
-        tests: state.tests.filter(el => el.id !== action.id),
+        tests: state.tests.filter(el => el.id !== payload.id),
         idTest: ""
       };
 
@@ -48,10 +48,10 @@ export const tests = (state = initialState, action) => {
       return {
         ...state,
         tests: state.tests.map(el => {
-          if (el.id === action.id) {
+          if (el.id === payload.id) {
             return {
               ...el,
-              testTitle: action.title
+              testTitle: payload.title
             };
           }
 
@@ -91,7 +91,7 @@ export const tests = (state = initialState, action) => {
     case TEST_RESULT:
       return {
         ...state,
-        testResult: action.result
+        testResult: payload.result
       };
 
     default:

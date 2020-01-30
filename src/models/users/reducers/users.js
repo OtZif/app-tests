@@ -6,7 +6,8 @@ const initialState = JSON.parse(localStorage.getItem("testUser")) || {
 };
 
 export const users = (state = initialState, action) => {
-  switch (action.type) {
+  const {type, payload} = action
+  switch (type) {
     case LOGOUT:
       return {
         ...state,
@@ -17,13 +18,13 @@ export const users = (state = initialState, action) => {
     case SET_USER_NAME:
       return {
         ...state,
-        userName: action.name
+        userName: payload.name
       };
 
     case SET_USER:
       return {
         ...state,
-        users: action.result
+        users: payload.result
       };
 
     default:

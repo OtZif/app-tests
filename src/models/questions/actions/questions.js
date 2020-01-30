@@ -64,10 +64,10 @@ export const saveEditedQuestionAction = (
 
 export const fetchTestQuestionAction = id => ({
   type: FETCH_TEST_QUESTIONS,
-  id
+  payload: { id }
 });
 
 export const setTestQuestionsAction = questions => ({
   type: SET_TEST_QUESTIONS,
-  questions
+  payload: { questions }
 });

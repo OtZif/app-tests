@@ -16,12 +16,12 @@ export const fetchTestsAction = () => ({ type: FETCH_TESTS });
 
 export const setTestsAction = tests => ({
   type: SET_TESTS,
-  tests
+  payload: { tests }
 });
 
 export const addTestAction = title => ({
   type: ADD_TEST,
-  title
+  payload: { title }
 });
 
 export const addTestSuccsessAction = (id, date, testTitle) => ({
@@ -31,12 +31,12 @@ export const addTestSuccsessAction = (id, date, testTitle) => ({
 
 export const removeTestAction = id => ({
   type: REMOVE_TEST,
-  id
+  payload: { id }
 });
 
 export const removeTestSuccsessAction = id => ({
   type: REMOVE_TEST_SUCCSESS,
-  id
+  payload: { id }
 });
 
 export const editTestNameAction = (text, id) => ({
@@ -46,19 +46,17 @@ export const editTestNameAction = (text, id) => ({
 
 export const saveTestNameAction = (id, title) => ({
   type: SAVE_TEST_NAME,
-  id,
-  title
+  payload: { id, title }
 });
 
 export const saveTestNameSuccsessAction = (id, title) => ({
   type: SAVE_TEST_NAME_SUCCSESS,
-  id,
-  title
+  payload: { id, title }
 });
 
 export const startTestingAction = () => ({ type: START_TEST });
 
 export const testResultAction = result => ({
   type: TEST_RESULT,
-  result
+  payload: { result }
 });

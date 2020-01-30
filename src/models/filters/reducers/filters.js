@@ -10,7 +10,8 @@ const initialState = {
 };
 
 export const filters = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case SORT_BY_DATE:
       return {
         ...state,
@@ -20,7 +21,7 @@ export const filters = (state = initialState, action) => {
     case SEARCH_TEST:
       return {
         ...state,
-        searchLineText: action.text
+        searchLineText: payload.text
       };
 
     case RESET_FILTER_TRACK:

@@ -8,7 +8,7 @@ import { fetchUser as fetchUserApi } from "api/index";
 
 export function* fetchUserSaga(action) {
   try {
-    const { login, pass } = action;
+    const { login, pass } = action.payload;
     const response = yield call(fetchUserApi, login, pass);
 
     yield put(setUserAction(response.data));

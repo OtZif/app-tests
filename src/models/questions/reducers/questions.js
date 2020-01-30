@@ -25,7 +25,7 @@ export const questions = (state = initialState, action) => {
     case SET_TEST_QUESTIONS:
       return {
         ...state,
-        questions: action.questions
+        questions: payload.questions
       };
 
     case ADD_QUESTION_SUCCSESS:

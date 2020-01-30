@@ -23,7 +23,8 @@ import {
 
 export function* fetchTestQuestionSaga(action) {
   try {
-    const response = yield call(fetchTestQuestionApi, action.id);
+    const {id} = action.payload
+    const response = yield call(fetchTestQuestionApi, id);
 
     yield put(setTestQuestionsAction(response.data));
   } catch (err) {
