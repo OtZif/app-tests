@@ -2,11 +2,11 @@ import {
   SORT_BY_DATE,
   SEARCH_TEST,
   RESET_FILTER_TRACK
-} from "constants/index";
+} from "models/constants/index";
 
 const initialState = {
   isFiltered: false,
-  filterTrack: ""
+  searchLineText: ""
 };
 
 export const filters = (state = initialState, action) => {
@@ -20,13 +20,13 @@ export const filters = (state = initialState, action) => {
     case SEARCH_TEST:
       return {
         ...state,
-        filterTrack: action.text
+        searchLineText: action.text
       };
 
     case RESET_FILTER_TRACK:
       return {
         ...state,
-        filterTrack: ""
+        searchLineText: ""
       };
 
     default:

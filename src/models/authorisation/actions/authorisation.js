@@ -1,19 +1,11 @@
 import {
   LOGOUT,
-  ADMIN_LOGIN,
-  AUTHORIZED,
-  SET_USER_NAME
-} from "constants/index";
+  ADMIN_LOGED_IN,
+  IS_AUTHORIZED,
+} from "models/constants/index";
 
 export const logoutAction = () => ({ type: LOGOUT });
 
-export const adminAction = () => ({ type: ADMIN_LOGIN });
+export const adminAction = () => ({ type: ADMIN_LOGED_IN });
 
-export const authorizedAction = () => ({ type: AUTHORIZED });
-
-export const setUserNameAction = name => {
-  return {
-    type: SET_USER_NAME,
-    name: name
-  };
-};
+export const authorizedAction = () => ({ type: IS_AUTHORIZED });

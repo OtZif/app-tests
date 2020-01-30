@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import style from "./Test.module.scss";
 import SvgX from "components/SvgX/SvgX";
 import CreateQuestion from "components/CreateQuestion/CreateQuestion";
-import { ENTER_KEY } from "constants/index";
+import { ENTER_KEY } from "models/constants/index";
 
 class Test extends Component {
   state = {

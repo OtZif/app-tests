@@ -1,13 +1,13 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import * as action from "actions/index";
+import * as action from "models/actions/index";
 import {
   isAuthorizedSelector,
   userNameSelector,
-  filterTrackSelector,
+  searchLineTextSelector,
   isModalSelector
-} from "selectors/index";
+} from "models/selectors/index";
 
 import App from "./App/App";
 import { connect } from "react-redux";
@@ -17,7 +17,7 @@ const AppContainer = ({
   userName,
   isModal,
   actions,
-  filterTrack
+  searchLineText
 }) => {
   return (
     <Router>
@@ -26,7 +26,7 @@ const AppContainer = ({
         isAuthorized={isAuthorized}
         userName={userName}
         actions={actions}
-        filterTrack={filterTrack}
+        searchLineText={searchLineText}
       />
     </Router>
   );
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
   isModal: isModalSelector(state),
   isAuthorized: isAuthorizedSelector(state),
   userName: userNameSelector(state),
-  filterTrack: filterTrackSelector(state)
+  searchLineText: searchLineTextSelector(state)
 });
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(action, dispatch)

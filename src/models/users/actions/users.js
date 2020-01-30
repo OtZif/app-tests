@@ -1,16 +1,14 @@
-import { FETCH_USER, SET_USER } from "constants/index";
+import { FETCH_USER, SET_USER, SET_USER_NAME } from "models/constants/index";
 
-export const fetchUserAction = (login, pass) => {
-  return {
-    type: FETCH_USER,
-    login,
-    pass
-  };
-};
+export const fetchUserAction = (login, pass) => ({
+  type: FETCH_USER,
+  login,
+  pass
+});
 
-export const setUserAction = result => {
-  return {
-    type: SET_USER,
-    result
-  };
-};
+export const setUserAction = result => ({
+  type: SET_USER,
+  result
+});
+
+export const setUserNameAction = name => ({ type: SET_USER_NAME, name });

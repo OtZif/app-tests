@@ -1,18 +1,18 @@
-import { takeEvery, call, put, all, select } from "redux-saga/effects";
+import { takeLatest, call, put, all, select } from "redux-saga/effects";
 
 import {
   FETCH_TESTS,
   ADD_TEST,
   REMOVE_TEST,
   SAVE_TEST_NAME,
-} from "../../../constants/index";
+} from "models/constants/index";
 
 import {
   setTestsAction,
   addTestSuccsessAction,
   removeTestSuccsessAction,
   saveTestNameSuccsessAction,
-} from "actions/index";
+} from "models/actions/index";
 
 import {
   fetchTests as fetchTestsApi,
@@ -21,7 +21,7 @@ import {
   editTestName as editTestNameApi,
 } from "api/index";
 
-import { testsSelector } from "selectors/index";
+import { testsSelector } from "models/selectors/index";
 
 export function* fetchTestsSaga() {
   try {
@@ -70,9 +70,9 @@ export function* editTestNameSaga(action) {
 
 export default function*() {
   yield all([
-    takeEvery(FETCH_TESTS, fetchTestsSaga),
-    takeEvery(ADD_TEST, addNewTestSaga),
-    takeEvery(REMOVE_TEST, removeTestSaga),
-    takeEvery(SAVE_TEST_NAME, editTestNameSaga),
+    takeLatest(FETCH_TESTS, fetchTestsSaga),
+    takeLatest(ADD_TEST, addNewTestSaga),
+    takeLatest(REMOVE_TEST, removeTestSaga),
+    takeLatest(SAVE_TEST_NAME, editTestNameSaga),
   ]);
 }

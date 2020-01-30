@@ -6,7 +6,7 @@ import Header from "components/Header/Header";
 import Main from "components/Main/Main";
 import WelcomePage from "components/WelcomePage/WelcomePage";
 
-const App = ({ isAuthorized, userName, isModal, actions, filterTrack }) => {
+const App = ({ isAuthorized, userName, isModal, actions, searchLineText }) => {
   const { loginAction } = actions;
   return (
     <div className={`${style.app} ${isModal ? style.appOverflow : ""}`}>
@@ -15,7 +15,7 @@ const App = ({ isAuthorized, userName, isModal, actions, filterTrack }) => {
         actions={actions}
         userName={userName}
         isAuthorized={isAuthorized}
-        filterTrack={filterTrack}
+        searchLineText={searchLineText}
       />
       {isAuthorized ? <Main /> : <WelcomePage login={loginAction} />}
     </div>

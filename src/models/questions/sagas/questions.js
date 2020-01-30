@@ -1,18 +1,18 @@
-import { takeEvery, call, put, all } from "redux-saga/effects";
+import { takeLatest, call, put, all } from "redux-saga/effects";
 
 import {
   FETCH_TEST_QUESTIONS,
   REMOVE_QUESTION,
   ADD_QUESTION,
   EDIT_QUESTON_SERV
-} from "constants/index";
+} from "models/constants/index";
 
 import {
   addQuestionSuccsessAction,
   setTestQuestionsAction,
   removeQuestionSuccsessAction,
   saveEditedQuestionAction
-} from "actions/index";
+} from "models/actions/index";
 
 import {
   removeQuestion as removeQuestionApi,
@@ -33,8 +33,9 @@ export function* fetchTestQuestionSaga(action) {
 
 export function* removeQuestionSaga(action) {
   try {
-    yield call(removeQuestionApi, action.testId, action.questionId);
-    yield put(removeQuestionSuccsessAction(action.testId, action.questionId));
+    const {testId, questionId} = action.payload
+    yield call(removeQuestionApi, testId, questionId);
+    yield put(removeQuestionSuccsessAction(questionId));
   } catch (err) {
     console.error(err);
   }
@@ -42,7 +43,7 @@ export function* removeQuestionSaga(action) {
 
 export function* editQuestionSaga(action) {
   try {
-    const { id, questionId, question, answerType, answers } = action;
+    const { id, questionId, question, answerType, answers } = action.payload;
     yield call(edditQuestionApi, id, questionId, question, answerType, answers);
     yield put(
       saveEditedQuestionAction(questionId, question, answerType, answers)
@@ -54,7 +55,7 @@ export function* editQuestionSaga(action) {
 
 export function* addNewQuestionSaga(action) {
   try {
-    const { testId, question, answerType, answers } = action;
+    const { testId, question, answerType, answers } = action.payload;
     const newId = Date.now();
 
     yield call(addNewQuestionApi, testId, newId, question, answerType, answers);
@@ -70,9 +71,9 @@ export function* addNewQuestionSaga(action) {
 
 export default function*() {
   yield all([
-    takeEvery(FETCH_TEST_QUESTIONS, fetchTestQuestionSaga),
-    takeEvery(REMOVE_QUESTION, removeQuestionSaga),
-    takeEvery(EDIT_QUESTON_SERV, editQuestionSaga),
-    takeEvery(ADD_QUESTION, addNewQuestionSaga)
+    takeLatest(FETCH_TEST_QUESTIONS, fetchTestQuestionSaga),
+    takeLatest(REMOVE_QUESTION, removeQuestionSaga),
+    takeLatest(EDIT_QUESTON_SERV, editQuestionSaga),
+    takeLatest(ADD_QUESTION, addNewQuestionSaga)
   ]);
 }

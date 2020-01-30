@@ -3,7 +3,7 @@ import React from "react";
 import style from "./Modal.module.scss";
 import Autorisation from "components/Modal/Autorisation/Autorisation";
 import TestTitle from "components/Modal/TestTitle/TestTitle";
-import { ESC_KEY } from "constants/index";
+import { ESC_KEY } from "models/constants/index";
 import SvgX from "components/SvgX/SvgX";
 import AddQuestion from "components/Modal/AddQuestion/AddQuestion";
 import TestResults from "components/Modal/TestResult/TestResult";
@@ -12,7 +12,7 @@ import Confirmation from "components/Modal/Confirmation/Confirmation";
 const Modal = ({
   actions,
   users,
-  autorisation,
+  isAutorisation,
   isAddingTitle,
   currentEdit,
   isModalAddQuestion,
@@ -40,7 +40,7 @@ const Modal = ({
             <SvgX />
           </button>
           <div className={style.modalBody}>
-            {autorisation && <Autorisation users={users} actions={actions} />}
+            {isAutorisation && <Autorisation users={users} actions={actions} />}
             {isAddingTitle && <TestTitle actions={actions} />}
             {isModalAddQuestion && (
               <AddQuestion

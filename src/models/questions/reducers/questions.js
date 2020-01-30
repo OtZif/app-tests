@@ -10,7 +10,7 @@ import {
   SAVE_TEST_NAME,
   OPEN_CONFIRMATION,
   REMOVE_TEST_SUCCSESS
-} from "constants/index";
+} from "models/constants/index";
 
 const initialState = {
   questions: [],
@@ -20,7 +20,8 @@ const initialState = {
 };
 
 export const questions = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case SET_TEST_QUESTIONS:
       return {
         ...state,
@@ -32,20 +33,14 @@ export const questions = (state = initialState, action) => {
         ...state,
         questions: [
           ...state.questions,
-          {
-            id: action.id,
-            testsId: action.testId,
-            question: action.question,
-            answerType: action.answerType,
-            answers: action.answers
-          }
+          payload
         ]
       };
 
     case REMOVE_QUESTION_SUCCSESS:
       return{
         ...state,
-        questions: state.questions.filter(elem => elem.id !== action.questionId),
+        questions: state.questions.filter(elem => elem.id !== payload.questionId),
         questionId: '',
         currentEdit: ''
       };
@@ -55,8 +50,7 @@ export const questions = (state = initialState, action) => {
         ...state,
         isQuestionEdit: true,
         currentEdit: state.questions
-          .filter(question => question.id === action.id)
-          .shift()
+          .filter(question => question.id === payload.id)[0]
       };
 
     case SAVE_EDITED_QUESTION:
@@ -65,12 +59,12 @@ export const questions = (state = initialState, action) => {
         isQuestionEdit: false,
         currentEdit: "",
         questions: state.questions.map(el => {
-          if (el.id === action.id) {
+          if (el.id === payload.id) {
             return {
               ...el,
-              question: action.question,
-              answerType: action.answerType,
-              answers: action.answers
+              question: payload.question,
+              answerType: payload.answerType,
+              answers: payload.answers
             };
           }
 

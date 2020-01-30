@@ -11,7 +11,7 @@ import {
   OPEN_CONFIRMATION,
   REMOVE_TEST_SUCCSESS,
   REMOVE_QUESTION_SUCCSESS
-} from "constants/index";
+} from "models/constants/index";
 
 const initialState = {
   isModal: false,

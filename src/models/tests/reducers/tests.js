@@ -14,7 +14,7 @@ import {
   TEST_RESULT,
   SAVE_TEST_NAME_SUCCSESS,
   OPEN_CONFIRMATION
-} from "constants/index";
+} from "models/constants/index";
 
 const initialState = {
   idTest: "",

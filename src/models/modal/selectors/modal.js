@@ -1,4 +1,4 @@
-import rootSelector from "selectors/root";
+import rootSelector from "models/selectors/root";
 import { createSelector } from "reselect";
 
 export const modalRootSelector = createSelector(

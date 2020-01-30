@@ -1,4 +1,4 @@
-import rootSelector from "selectors/root";
+import rootSelector from "models/selectors/root";
 import { createSelector } from "reselect";
 
 export const authorisationRootSelector = createSelector(
@@ -11,9 +11,9 @@ export const isAdminSelector = createSelector(
   ({ isAdmin }) => isAdmin
 );
 
-export const autorisationSelector = createSelector(
+export const isAutorisationSelector = createSelector(
   authorisationRootSelector,
-  ({ autorisation }) => autorisation
+  ({ isAutorisation }) => isAutorisation
 );
 
 export const isAuthorizedSelector = createSelector(

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./TestTitle.module.scss";
-import { ENTER_KEY } from "constants/index";
+import { ENTER_KEY } from "models/constants/index";
 import GreenButton from 'components/GreenButton/GreenButton'
 import RedButton from 'components/RedButton/RedButton'
 

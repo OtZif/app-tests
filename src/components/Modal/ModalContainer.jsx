@@ -2,10 +2,10 @@ import React from "react";
 import { bindActionCreators } from "redux";
 
 import Modal from './Modal/Modal'
-import * as action from "actions/index";
+import * as action from "models/actions/index";
 
 import {
-  autorisationSelector,
+  isAutorisationSelector,
   isAddingTitleSelector,
   userSelector,
   isModalAddQuestionSelector,
@@ -16,14 +16,14 @@ import {
   testResultSelector,
   isRemovingSelector,
   questionIdSelector
-} from "selectors/index";
+} from "models/selectors/index";
 
 import { connect } from "react-redux";
 
 const ModalContainer = ({
   users,
   actions,
-  autorisation,
+  isAutorisation,
   isAddingTitle,
   isModalAddQuestion,
   idTest,
@@ -38,7 +38,7 @@ const ModalContainer = ({
     <Modal
     actions={actions}
     users={users}
-    autorisation={autorisation}
+    isAutorisation={isAutorisation}
     isAddingTitle={isAddingTitle}
     isModalAddQuestion={isModalAddQuestion}
     idTest={idTest}
@@ -54,7 +54,7 @@ const ModalContainer = ({
 
 const mapStateToProps = state => ({
   users: userSelector(state),
-  autorisation: autorisationSelector(state),
+  isAutorisation: isAutorisationSelector(state),
   isAddingTitle: isAddingTitleSelector(state),
   isModalAddQuestion: isModalAddQuestionSelector(state),
   idTest: idTestSelector(state),

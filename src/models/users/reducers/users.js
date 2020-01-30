@@ -1,4 +1,4 @@
-import { LOGOUT, SET_USER_NAME, SET_USER } from "constants/index";
+import { LOGOUT, SET_USER_NAME, SET_USER } from "models/constants/index";
 
 const initialState = JSON.parse(localStorage.getItem("testUser")) || {
   userName: "LogIn",

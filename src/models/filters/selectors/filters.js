@@ -1,4 +1,4 @@
-import rootSelector from "selectors/root";
+import rootSelector from "models/selectors/root";
 import { createSelector } from "reselect";
 
 import { testsSelector } from "models/tests/selectors/tests";
@@ -8,14 +8,14 @@ export const filtersRootSelector = createSelector(
   ({ filters }) => filters
 );
 
-export const filterTrackSelector = createSelector(
+export const searchLineTextSelector = createSelector(
   filtersRootSelector,
-  ({ filterTrack }) => filterTrack
+  ({ searchLineText }) => searchLineText
 );
 
 export const isFilteredSelector = createSelector(
   testsSelector,
-  filterTrackSelector,
+  searchLineTextSelector,
   (tests, track) =>
     tests.filter(el => el.testTitle.toLowerCase().includes(track.toLowerCase()))
 );

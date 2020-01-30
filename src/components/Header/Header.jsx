@@ -5,9 +5,9 @@ import style from "./Header.module.scss";
 import home from "images/structural.png";
 import user from "images/user.png";
 import filter from "images/filter.png";
-import { ENTER_KEY } from "constants/index";
+import { ENTER_KEY } from "models/constants/index";
 
-const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
+const Header = ({ actions, userName, isAuthorized, searchLineText, history }) => {
   const handleLogin = () => {
     if (isAuthorized) {
       actions.logoutAction();
@@ -57,7 +57,7 @@ const Header = ({ actions, userName, isAuthorized, filterTrack, history }) => {
             </svg>
             <input
               type="text"
-              value={filterTrack}
+              value={searchLineText}
               placeholder="Search test"
               onChange={handleSearch}
               onKeyUp={handleKeyUp}

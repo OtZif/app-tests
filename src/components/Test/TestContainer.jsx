@@ -1,6 +1,6 @@
 import React from "react";
 import { bindActionCreators } from "redux";
-import * as action from "actions/index";
+import * as action from "models/actions/index";
 import {
   isAdminSelector,
   isFilteredSelector,
@@ -8,7 +8,7 @@ import {
   questionsSelector,
   isTestingSelector,
   isCalculationSelector
-} from "selectors/index";
+} from "models/selectors/index";
 
 import Test from "./Test/Test";
 import { connect } from "react-redux";

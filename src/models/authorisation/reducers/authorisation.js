@@ -2,14 +2,14 @@ import {
   CLOSE_MODAL,
   OPEN_MODAL_TO_LOGIN,
   LOGOUT,
-  ADMIN_LOGIN,
-  AUTHORIZED
-} from "constants/index";
+  ADMIN_LOGED_IN,
+  IS_AUTHORIZED
+} from "models/constants/index";
 
 const initialState = JSON.parse(localStorage.getItem("testAuthorisation")) || {
   isAdmin: false,
   isAuthorized: false,
-  autorisation: false
+  isAutorisation: false
 };
 
 export const authorisation = (state = initialState, action) => {
@@ -17,13 +17,13 @@ export const authorisation = (state = initialState, action) => {
     case OPEN_MODAL_TO_LOGIN:
       return {
         ...state,
-        autorisation: true
+        isAutorisation: true
       };
 
     case CLOSE_MODAL:
       return {
         ...state,
-        autorisation: false
+        isAutorisation: false
       };
 
     case LOGOUT:
@@ -33,13 +33,13 @@ export const authorisation = (state = initialState, action) => {
         isAuthorized: false
       };
 
-    case ADMIN_LOGIN:
+    case ADMIN_LOGED_IN:
       return {
         ...state,
         isAdmin: true
       };
 
-    case AUTHORIZED:
+    case IS_AUTHORIZED:
       return {
         ...state,
         isAuthorized: true

@@ -8,17 +8,12 @@ import {
   SET_TEST_QUESTIONS,
   FETCH_TEST_QUESTIONS,
   EDIT_QUESTON_SERV
-} from "constants/index";
+} from "models/constants/index";
 
-export const addQuestionAction = (testId, question, answerType, answers) => {
-  return {
-    type: ADD_QUESTION,
-    testId,
-    question,
-    answerType,
-    answers
-  };
-};
+export const addQuestionAction = (testId, question, answerType, answers) => ({
+  type: ADD_QUESTION,
+  payload: { testId, question, answerType, answers }
+});
 
 export const addQuestionSuccsessAction = (
   testId,
@@ -26,38 +21,25 @@ export const addQuestionSuccsessAction = (
   question,
   answerType,
   answers
-) => {
-  return {
-    type: ADD_QUESTION_SUCCSESS,
-    testId,
-    id: newId,
-    question,
-    answerType,
-    answers
-  };
-};
-export const removeQuestionAction = (testId, questionId) => {
-  return {
-    type: REMOVE_QUESTION,
-    testId,
-    questionId
-  };
-};
+) => ({
+  type: ADD_QUESTION_SUCCSESS,
+  payload: { testId, id: newId, question, answerType, answers }
+});
 
-export const removeQuestionSuccsessAction = (testId, questionId) => {
-  return {
-    type: REMOVE_QUESTION_SUCCSESS,
-    testId,
-    questionId
-  };
-};
+export const removeQuestionAction = (testId, questionId) => ({
+  type: REMOVE_QUESTION,
+  payload: { testId, questionId }
+});
 
-export const editingQuestionAction = id => {
-  return {
-    type: EDITING_QUESTION,
-    id
-  };
-};
+export const removeQuestionSuccsessAction = questionId => ({
+  type: REMOVE_QUESTION_SUCCSESS,
+  payload: { questionId }
+});
+
+export const editingQuestionAction = id => ({
+  type: EDITING_QUESTION,
+  payload: {id}
+});
 
 export const editQuestionsServAction = (
   id,
@@ -65,37 +47,27 @@ export const editQuestionsServAction = (
   question,
   answerType,
   answers
-) => {
-  return {
-    type: EDIT_QUESTON_SERV,
-    id,
-    questionId,
-    question,
-    answerType,
-    answers
-  };
-};
+) => ({
+  type: EDIT_QUESTON_SERV,
+  payload: { id, questionId, question, answerType, answers }
+});
 
-export const saveEditedQuestionAction = (id, question, answerType, answers) => {
-  return {
-    type: SAVE_EDITED_QUESTION,
-    id,
-    question,
-    answerType,
-    answers
-  };
-};
+export const saveEditedQuestionAction = (
+  id,
+  question,
+  answerType,
+  answers
+) => ({
+  type: SAVE_EDITED_QUESTION,
+  payload: { id, question, answerType, answers }
+});
 
-export const fetchTestQuestionAction = id => {
-  return {
-    type: FETCH_TEST_QUESTIONS,
-    id
-  };
-};
+export const fetchTestQuestionAction = id => ({
+  type: FETCH_TEST_QUESTIONS,
+  id
+});
 
-export const setTestQuestionsAction = questions => {
-  return {
-    type: SET_TEST_QUESTIONS,
-    questions
-  };
-};
+export const setTestQuestionsAction = questions => ({
+  type: SET_TEST_QUESTIONS,
+  questions
+});
