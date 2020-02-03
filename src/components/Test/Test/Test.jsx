@@ -21,7 +21,7 @@ class Test extends Component {
     actions.saveTestNameAction(id, e.target.value);
   };
 
-  handlKeyUp = (id, title) => e => {
+  handleKeyUp = (id, title) => e => {
     const { actions } = this.props;
     if (e.keyCode === ENTER_KEY) {
       if (e.target.value.trim() === "") e.target.value = title;
@@ -29,14 +29,14 @@ class Test extends Component {
     }
   };
 
-  handlEditTestTitle = (text, id) => {
+  handleEditTestTitle = (text, id) => {
     const { actions, isAdmin } = this.props;
     if (isAdmin) {
       return () => actions.editTestNameAction(text, id);
     }
   };
 
-  handlClickToEditQuestion = id => () => {
+  handleClickToEditQuestion = id => () => {
     const { actions } = this.props;
     const text = "AddQuestion";
     actions.editingQuestionAction(text, id);
@@ -46,7 +46,7 @@ class Test extends Component {
     const { questions, isTesting } = this.props;
 
     if (isTesting) {
-      let x = questions.filter(el => el.id === questionId).shift();
+      let x = [...questions].filter(el => el.id === questionId).shift();
       let y = x.answers.filter(el => el.id === ansId).shift();
       y.answer = e.target.value;
       let c = {
@@ -86,7 +86,7 @@ class Test extends Component {
     }
   };
 
-  handlRadioAnswer = (id, ansId) => () => {
+  handleRadioAnswer = (id, ansId) => () => {
     const { questions, isTesting } = this.props;
 
     if (isTesting) {
@@ -135,11 +135,11 @@ class Test extends Component {
     }
   };
 
-  handlCheckboxAnswer = (id, ansId) => e => {
+  handleCheckboxAnswer = (id, ansId) => e => {
     const { questions, isTesting } = this.props;
     if (isTesting) {
       const { currentAnswersArray } = this.state;
-      let x = questions.filter(el => el.id === id).shift();
+      let x = [...questions].filter(el => el.id === id).shift();
       let y = x.answers.filter(el => el.id === ansId);
       let c = {};
 
@@ -195,9 +195,9 @@ class Test extends Component {
   };
 
   componentDidMount() {
-    const { actions, testId, test } = this.props;
+    const { actions, testId, tests } = this.props;
     actions.fetchTestQuestionAction(testId);
-    if (test.length === 0) {
+    if (tests.length === 0) {
       actions.fetchTestsAction();
     }
   }
@@ -272,7 +272,7 @@ class Test extends Component {
       currentEdit,
       testId,
       actions,
-      test,
+      tests,
       questions,
       isAdmin,
       isTesting
@@ -280,7 +280,7 @@ class Test extends Component {
     return (
       <div className={style.test}>
         <div className={style.testBody}>
-          {test.map(elem => {
+          {tests.map(elem => {
             if (elem.id === testId) {
               return currentEdit.id === testId &&
                 currentEdit.text === "title" ? (
@@ -288,7 +288,7 @@ class Test extends Component {
                   className={style.editInput}
                   autoFocus
                   defaultValue={elem.testTitle}
-                  onKeyUp={this.handlKeyUp(testId, elem.testTitle)}
+                  onKeyUp={this.handleKeyUp(testId, elem.testTitle)}
                   onBlur={this.handleChangeCurrentField(testId, elem.testTitle)}
                 />
               ) : (
@@ -296,7 +296,7 @@ class Test extends Component {
                   key={+new Date() * Math.random(100)}
                   className={style.testTitle}
                   title="double click to edit"
-                  onDoubleClick={this.handlEditTestTitle("title", testId)}
+                  onDoubleClick={this.handleEditTestTitle("title", testId)}
                 >
                   {elem.testTitle}
                 </h2>
@@ -319,7 +319,7 @@ class Test extends Component {
                           className={style.radio}
                           name={el.id}
                           id={ans.id}
-                          onChange={this.handlRadioAnswer(el.id, ans.id)}
+                          onChange={this.handleRadioAnswer(el.id, ans.id)}
                         />
                         <label htmlFor={ans.id}></label>
                       </div>
@@ -338,7 +338,7 @@ class Test extends Component {
                           type="checkbox"
                           className={style.checkbox}
                           id={ans.id}
-                          onChange={this.handlCheckboxAnswer(el.id, ans.id)}
+                          onChange={this.handleCheckboxAnswer(el.id, ans.id)}
                         />
                         <label htmlFor={ans.id}></label>
                       </div>
@@ -365,7 +365,7 @@ class Test extends Component {
                 <div className={style.adminTools}>
                   <button
                     className={style.edit}
-                    onClick={this.handlClickToEditQuestion(el.id)}
+                    onClick={this.handleClickToEditQuestion(el.id)}
                   />
                   <button
                     className={style.remove}

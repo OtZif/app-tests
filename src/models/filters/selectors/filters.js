@@ -13,14 +13,24 @@ export const searchLineTextSelector = createSelector(
   ({ searchLineText }) => searchLineText
 );
 
-export const isFilteredSelector = createSelector(
-  testsSelector,
-  searchLineTextSelector,
-  (tests, track) =>
-    tests.filter(el => el.testTitle.toLowerCase().includes(track.toLowerCase()))
-);
-
 export const filterSelector = createSelector(
   filtersRootSelector,
   ({ isFiltered }) => isFiltered
+);
+
+export const isFilteredSelector = createSelector(
+  testsSelector,
+  searchLineTextSelector,
+  filterSelector,
+  (tests, track, filk) =>
+    [...tests]
+      .filter(el => el.testTitle.toLowerCase().includes(track.toLowerCase()))
+      // eslint-disable-next-line array-callback-return
+      .sort(function(a, b) {
+        const dateA = new Date(a.date),
+          dateB = new Date(b.date);
+        if (filk && tests.length > 1) {
+          return dateB - dateA;
+        }
+      })
 );

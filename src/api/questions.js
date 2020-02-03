@@ -7,14 +7,8 @@ export const fetchTestQuestion = id =>
 export const removeQuestion = (testId, questionId) =>
   axios.delete(`${api}/questions/${questionId}?&testsId=${testId}`);
 
-export const addNewQuestion = (testsId, newId, question, answerType, answers) =>
-  axios.post(`${api}/questions?testsId=${testsId}`, {
-    id: newId,
-    testsId,
-    question,
-    answerType,
-    answers
-  });
+export const addNewQuestion = payload =>
+  axios.post(`${api}/questions?testsId=${payload.testsId}`, payload);
 
 export const edditQuestion = (
   testsId,

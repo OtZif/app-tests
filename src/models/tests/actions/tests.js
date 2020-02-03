@@ -24,9 +24,9 @@ export const addTestAction = title => ({
   payload: { title }
 });
 
-export const addTestSuccsessAction = (id, date, testTitle) => ({
+export const addTestSuccsessAction = data => ({
   type: ADD_TEST_SUCCSESS,
-  payload: { id, date, testTitle }
+  payload: data
 });
 
 export const removeTestAction = id => ({

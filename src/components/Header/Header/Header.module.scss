@@ -17,7 +17,6 @@
   }
 
   .usersBox {
-    cursor: pointer;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -28,6 +27,7 @@
       font-size: 18px;
       font-weight: bold;
       color:#c127ff;
+      cursor: pointer;
     }
   }
 
@@ -50,7 +50,7 @@
     justify-content: flex-start;
     align-items: center;
 
-    input {
+    .searchInput {
       height: 40px;
       line-height: 40px;
       padding: 0 32px 0 16px;
@@ -58,12 +58,5 @@
       background: #fff;
       color: #000;
     }
-
-    svg {
-      width: 34px;
-      height: 34px;
-      fill: #333;
-      opacity: .15;
-   }
   }
 }

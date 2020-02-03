@@ -23,7 +23,7 @@ import {
 
 export function* fetchTestQuestionSaga(action) {
   try {
-    const {id} = action.payload
+    const { id } = action.payload;
     const response = yield call(fetchTestQuestionApi, id);
 
     yield put(setTestQuestionsAction(response.data));
@@ -34,7 +34,7 @@ export function* fetchTestQuestionSaga(action) {
 
 export function* removeQuestionSaga(action) {
   try {
-    const {testId, questionId} = action.payload
+    const { testId, questionId } = action.payload;
     yield call(removeQuestionApi, testId, questionId);
     yield put(removeQuestionSuccsessAction(questionId));
   } catch (err) {
@@ -56,19 +56,13 @@ export function* editQuestionSaga(action) {
 
 export function* addNewQuestionSaga(action) {
   try {
-    const { testId, question, answerType, answers } = action.payload;
-    const newId = Date.now();
-
-    yield call(addNewQuestionApi, testId, newId, question, answerType, answers);
-    yield put(
-      addQuestionSuccsessAction(testId, newId, question, answerType, answers)
-    );
+    const { payload } = action;
+    const response = yield call(addNewQuestionApi, payload);
+    yield put(addQuestionSuccsessAction(response.data));
   } catch (err) {
     console.error(err);
   }
 }
-
-
 
 export default function*() {
   yield all([

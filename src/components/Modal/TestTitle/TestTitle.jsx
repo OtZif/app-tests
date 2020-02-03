@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import style from "./TestTitle.module.scss";
 import { ENTER_KEY } from "models/constants/index";
-import GreenButton from 'components/GreenButton/GreenButton'
-import RedButton from 'components/RedButton/RedButton'
+import FormButton from 'components/FormButton/FormButton'
 
 const TestTitle = ({ actions }) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
-  const handlClickSave = () => {
+  const handleClickSave = () => {
     if (value !== "") {
       actions.addTestAction(value);
     } else {
@@ -27,7 +26,7 @@ const TestTitle = ({ actions }) => {
     }
   };
 
-  const handlChange = e => {
+  const handleChange = e => {
     setValue(e.target.value);
   };
 
@@ -43,14 +42,14 @@ const TestTitle = ({ actions }) => {
       <input
         type="text"
         onKeyUp={handlKeyUp}
-        onChange={handlChange}
+        onChange={handleChange}
         autoFocus
       />
       <p className={`${style.error} ${error ? style.errorText : ""}`}>
         Title field is empty or has invalid format
       </p>
-      <GreenButton text={'Save'} click={handlClickSave} />
-      <RedButton text ={'Cancel'} click ={handleClickCancel} />
+      <FormButton text={'Save'} click={handleClickSave} />
+      <FormButton text ={'Cancel'} click ={handleClickCancel} color={'red'} />
     </div>
   );
 };

@@ -16,10 +16,9 @@ const Modal = ({
   questionId,
   isQuestionEdit,
   testResult,
-
   modalType
 }) => {
-  const handleClose = () => {
+  const handleCloseClick = () => {
     actions.closeModalAction();
   };
   const handleCloseKeyUp = e => {
@@ -27,39 +26,51 @@ const Modal = ({
       actions.closeModalAction();
     }
   };
+
+  const element = text => {
+    switch (text) {
+      case "Autorisation":
+        return <Autorisation users={users} actions={actions} />;
+
+      case "AddingTestTitle":
+        return <TestTitle actions={actions} />;
+      case "AddQuestion":
+        return (
+          <AddQuestion
+            actions={actions}
+            idTest={idTest}
+            isQuestionEdit={isQuestionEdit}
+            currentEdit={currentEdit}
+          />
+        );
+
+      case "Calculation":
+        return <TestResults actions={actions} testResult={testResult} />;
+
+      case "Confirmation":
+        return (
+          <Confirmation
+            actions={actions}
+            idTest={idTest}
+            questionId={questionId}
+            currentEdit={currentEdit}
+          />
+        );
+
+      default:
+        break;
+    }
+  };
+
   return (
     <div className={style.modal} onKeyUp={handleCloseKeyUp} tabIndex="-1">
-      <div className={style.modalBg} onClick={handleClose}></div>
+      <div className={style.modalBg} onClick={handleCloseClick}></div>
       <div className={style.modalInfo}>
         <div className={style.modalContent}>
-          <button className={style.modalClose} onClick={handleClose}>
+          <button className={style.modalClose} onClick={handleCloseClick}>
             <SvgX />
           </button>
-          <div className={style.modalBody}>
-            {modalType === "Autorisation" && (
-              <Autorisation users={users} actions={actions} />
-            )}
-            {modalType === "AddingTestTitle" && <TestTitle actions={actions} />}
-            {modalType === "AddQuestion" && (
-              <AddQuestion
-                actions={actions}
-                idTest={idTest}
-                isQuestionEdit={isQuestionEdit}
-                currentEdit={currentEdit}
-              />
-            )}
-            {modalType === "Calculation" && (
-              <TestResults actions={actions} testResult={testResult} />
-            )}
-            {modalType === "Confirmation" && (
-              <Confirmation
-                actions={actions}
-                idTest={idTest}
-                questionId={questionId}
-                currentEdit={currentEdit}
-              />
-            )}
-          </div>
+          <div className={style.modalBody}>{element(modalType)}</div>
         </div>
       </div>
     </div>

@@ -1,11 +1,9 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import * as action from "models/actions/index";
+import * as actions from "models/actions/index";
 import {
   isAuthorizedSelector,
-  userNameSelector,
-  searchLineTextSelector,
   isModalSelector
 } from "models/selectors/index";
 
@@ -14,19 +12,15 @@ import { connect } from "react-redux";
 
 const AppContainer = ({
   isAuthorized,
-  userName,
   isModal,
-  actions,
-  searchLineText
+  openModal,
 }) => {
   return (
     <Router>
       <App
         isModal={isModal}
         isAuthorized={isAuthorized}
-        userName={userName}
-        actions={actions}
-        searchLineText={searchLineText}
+        openModal={openModal}
       />
     </Router>
   );
@@ -35,11 +29,10 @@ const AppContainer = ({
 const mapStateToProps = state => ({
   isModal: isModalSelector(state),
   isAuthorized: isAuthorizedSelector(state),
-  userName: userNameSelector(state),
-  searchLineText: searchLineTextSelector(state)
 });
+const {openModalAction} = actions;
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(action, dispatch)
+  openModal: bindActionCreators(openModalAction, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

@@ -10,20 +10,14 @@ import {
   EDIT_QUESTON_SERV
 } from "models/constants/index";
 
-export const addQuestionAction = (testId, question, answerType, answers) => ({
+export const addQuestionAction = (testsId, question, answerType, answers) => ({
   type: ADD_QUESTION,
-  payload: { testId, question, answerType, answers }
+  payload: { testsId, question, answerType, answers }
 });
 
-export const addQuestionSuccsessAction = (
-  testId,
-  newId,
-  question,
-  answerType,
-  answers
-) => ({
+export const addQuestionSuccsessAction = data => ({
   type: ADD_QUESTION_SUCCSESS,
-  payload: { testId, id: newId, question, answerType, answers }
+  payload: data
 });
 
 export const removeQuestionAction = (testId, questionId) => ({
@@ -38,7 +32,7 @@ export const removeQuestionSuccsessAction = questionId => ({
 
 export const editingQuestionAction = (modalType, id) => ({
   type: EDITING_QUESTION,
-  payload: {modalType, id}
+  payload: { modalType, id }
 });
 
 export const editQuestionsServAction = (

@@ -1,9 +1,8 @@
 import React from "react";
-import GreenButton from "components/GreenButton/GreenButton";
-import RedButton from "components/RedButton/RedButton";
+import FormButton from "components/FormButton/FormButton";
 import style from "./Confirmation.module.scss";
 const Confirmation = ({ actions, idTest, questionId, currentEdit }) => {
-  const handlClickYes = () => {
+  const handleClickYes = () => {
     if (currentEdit === "test") {
       actions.removeTestAction(idTest);
     }
@@ -12,7 +11,7 @@ const Confirmation = ({ actions, idTest, questionId, currentEdit }) => {
     }
   };
 
-  const handlClickNo = () => {
+  const handleClickNo = () => {
     actions.closeModalAction();
   };
 
@@ -21,8 +20,8 @@ const Confirmation = ({ actions, idTest, questionId, currentEdit }) => {
       <h2 className={style.title} autoFocus>
         Add You Sure?
       </h2>
-      <GreenButton click={handlClickYes} text={"Yes"} />
-      <RedButton click={handlClickNo} text={"No"} />
+      <FormButton click={handleClickYes} text={"Yes"} />
+      <FormButton click={handleClickNo} text={"No"} color={"red"} />
     </div>
   );
 };

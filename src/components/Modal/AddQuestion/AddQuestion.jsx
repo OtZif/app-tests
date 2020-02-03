@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import style from "./AddQuestion.module.scss";
 import Answers from "components/Answers/Answers";
-import RedButton from 'components/RedButton/RedButton'
-import GreenButton from 'components/GreenButton/GreenButton';
+import FormButton from "components/FormButton/FormButton";
 
 class AddQuestion extends Component {
   state = {
@@ -23,14 +22,14 @@ class AddQuestion extends Component {
     actions.closeModalAction();
   };
 
-  handlChoseQuestionType = text => () => {
+  handleChoseQuestionType = text => () => {
     this.setState({
       isOpen: !this.state.isOpen,
       answerType: text
     });
   };
 
-  handlTypeQuestion = e => {
+  handleTypeQuestion = e => {
     this.setState({
       question: e.target.value
     });
@@ -93,7 +92,9 @@ class AddQuestion extends Component {
         </h2>
         <p className={style.description}>Chose type of question</p>
         <div
-          className={`${style.dropdown} ${this.state.isOpen ? style.dropdownIsOpen : ""}`}
+          className={`${style.dropdown} ${
+            this.state.isOpen ? style.dropdownIsOpen : ""
+          }`}
         >
           <div className={style.dropdownButtonBox}>
             <div className={style.arrow}></div>
@@ -109,19 +110,19 @@ class AddQuestion extends Component {
             <div className={style.buttonBox}>
               <button
                 type="button"
-                onClick={this.handlChoseQuestionType("Single")}
+                onClick={this.handleChoseQuestionType("Single")}
               >
                 Single
               </button>
               <button
                 type="button"
-                onClick={this.handlChoseQuestionType("Some")}
+                onClick={this.handleChoseQuestionType("Some")}
               >
                 Some
               </button>
               <button
                 type="button"
-                onClick={this.handlChoseQuestionType("Numeric")}
+                onClick={this.handleChoseQuestionType("Numeric")}
               >
                 Numeric
               </button>
@@ -135,7 +136,7 @@ class AddQuestion extends Component {
           <input
             type="text"
             placeholder="Type question"
-            onChange={this.handlTypeQuestion}
+            onChange={this.handleTypeQuestion}
             defaultValue={question}
           />
         )}
@@ -149,8 +150,12 @@ class AddQuestion extends Component {
         {/* <button className="modal--button" type="submit">
           Save
         </button> */}
-        <GreenButton text={'Save'} />
-        <RedButton click={this.handleCloseModal} text={'Cancel'} />
+        <FormButton text={"Save"} />
+        <FormButton
+          click={this.handleCloseModal}
+          text={"Cancel"}
+          color={"red"}
+        />
       </form>
     );
   }

@@ -6,20 +6,20 @@ import logo2 from "images/document.png";
 import style from "./Tests.module.scss";
 
 class Tests extends Component {
-  handlAddNewTest = () => {
+  handleAddNewTestClick = () => {
     const { actions } = this.props;
     const text = 'AddingTestTitle';
 
     actions.openModalAction(text);
   };
 
-  handleDeleteItem = testId => {
+  handleDeleteItemClick = testId => () => {
     const { actions } = this.props;
     const text = 'Confirmation';
     return actions.openModalAction(text, testId, "test");
   };
 
-  handlClickStart = () => {
+  handleClickStart = () => {
     const { actions, isAdmin } = this.props;
     if (!isAdmin) {
       actions.startTestingAction();
@@ -27,32 +27,23 @@ class Tests extends Component {
   };
 
   componentDidMount() {
-    const { test, actions } = this.props;
+    const { tests, actions } = this.props;
 
-    if (test.length === 0) {
+    if (tests.length === 0) {
       actions.fetchTestsAction();
     }
   }
 
   render() {
-    const { isAdmin, test, isFiltered } = this.props;
+    const { isAdmin, tests } = this.props;
     return (
       <main className={style.main}>
-        {test
-          .sort(function(a, b) {
-            const dateA = new Date(a.date),
-              dateB = new Date(b.date);
-            if (isFiltered) {
-              return dateB - dateA;
-            }
-            return dateA - dateB;
-          })
-          .map(el => (
+        {tests.map(el => (
             <div className={style.testBox} key={el.id}>
               <Link
-                to={`/test/${el.id}`}
+                to={`/tests/${el.id}`}
                 className={style.link}
-                onClick={this.handlClickStart}
+                onClick={this.handleClickStart}
               >
                 <div className={style.link}>
                   <img src={logo} alt="folder" />
@@ -61,13 +52,13 @@ class Tests extends Component {
               </Link>
               {isAdmin ? (
                 <button
-                  onClick={() => this.handleDeleteItem(el.id)}
+                  onClick={this.handleDeleteItemClick(el.id)}
                   className={style.deleteTest}
                 >
                   Delete
                 </button>
               ) : (
-                <Link to={`/test/${el.id}`} onClick={this.handlClickStart}>
+                <Link to={`/tests/${el.id}`} onClick={this.handleClickStart}>
                   <button className={style.deleteTest}>Start</button>
                 </Link>
               )}
@@ -75,7 +66,7 @@ class Tests extends Component {
           ))}
 
         {isAdmin ? (
-          <div className={style.testBox} onClick={this.handlAddNewTest}>
+          <div className={style.testBox} onClick={this.handleAddNewTestClick}>
             <div className={style.link}>
               <div className={style.icon}>
                 <img src={logo2} alt="folder" width="120" />

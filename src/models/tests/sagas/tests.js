@@ -36,11 +36,9 @@ export function* fetchTestsSaga() {
 export function* addNewTestSaga(action) {
   try {
     const { title } = action.payload;
-    const newId = Date.now();
     const newDate = new Date();
-    const questions = [];
-    yield call(addTestApi, newId, newDate, title, questions);
-    yield put(addTestSuccsessAction(newId, newDate, title, questions));
+    const response = yield call(addTestApi, newDate, title);
+    yield put(addTestSuccsessAction(response));
   } catch (err) {
     console.error(err);
   }
@@ -50,7 +48,7 @@ export function* removeTestSaga(action) {
   try {
     const { id } = action.payload;
     yield call(removeTestApi, id);
-    yield put(removeTestSuccsessAction(action.id));
+    yield put(removeTestSuccsessAction(id));
   } catch (err) {
     console.error(err);
   }

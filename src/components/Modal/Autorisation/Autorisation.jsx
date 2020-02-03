@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import style from "./Autorisation.module.scss";
+import { withRouter } from "react-router-dom";
 
-import GreenButton from 'components/GreenButton/GreenButton'
+import FormButton from "components/FormButton/FormButton";
 
 class Autorisation extends Component {
   state = {
@@ -22,7 +23,7 @@ class Autorisation extends Component {
     });
   };
 
-  handlSetPass = e => {
+  handleSetPass = e => {
     this.setState({
       pass: e.target.value
     });
@@ -35,7 +36,7 @@ class Autorisation extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { users, actions } = this.props;
+    const { users, actions, history } = this.props;
     if (users !== prevProps.users) {
       if (users.length > 0) {
         actions.setUserNameAction(users[0].name);
@@ -44,6 +45,7 @@ class Autorisation extends Component {
         }
         actions.authorizedAction();
         actions.closeModalAction();
+        history.push("/tests");
       } else {
         this.setState({
           error: true
@@ -74,15 +76,19 @@ class Autorisation extends Component {
         <input
           type="password"
           placeholder="Password"
-          onChange={this.handlSetPass}
+          onChange={this.handleSetPass}
         />
-        <p className={`${style.error} ${this.state.error ? style.errorText : ""}`}>
+        <p
+          className={`${style.error} ${
+            this.state.error ? style.errorText : ""
+          }`}
+        >
           User not found
         </p>
-        <GreenButton  text = {'Login'}/>
+        <FormButton text={"Login"} />
       </form>
     );
   }
-};
+}
 
-export default Autorisation;
+export default withRouter(Autorisation);

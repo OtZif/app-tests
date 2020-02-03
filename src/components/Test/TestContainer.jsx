@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 const TestContainer = ({
   isAdmin,
   isTesting,
-  test,
+  tests,
   actions,
   testId,
   currentEdit,
@@ -25,7 +25,7 @@ const TestContainer = ({
 }) => {
   return (
     <Test
-      test={test}
+      tests={tests}
       testId={testId}
       isAdmin={isAdmin}
       isTesting={isTesting}
@@ -38,7 +38,7 @@ const TestContainer = ({
 };
 
 const mapStateToProps = state => ({
-  test: isFilteredSelector(state),
+  tests: isFilteredSelector(state),
   isAdmin: isAdminSelector(state),
   currentEdit: currentEditSelector(state),
   questions: questionsSelector(state),
