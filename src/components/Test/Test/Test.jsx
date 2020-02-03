@@ -90,7 +90,7 @@ class Test extends Component {
     const { questions, isTesting } = this.props;
 
     if (isTesting) {
-      let x = questions.filter(el => el.id === id).shift();
+      let x = [...questions].filter(el => el.id === id).shift();
       let y = x.answers.filter(el => el.id === ansId);
       let c = {
         id: id,
@@ -225,7 +225,7 @@ class Test extends Component {
             });
           }
           if (el.type === "Some") {
-            let z = questions.filter(ques => ques.id === el.id).shift();
+            let z = [...questions].filter(ques => ques.id === el.id).shift();
             let y = z.answers.filter(answ => answ.currect === true).length;
 
             el.ans.map(ans => {
