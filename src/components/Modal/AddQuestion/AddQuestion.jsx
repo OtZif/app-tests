@@ -3,6 +3,9 @@ import style from "./AddQuestion.module.scss";
 import Answers from "components/Answers/Answers";
 import FormButton from "components/FormButton/FormButton";
 
+import {DndProvider} from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
+
 class AddQuestion extends Component {
   state = {
     isOpen: false,
@@ -141,15 +144,13 @@ class AddQuestion extends Component {
           />
         )}
 
-        <Answers
-          type={this.state.answerType}
-          updateAnswers={this.updateAnswers}
-          answers={this.state.answers}
-        />
-
-        {/* <button className="modal--button" type="submit">
-          Save
-        </button> */}
+        <DndProvider backend={Backend}>
+          <Answers
+            type={this.state.answerType}
+            updateAnswers={this.updateAnswers}
+            answers={this.state.answers}
+          />
+        </DndProvider>
         <FormButton text={"Save"} />
         <FormButton
           click={this.handleCloseModal}

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Styles from "./Answers.module.scss";
 import Answer from "./Answer/Answer";
 
+import update from 'immutability-helper';
+
 class Answers extends Component {
   state = {
     array: [{ id: +new Date(), answer: "", currect: false }]
@@ -89,6 +91,19 @@ class Answers extends Component {
     });
   };
 
+  moveAnswer = (dragIndex, hoverIndex) => {
+    const { array } = this.state
+    const dragAnswer = array[dragIndex]
+
+    this.setState(
+      update(this.state, {
+        array: {
+          $splice: [[dragIndex, 1], [hoverIndex, 0, dragAnswer]],
+        },
+      }),
+    )
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { type, updateAnswers, answers } = this.props;
     if (type !== prevProps.type) {
@@ -120,14 +135,15 @@ class Answers extends Component {
 
   render() {
     const { type } = this.props;
-    const { array } = this.state;
+    const { array } = this.state;    
 
     return (
       <div className={Styles.answers}>
-        {this.state.array.map(el => {
+        {this.state.array.map((el, i) => {          
           return (
             <Answer
               key={el.id}
+              index={i}
               id={el.id}
               type={type}
               answer={el.answer}
@@ -137,6 +153,7 @@ class Answers extends Component {
               updateAnswer={this.updateAnswer}
               updateNumericAnswer={this.updateNumericAnswer}
               removeAnswer={this.removeAnswer}
+              moveAnswer={this.moveAnswer}
             />
           );
         })}

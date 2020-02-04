@@ -12,11 +12,49 @@
     padding: 8px 24px; 
   }
 
-  .removeAnswer{
+  .removeAnswer {
     margin-left: 10px;
     .svgX {
       width: 10px;
       height: 10px;
     }
+  }
+  .moveBtn {
+    width: 22px;
+    height: 16px;
+    margin-right: 4px;
+    margin-left: 7px;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  .moveAnswer {
+    width: 22px;
+    height: 1px;
+    background: #979494;
+    font-size: 25px;
+    transition: all .3s ease;
+    position: relative;
+
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      top: 2px;
+      background: #979494;
+    }
+
+    &:before {top: 4px;}
+    &:after {top: -4px;}
+
+    &:hover {
+      color: #000000;
+    }
+
+
   }
 }
