@@ -33,13 +33,10 @@ const Header = ({ actions, userName, isAuthorized, searchLineText, history }) =>
       }
     }
   };
-  const handleLinkClick = () => {
-    return actions.resetFilterTrackAction();
-  };
 
   return (
     <div className={style.header}>
-      <Link to={isAuthorized ? '/tests' : '/welcome'} onClick={handleLinkClick}>
+      <Link to={isAuthorized ? '/tests' : '/welcome'} onClick={actions.resetFilterTrackAction}>
         <img src={home} alt="home logo" title="Home" className={style.logo} />
       </Link>
       <div className={style.headerRight}>
