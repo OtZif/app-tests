@@ -52,9 +52,9 @@ class AddQuestion extends Component {
     });
   };
 
-  updateAnswers = (array) => {
+  updateAnswers = (data) => {
     this.setState({
-      answers: array,
+      answers: data,
     });
   };
 
