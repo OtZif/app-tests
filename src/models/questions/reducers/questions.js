@@ -9,14 +9,14 @@ import {
   EDIT_TEST_NAME,
   SAVE_TEST_NAME,
   OPEN_MODAL,
-  REMOVE_TEST_SUCCSESS
-} from "models/constants/index";
+  REMOVE_TEST_SUCCSESS,
+} from 'models/constants/index';
 
 const initialState = {
   questions: [],
   isQuestionEdit: false,
-  currentEdit: "",
-  questionId: ""
+  currentEdit: '',
+  questionId: '',
 };
 
 export const questions = (state = initialState, action) => {
@@ -25,23 +25,23 @@ export const questions = (state = initialState, action) => {
     case SET_TEST_QUESTIONS:
       return {
         ...state,
-        questions: payload.questions
+        questions: payload.questions,
       };
 
     case ADD_QUESTION_SUCCSESS:
       return {
         ...state,
-        questions: [...state.questions, payload]
+        questions: [...state.questions, payload],
       };
 
     case REMOVE_QUESTION_SUCCSESS:
       return {
         ...state,
         questions: state.questions.filter(
-          elem => elem.id !== payload.questionId
+          (elem) => elem.id !== payload.questionId,
         ),
-        questionId: "",
-        currentEdit: ""
+        questionId: '',
+        currentEdit: '',
       };
 
     case EDITING_QUESTION:
@@ -49,67 +49,67 @@ export const questions = (state = initialState, action) => {
         ...state,
         isQuestionEdit: true,
         currentEdit: state.questions.filter(
-          question => question.id === payload.id
-        )[0]
+          (question) => question.id === payload.id,
+        )[0],
       };
 
     case SAVE_EDITED_QUESTION:
       return {
         ...state,
         isQuestionEdit: false,
-        currentEdit: "",
-        questions: state.questions.map(el => {
+        currentEdit: '',
+        questions: state.questions.map((el) => {
           if (el.id === payload.id) {
             return {
               ...el,
               question: payload.question,
               answerType: payload.answerType,
-              answers: payload.answers
+              answers: payload.answers,
             };
           }
 
           return el;
-        })
+        }),
       };
 
     case OPEN_MODAL:
       return {
         ...state,
-        currentEdit: payload.name || "",
-        questionId: payload.questionId
+        currentEdit: payload.name || '',
+        questionId: payload.questionId,
       };
 
     case CLOSE_MODAL:
       return {
         ...state,
         isQuestionEdit: false,
-        currentEdit: "",
-        questionId: ""
+        currentEdit: '',
+        questionId: '',
       };
 
     case RESET_FILTER_TRACK:
       return {
         ...state,
-        questions: []
+        questions: [],
       };
 
     case EDIT_TEST_NAME:
       return {
         ...state,
-        currentEdit: payload
+        currentEdit: payload,
       };
 
     case SAVE_TEST_NAME:
       return {
         ...state,
-        currentEdit: ""
+        currentEdit: '',
       };
 
     case REMOVE_TEST_SUCCSESS:
       return {
         ...state,
-        currentEdit: "",
-        questionId: ""
+        currentEdit: '',
+        questionId: '',
       };
 
     default:

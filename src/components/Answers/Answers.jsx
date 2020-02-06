@@ -1,168 +1,188 @@
-import React, { Component } from "react";
-import Styles from "./Answers.module.scss";
-import Answer from "./Answer/Answer";
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import update from 'immutability-helper';
+import Answer from './Answer/Answer';
+import styles from './Answers.module.scss';
+
 
 class Answers extends Component {
-  state = {
-    array: [{ id: +new Date(), answer: "", currect: false }]
-  };
-
-  updateCheckbox = (id, currect) => {
-    this.setState({
-      array: this.state.array.map(el => {
-        if (el.id === id) {
-          return {
-            ...el,
-            currect: currect
-          };
-        }
-        return el;
-      })
-    });
-  };
-
-  updateRadio = (id, currect) => {
-    this.setState({
-      array: this.state.array.map(el => {
-        if (el.id !== id) {
-          return {
-            ...el,
-            currect: false
-          };
-        } else {
-          return {
-            ...el,
-            currect: currect
-          };
-        }
-      })
-    });
-  };
-
-  updateAnswer = (id, text) => {
-    this.setState({
-      array: this.state.array.map(el => {
-        if (el.id === id) {
-          return {
-            ...el,
-            answer: text
-          };
-        }
-        return el;
-      })
-    });
-  };
-
-  updateNumericAnswer = (id, text) => {
-    this.setState({
-      array: this.state.array.map(el => {
-        if (el.id === id) {
-          return {
-            ...el,
-            currect: text
-          };
-        }
-        return el;
-      })
-    });
-  };
-
-  addAnswer = () => {
-    const id = +new Date();
-    let x = {
-      id: id,
-      answer: "",
-      currect: false
+  constructor() {
+    super();
+    this.state = {
+      answersArray: [{ id: +new Date(), answer: '', currect: false }]
     };
-    const newArr = [...this.state.array];
-    newArr.push(x);
-    if (newArr.length <= 10) {
-      this.setState({
-        array: newArr
-      });
-    }
-  };
-
-  removeAnswer = id => {
-    this.setState({
-      array: this.state.array.filter(el => el.id !== id)
-    });
-  };
-
-  moveAnswer = (dragIndex, hoverIndex) => {
-    const { array } = this.state
-    const dragAnswer = array[dragIndex]
-
-    this.setState(
-      update(this.state, {
-        array: {
-          $splice: [[dragIndex, 1], [hoverIndex, 0, dragAnswer]],
-        },
-      }),
-    )
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { type, updateAnswers, answers } = this.props;
+    const { answersArray } = this.state;
     if (type !== prevProps.type) {
-      if (type === "Numeric") {
+      if (type === 'Numeric') {
         this.setState({
-          array: [{ id: +new Date(), answer: "", currect: "" }]
+          arranswersArrayay: [{ id: +new Date(), answer: '', currect: '' }]
         });
       } else {
         this.setState({
-          array: this.state.array.map(el => {
-            return {
-              ...el,
-              currect: false
-            };
-          })
+          answersArray: answersArray.map((el) => ({
+            ...el,
+            currect: false,
+          })),
         });
       }
     }
-    if(answers !== prevProps.answers) {
+    if (answers !== prevProps.answers) {
       this.setState({
-        array: answers
-      })
+        answersArray: answers,
+      });
     }
 
-    if (this.state.array !== prevState.array) {
-      updateAnswers(this.state.array)
+    if (answersArray !== prevState.answersArray) {
+      updateAnswers(answersArray);
     }
   }
 
+  updateCheckbox = (id, currect) => {
+    const { answersArray } = this.state;
+    this.setState({
+      answersArray: answersArray.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            currect,
+          };
+        }
+        return el;
+      }),
+    });
+  };
+
+  updateRadio = (id, currect) => {
+    const { answersArray } = this.state;
+    this.setState({
+      answersArray: answersArray.map((el) => {
+        if (el.id !== id) {
+          return {
+            ...el,
+            currect: false,
+          };
+        }
+        return {
+          ...el,
+          currect,
+        };
+      }),
+    });
+  };
+
+  updateAnswer = (id, text) => {
+    const { answersArray } = this.state;
+    this.setState({
+      answersArray: answersArray.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            answer: text,
+          };
+        }
+        return el;
+      }),
+    });
+  };
+
+  updateNumericAnswer = (id, text) => {
+    const { answersArray } = this.state;
+    this.setState({
+      answersArray: answersArray.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            currect: text,
+          };
+        }
+        return el;
+      }),
+    });
+  };
+
+  addAnswer = () => {
+    const { answersArray } = this.state;
+    const id = +new Date();
+    const x = {
+      id,
+      answer: '',
+      currect: false,
+    };
+    const newArr = [...answersArray];
+    newArr.push(x);
+    if (newArr.length <= 10) {
+      this.setState({
+        answersArray: newArr,
+      });
+    }
+  };
+
+  removeAnswer = (id) => {
+    const { answersArray } = this.state;
+    this.setState({
+      answersArray: answersArray.filter((el) => el.id !== id),
+    });
+  };
+
+  moveAnswer = (dragIndex, hoverIndex) => {
+    const { answersArray } = this.state;
+    const dragAnswer = answersArray[dragIndex];
+
+    this.setState(
+      update(this.state, {
+        answersArray: {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragAnswer],
+          ],
+        },
+      }),
+    );
+  };
+
   render() {
     const { type } = this.props;
-    const { array } = this.state;    
+    const { answersArray } = this.state;
 
     return (
-      <div className={Styles.answers}>
-        {this.state.array.map((el, i) => {          
-          return (
-            <Answer
-              key={el.id}
-              index={i}
-              id={el.id}
-              type={type}
-              answer={el.answer}
-              currect={el.currect}
-              updateRadio={this.updateRadio}
-              updateCheckbox={this.updateCheckbox}
-              updateAnswer={this.updateAnswer}
-              updateNumericAnswer={this.updateNumericAnswer}
-              removeAnswer={this.removeAnswer}
-              moveAnswer={this.moveAnswer}
-            />
-          );
-        })}
-        {type !== "Numeric" && type !== "Choose Type" && array.length <= 9 && (
-          <button onClick={this.addAnswer} type='button'>Add answer</button>
+      <div className={styles.root}>
+        {answersArray.map((el, i) => (
+          <Answer
+            key={el.id}
+            index={i}
+            id={el.id}
+            type={type}
+            answer={el.answer}
+            currect={el.currect}
+            updateRadio={this.updateRadio}
+            updateCheckbox={this.updateCheckbox}
+            updateAnswer={this.updateAnswer}
+            updateNumericAnswer={this.updateNumericAnswer}
+            removeAnswer={this.removeAnswer}
+            moveAnswer={this.moveAnswer}
+          />
+        ))}
+        {type !== 'Numeric'
+        && type !== 'Choose Type'
+          && answersArray.length <= 9 && (
+            <button onClick={this.addAnswer} className={styles.button} type="button">
+              Add answer
+            </button>
         )}
       </div>
     );
   }
 }
-
+Answers.propTypes = {
+  type: PropTypes.string.isRequired,
+  answers: PropTypes.oneOfType([
+    PropTypes.array.isRequired,
+    PropTypes.object.isRequired
+  ]),
+  updateAnswers: PropTypes.func.isRequired,
+};
 export default Answers;

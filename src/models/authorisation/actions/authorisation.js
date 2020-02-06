@@ -2,7 +2,7 @@ import {
   LOGOUT,
   ADMIN_LOGED_IN,
   IS_AUTHORIZED,
-} from "models/constants/index";
+} from 'models/constants/index';
 
 export const logoutAction = () => ({ type: LOGOUT });
 

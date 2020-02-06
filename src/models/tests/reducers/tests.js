@@ -10,14 +10,15 @@ import {
   START_TEST,
   TEST_RESULT,
   SAVE_TEST_NAME_SUCCSESS,
-  REMOVE_QUESTION_SUCCSESS
-} from "models/constants/index";
+  REMOVE_QUESTION_SUCCSESS,
+  GET_TEST_ID,
+} from 'models/constants/index';
 
 const initialState = {
-  idTest: "",
+  idTest: -1,
   isTesting: false,
   tests: [],
-  testResult: 0
+  testResult: 0,
 };
 
 export const tests = (state = initialState, action) => {
@@ -26,37 +27,38 @@ export const tests = (state = initialState, action) => {
     case SET_TESTS:
       return {
         ...state,
-        tests: payload.tests
+        tests: payload.tests,
       };
 
     case ADD_TEST_SUCCSESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         tests: [
           ...state.tests,
-          payload
-        ]
-      });
+          payload,
+        ],
+      };
 
     case REMOVE_TEST_SUCCSESS:
       return {
         ...state,
-        tests: state.tests.filter(el => el.id !== payload.id),
-        idTest: ""
+        tests: state.tests.filter((el) => el.id !== payload.id),
+        idTest: -1,
       };
 
     case SAVE_TEST_NAME_SUCCSESS:
       return {
         ...state,
-        tests: state.tests.map(el => {
+        tests: state.tests.map((el) => {
           if (el.id === payload.id) {
             return {
               ...el,
-              testTitle: payload.title
+              testTitle: payload.title,
             };
           }
 
           return el;
-        })
+        }),
       };
 
     case CLOSE_MODAL:
@@ -65,33 +67,40 @@ export const tests = (state = initialState, action) => {
     case SAVE_EDITED_QUESTION:
       return {
         ...state,
-        idTest: ""
+        idTest: -1,
+        testResult: 0,
       };
 
     case OPEN_MODAL:
-      const { testId } = payload;
       return {
         ...state,
-        idTest: testId,
-        isTesting: false
+        idTest: payload.testId,
+        isTesting: false,
       };
 
     case START_TEST:
       return {
         ...state,
-        isTesting: true
+        isTesting: true,
       };
 
     case RESET_FILTER_TRACK:
       return {
         ...state,
         isTesting: false,
-        testResult: 0
+        testResult: 0,
+        idTest: -1,
       };
     case TEST_RESULT:
       return {
         ...state,
-        testResult: payload.result
+        testResult: payload.result,
+      };
+
+    case GET_TEST_ID:
+      return {
+        ...state,
+        idTest: payload.id,
       };
 
     default:

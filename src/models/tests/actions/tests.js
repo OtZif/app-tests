@@ -9,54 +9,60 @@ import {
   REMOVE_TEST,
   SAVE_TEST_NAME_SUCCSESS,
   START_TEST,
-  TEST_RESULT
-} from "models/constants/index";
+  TEST_RESULT,
+  GET_TEST_ID,
+} from 'models/constants/index';
 
 export const fetchTestsAction = () => ({ type: FETCH_TESTS });
 
-export const setTestsAction = tests => ({
+export const setTestsAction = (tests) => ({
   type: SET_TESTS,
-  payload: { tests }
+  payload: { tests },
 });
 
-export const addTestAction = title => ({
+export const addTestAction = (title) => ({
   type: ADD_TEST,
-  payload: { title }
+  payload: { title },
 });
 
-export const addTestSuccsessAction = data => ({
+export const addTestSuccsessAction = (data) => ({
   type: ADD_TEST_SUCCSESS,
-  payload: data
+  payload: data,
 });
 
-export const removeTestAction = id => ({
+export const removeTestAction = (id) => ({
   type: REMOVE_TEST,
-  payload: { id }
+  payload: { id },
 });
 
-export const removeTestSuccsessAction = id => ({
+export const removeTestSuccsessAction = (id) => ({
   type: REMOVE_TEST_SUCCSESS,
-  payload: { id }
+  payload: { id },
 });
 
 export const editTestNameAction = (text, id) => ({
   type: EDIT_TEST_NAME,
-  payload: { text, id }
+  payload: { text, id },
 });
 
 export const saveTestNameAction = (id, title) => ({
   type: SAVE_TEST_NAME,
-  payload: { id, title }
+  payload: { id, title },
 });
 
 export const saveTestNameSuccsessAction = (id, title) => ({
   type: SAVE_TEST_NAME_SUCCSESS,
-  payload: { id, title }
+  payload: { id, title },
 });
 
 export const startTestingAction = () => ({ type: START_TEST });
 
-export const testResultAction = result => ({
+export const testResultAction = (result) => ({
   type: TEST_RESULT,
-  payload: { result }
+  payload: { result },
+});
+
+export const getTestIdAction = (id) => ({
+  type: GET_TEST_ID,
+  payload: { id },
 });

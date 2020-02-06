@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
-import style from "./Answer.module.scss";
-
-import SvgX from "components/SvgX/SvgX";
-
-import { useDrag, useDrop } from "react-dnd";
+import React, { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
+import PropTypes from 'prop-types';
+import SvgX from 'components/SvgX/SvgX';
+import style from './Answer.module.scss';
 
 const Answer = ({
   type,
@@ -16,27 +15,27 @@ const Answer = ({
   removeAnswer,
   id,
   index,
-  moveAnswer
+  moveAnswer,
 }) => {
-  const handlChangeText = id => e => {
+  const handlChangeText = () => (e) => {
     updateAnswer(id, e.target.value);
   };
-  const handlCheck = id => e => {
+  const handlCheck = () => (e) => {
     updateCheckbox(id, e.target.checked);
   };
-  const CheckRadio = id => e => {
+  const CheckRadio = () => (e) => {
     updateRadio(id, e.target.checked);
   };
-  const handlChangeNumber = id => e => {
+  const handlChangeNumber = () => (e) => {
     updateNumericAnswer(id, e.target.value);
   };
-  const handlRemove = id => () => {
+  const handlRemove = () => () => {
     removeAnswer(id);
   };
 
   const ref = useRef(null);
   const [, drop] = useDrop({
-    accept: "answer",
+    accept: 'answer',
     hover(item, monitor) {
       if (!ref.current) {
         return;
@@ -50,8 +49,7 @@ const Answer = ({
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current.getBoundingClientRect();
       // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
@@ -74,13 +72,13 @@ const Answer = ({
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       item.index = hoverIndex;
-    }
+    },
   });
   const [{ isDragging }, drag] = useDrag({
-    item: { type: "answer", id, index },
-    collect: monitor => ({
-      isDragging: monitor.isDragging()
-    })
+    item: { type: 'answer', id, index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const opacity = isDragging ? 0 : 1;
@@ -89,7 +87,7 @@ const Answer = ({
 
   return (
     <div className={style.checkBox} style={{ opacity }} ref={ref}>
-      {type === "Single" && (
+      {type === 'Single' && (
         <input
           name="radio"
           type="radio"
@@ -97,10 +95,10 @@ const Answer = ({
           onChange={CheckRadio(id)}
         />
       )}
-      {type === "Some" && (
+      {type === 'Some' && (
         <input type="checkbox" checked={currect} onChange={handlCheck(id)} />
       )}
-      {(type === "Single" || type === "Some") && (
+      {(type === 'Single' || type === 'Some') && (
         <input
           type="text"
           placeholder="Some answer here"
@@ -108,7 +106,7 @@ const Answer = ({
           onChange={handlChangeText(id)}
         />
       )}
-      {type === "Numeric" && (
+      {type === 'Numeric' && (
         <input
           placeholder="Type currect numeric answer here"
           type="number"
@@ -116,18 +114,40 @@ const Answer = ({
           onChange={handlChangeNumber(id)}
         />
       )}
-      {(type === "Single" || type === "Some") && (
-        <button onClick={handlRemove(id)} className={style.removeAnswer}>
+      {(type === 'Single' || type === 'Some') && (
+        <button
+          onClick={handlRemove(id)}
+          className={style.removeAnswer}
+          type="button"
+        >
           <SvgX />
         </button>
       )}
-      {(type === "Single" || type === "Some") && (
+      {(type === 'Single' || type === 'Some') && (
         <button className={style.moveBtn} type="button">
-          <span className={style.moveAnswer} title="move"></span>
+          <span className={style.moveAnswer} title="move" />
         </button>
       )}
     </div>
   );
+};
+
+Answer.propTypes = {
+  type: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  currect: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
+  updateRadio: PropTypes.func.isRequired,
+  updateCheckbox: PropTypes.func.isRequired,
+  updateAnswer: PropTypes.func.isRequired,
+  updateNumericAnswer: PropTypes.func.isRequired,
+  removeAnswer: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  moveAnswer: PropTypes.func.isRequired,
+
 };
 
 export default Answer;

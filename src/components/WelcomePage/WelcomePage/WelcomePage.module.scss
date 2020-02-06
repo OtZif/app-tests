@@ -1,4 +1,4 @@
-.welcomePage {
+.root {
   height: calc(80vh - 100px);
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
     font-size: 20px;
   }
 
-  span {
+  button {
     color: blue;
     text-decoration: underline;
     cursor: pointer;

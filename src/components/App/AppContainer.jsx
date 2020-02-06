@@ -1,38 +1,43 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import * as actions from "models/actions/index";
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import * as actions from 'models/actions/index';
 import {
   isAuthorizedSelector,
-  isModalSelector
-} from "models/selectors/index";
+  isModalSelector,
+} from 'models/selectors/index';
 
-import App from "./App/App";
-import { connect } from "react-redux";
+import App from './App/App';
 
 const AppContainer = ({
   isAuthorized,
   isModal,
   openModal,
-}) => {
-  return (
-    <Router>
-      <App
-        isModal={isModal}
-        isAuthorized={isAuthorized}
-        openModal={openModal}
-      />
-    </Router>
-  );
-};
+}) => (
+  <Router>
+    <App
+      isModal={isModal}
+      isAuthorized={isAuthorized}
+      openModal={openModal}
+    />
+  </Router>
+);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isModal: isModalSelector(state),
   isAuthorized: isAuthorizedSelector(state),
 });
-const {openModalAction} = actions;
-const mapDispatchToProps = dispatch => ({
-  openModal: bindActionCreators(openModalAction, dispatch)
+const { openModalAction } = actions;
+const mapDispatchToProps = (dispatch) => ({
+  openModal: bindActionCreators(openModalAction, dispatch),
 });
+
+AppContainer.propTypes = {
+  isAuthorized: PropTypes.bool.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  openModal: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

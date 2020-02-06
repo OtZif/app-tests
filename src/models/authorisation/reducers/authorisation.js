@@ -1,6 +1,6 @@
-import { LOGOUT, ADMIN_LOGED_IN, IS_AUTHORIZED } from "models/constants/index";
+import { LOGOUT, ADMIN_LOGED_IN, IS_AUTHORIZED } from 'models/constants/index';
 
-const initialState = JSON.parse(localStorage.getItem("testAuthorisation")) || {
+const initialState = JSON.parse(localStorage.getItem('testAuthorisation')) || {
   isAdmin: false,
   isAuthorized: false,
 };
@@ -11,19 +11,19 @@ export const authorisation = (state = initialState, action) => {
       return {
         ...state,
         isAdmin: false,
-        isAuthorized: false
+        isAuthorized: false,
       };
 
     case ADMIN_LOGED_IN:
       return {
         ...state,
-        isAdmin: true
+        isAdmin: true,
       };
 
     case IS_AUTHORIZED:
       return {
         ...state,
-        isAuthorized: true
+        isAuthorized: true,
       };
 
     default:

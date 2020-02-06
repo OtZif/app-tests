@@ -31,8 +31,9 @@
     }
   }
   .moveAnswer {
-    width: 22px;
+    width: 100%;
     height: 1px;
+    display: block;
     background: #979494;
     font-size: 25px;
     transition: all .3s ease;
@@ -44,7 +45,6 @@
       position: absolute;
       width: 100%;
       height: 1px;
-      top: 2px;
       background: #979494;
     }
 
@@ -54,7 +54,5 @@
     &:hover {
       color: #000000;
     }
-
-
   }
 }

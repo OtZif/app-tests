@@ -1,45 +1,44 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import home from 'images/structural.png';
+import user from 'images/user.png';
+import filter from 'images/filter.png';
+import { ENTER_KEY } from 'models/constants/index';
+import SearchSvg from 'components/SearchSvg/SearchSvg';
+import style from './Header.module.scss';
 
-import style from "./Header.module.scss";
-import home from "images/structural.png";
-import user from "images/user.png";
-import filter from "images/filter.png";
-import { ENTER_KEY } from "models/constants/index";
-import SearchSvg from "components/SearchSvg/SearchSvg";
-
-const Header = ({ actions, userName, isAuthorized, searchLineText, history }) => {
+const Header = ({
+  actions, userName, isAuthorized, searchLineText, history,
+}) => {
   const handleLoginClick = () => {
     if (isAuthorized) {
       actions.logoutAction();
       actions.resetFilterTrackAction();
-      history.push("/welcome");
+      history.push('/welcome');
     } else {
       actions.openModalAction('Autorisation');
     }
   };
 
-  const handleSearchChange = e => {
+  const handleSearchChange = (e) => {
     actions.searchTestAction(e.target.value);
     history.push(`tests?search=${e.target.value}`);
   };
 
-  const handleKeyUp = e => {
+  const handleKeyUp = (e) => {
     if (e.keyCode === ENTER_KEY) {
-      if (e.target.value.trim() === "") {
-        return (e.target.value = "");
-      } else {
-        return e.target.blur();
+      if (e.target.value.trim() === '') {
+        (e.target.value = '');
       }
+      return e.target.blur();
     }
-  };
-  const handleLinkClick = () => {
-    return actions.resetFilterTrackAction();
+    return e;
   };
 
   return (
     <div className={style.header}>
-      <Link to={isAuthorized ? '/tests' : '/welcome'} onClick={handleLinkClick}>
+      <Link to={isAuthorized ? '/tests' : '/welcome'} onClick={actions.resetFilterTrackAction}>
         <img src={home} alt="home logo" title="Home" className={style.logo} />
       </Link>
       <div className={style.headerRight}>
@@ -57,12 +56,12 @@ const Header = ({ actions, userName, isAuthorized, searchLineText, history }) =>
           </div>
         )}
         {isAuthorized && (
-          <div className={style.filterBox} onClick={actions.sortByDateAction}>
+          <button type="button" className={style.filterBox} onClick={actions.sortByDateAction}>
             <img src={filter} alt="Filter" title="Filter" />
-          </div>
+          </button>
         )}
         <div className={style.usersBox}>
-          <p onClick={handleLoginClick}>{isAuthorized ? `Logout ${userName}` : userName}</p>
+          <button type="button" onClick={handleLoginClick}>{isAuthorized ? `Logout ${userName}` : userName}</button>
           <img
             src={user}
             alt="user imgage"
@@ -73,6 +72,15 @@ const Header = ({ actions, userName, isAuthorized, searchLineText, history }) =>
       </div>
     </div>
   );
+};
+
+Header.propTypes = {
+  actions: PropTypes.object.isRequired,
+  userName: PropTypes.string.isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
+  searchLineText: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
+
 };
 
 export default withRouter(Header);

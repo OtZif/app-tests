@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import style from "./TestResult.module.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import style from './TestResult.module.scss';
 
 const TestResult = ({ actions, testResult }) => {
   const handleClose = () => {
@@ -9,7 +10,7 @@ const TestResult = ({ actions, testResult }) => {
   };
   return (
     <div className={style.testResult}>
-      <h2 className={style.title} autoFocus>
+      <h2 className={style.title}>
         Test Results
       </h2>
 
@@ -20,4 +21,10 @@ const TestResult = ({ actions, testResult }) => {
     </div>
   );
 };
+
+TestResult.propTypes = {
+  actions: PropTypes.object.isRequired,
+  testResult: PropTypes.number.isRequired,
+};
+
 export default TestResult;

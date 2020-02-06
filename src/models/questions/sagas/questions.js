@@ -1,25 +1,27 @@
-import { takeLatest, call, put, all } from "redux-saga/effects";
+import {
+  takeLatest, call, put, all,
+} from 'redux-saga/effects';
 
 import {
   FETCH_TEST_QUESTIONS,
   REMOVE_QUESTION,
   ADD_QUESTION,
-  EDIT_QUESTON_SERV
-} from "models/constants/index";
+  EDIT_QUESTON_SERV,
+} from 'models/constants/index';
 
 import {
   addQuestionSuccsessAction,
   setTestQuestionsAction,
   removeQuestionSuccsessAction,
-  saveEditedQuestionAction
-} from "models/actions/index";
+  saveEditedQuestionAction,
+} from 'models/actions/index';
 
 import {
   removeQuestion as removeQuestionApi,
   addNewQuestion as addNewQuestionApi,
   fetchTestQuestion as fetchTestQuestionApi,
-  edditQuestion as edditQuestionApi
-} from "api/index";
+  edditQuestion as edditQuestionApi,
+} from 'api/index';
 
 export function* fetchTestQuestionSaga(action) {
   try {
@@ -44,10 +46,12 @@ export function* removeQuestionSaga(action) {
 
 export function* editQuestionSaga(action) {
   try {
-    const { id, questionId, question, answerType, answers } = action.payload;
+    const {
+      id, questionId, question, answerType, answers,
+    } = action.payload;
     yield call(edditQuestionApi, id, questionId, question, answerType, answers);
     yield put(
-      saveEditedQuestionAction(questionId, question, answerType, answers)
+      saveEditedQuestionAction(questionId, question, answerType, answers),
     );
   } catch (err) {
     console.error(err);
@@ -64,11 +68,11 @@ export function* addNewQuestionSaga(action) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield all([
     takeLatest(FETCH_TEST_QUESTIONS, fetchTestQuestionSaga),
     takeLatest(REMOVE_QUESTION, removeQuestionSaga),
     takeLatest(EDIT_QUESTON_SERV, editQuestionSaga),
-    takeLatest(ADD_QUESTION, addNewQuestionSaga)
+    takeLatest(ADD_QUESTION, addNewQuestionSaga),
   ]);
 }

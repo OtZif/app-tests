@@ -5,17 +5,17 @@ import { testsSelector } from "models/tests/selectors/tests";
 
 export const filtersRootSelector = createSelector(
   rootSelector,
-  ({ filters }) => filters
+  ({ filters }) => filters,
 );
 
 export const searchLineTextSelector = createSelector(
   filtersRootSelector,
-  ({ searchLineText }) => searchLineText
+  ({ searchLineText }) => searchLineText,
 );
 
 export const filterSelector = createSelector(
   filtersRootSelector,
-  ({ isFiltered }) => isFiltered
+  ({ isFiltered }) => isFiltered,
 );
 
 export const isFilteredSelector = createSelector(
@@ -24,13 +24,13 @@ export const isFilteredSelector = createSelector(
   filterSelector,
   (tests, track, filk) =>
     [...tests]
-      .filter(el => el.testTitle.toLowerCase().includes(track.toLowerCase()))
+      .filter((el) => el.testTitle.toLowerCase().includes(track.toLowerCase()))
       // eslint-disable-next-line array-callback-return
-      .sort(function(a, b) {
-        const dateA = new Date(a.date),
-          dateB = new Date(b.date);
+      .sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
         if (filk && tests.length > 1) {
           return dateB - dateA;
         }
-      })
+      }),
 );
