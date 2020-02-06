@@ -6,12 +6,12 @@ import {
   SAVE_EDITED_QUESTION,
   ADD_TEST_SUCCSESS,
   REMOVE_TEST_SUCCSESS,
-  REMOVE_QUESTION_SUCCSESS
-} from "models/constants/index";
+  REMOVE_QUESTION_SUCCSESS,
+} from 'models/constants/index';
 
 const initialState = {
   isModal: false,
-  modalType: ""
+  modalType: '',
 };
 
 export const modal = (state = initialState, action) => {
@@ -24,7 +24,7 @@ export const modal = (state = initialState, action) => {
     case REMOVE_QUESTION_SUCCSESS:
       return {
         ...state,
-        isModal: false
+        isModal: false,
       };
 
     case OPEN_MODAL:
@@ -32,14 +32,14 @@ export const modal = (state = initialState, action) => {
       return {
         ...state,
         isModal: true,
-        modalType: payload.modalType
+        modalType: payload.modalType,
       };
 
     case CLOSE_MODAL:
       return {
         ...state,
-        modalType: "",
-        isModal: false
+        modalType: '',
+        isModal: false,
       };
 
     default:

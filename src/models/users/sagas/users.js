@@ -1,10 +1,12 @@
-import { takeLatest, call, put, all } from "redux-saga/effects";
+import {
+  takeLatest, call, put, all,
+} from 'redux-saga/effects';
 
-import { FETCH_USER } from "models/constants/index";
+import { FETCH_USER } from 'models/constants/index';
 
-import { setUserAction } from "models/actions/index";
+import { setUserAction } from 'models/actions/index';
 
-import { fetchUser as fetchUserApi } from "api/index";
+import { fetchUser as fetchUserApi } from 'api/index';
 
 export function* fetchUserSaga(action) {
   try {
@@ -17,6 +19,6 @@ export function* fetchUserSaga(action) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield all([takeLatest(FETCH_USER, fetchUserSaga)]);
 }

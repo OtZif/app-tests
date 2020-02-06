@@ -1,3 +1,3 @@
-export const SORT_BY_DATE = "SORT_BY_DATE";
-export const SEARCH_TEST = "SEARCH_TEST";
-export const RESET_FILTER_TRACK = "RESET_FILTER_TRACK";
+export const SORT_BY_DATE = 'SORT_BY_DATE';
+export const SEARCH_TEST = 'SEARCH_TEST';
+export const RESET_FILTER_TRACK = 'RESET_FILTER_TRACK';

@@ -1,27 +1,29 @@
-import { takeLatest, call, put, all, select } from "redux-saga/effects";
+import {
+  takeLatest, call, put, all, select,
+} from 'redux-saga/effects';
 
 import {
   FETCH_TESTS,
   ADD_TEST,
   REMOVE_TEST,
-  SAVE_TEST_NAME
-} from "models/constants/index";
+  SAVE_TEST_NAME,
+} from 'models/constants/index';
 
 import {
   setTestsAction,
   addTestSuccsessAction,
   removeTestSuccsessAction,
-  saveTestNameSuccsessAction
-} from "models/actions/index";
+  saveTestNameSuccsessAction,
+} from 'models/actions/index';
 
 import {
   fetchTests as fetchTestsApi,
   addTest as addTestApi,
   removeTest as removeTestApi,
-  editTestName as editTestNameApi
-} from "api/index";
+  editTestName as editTestNameApi,
+} from 'api/index';
 
-import { testsSelector } from "models/selectors/index";
+import { testsSelector } from 'models/selectors/index';
 
 export function* fetchTestsSaga() {
   try {
@@ -58,7 +60,7 @@ export function* editTestNameSaga(action) {
   try {
     const { id, title } = action.payload;
     const tests = yield select(testsSelector);
-    const current = yield tests.find(el => el.id === id);
+    const current = yield tests.find((el) => el.id === id);
     const { date, questions } = current;
 
     yield call(editTestNameApi, id, title, date, questions);
@@ -68,11 +70,11 @@ export function* editTestNameSaga(action) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield all([
     takeLatest(FETCH_TESTS, fetchTestsSaga),
     takeLatest(ADD_TEST, addNewTestSaga),
     takeLatest(REMOVE_TEST, removeTestSaga),
-    takeLatest(SAVE_TEST_NAME, editTestNameSaga)
+    takeLatest(SAVE_TEST_NAME, editTestNameSaga),
   ]);
 }

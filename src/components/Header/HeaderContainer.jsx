@@ -1,38 +1,43 @@
-import React from "react";
-import { bindActionCreators } from "redux";
-import * as action from "models/actions/index";
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as action from 'models/actions/index';
 import {
   isAuthorizedSelector,
   userNameSelector,
   searchLineTextSelector,
-} from "models/selectors/index";
-
+} from 'models/selectors/index';
 import Header from './Header/Header';
-import { connect } from "react-redux";
 
 const HeaderContainer = ({
   isAuthorized,
   userName,
   actions,
-  searchLineText
-}) => {
-  return (
-    <Header
-      actions={actions}
-      userName={userName}
-      isAuthorized={isAuthorized}
-      searchLineText={searchLineText}
-    />
-  );
-};
+  searchLineText,
+}) => (
+  <Header
+    actions={actions}
+    userName={userName}
+    isAuthorized={isAuthorized}
+    searchLineText={searchLineText}
+  />
+);
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthorized: isAuthorizedSelector(state),
   userName: userNameSelector(state),
-  searchLineText: searchLineTextSelector(state)
+  searchLineText: searchLineTextSelector(state),
 });
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(action, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(action, dispatch),
 });
+
+HeaderContainer.propTypes = {
+  isAuthorized: PropTypes.bool.isRequired,
+  userName: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired,
+  searchLineText: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

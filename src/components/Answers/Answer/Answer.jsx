@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import SvgX from 'components/SvgX/SvgX';
 import Styles from './Answer.module.scss';
-
-import SvgX from "components/SvgX/SvgX";
 
 const Answer = ({
   type,
@@ -12,26 +12,26 @@ const Answer = ({
   updateAnswer,
   updateNumericAnswer,
   removeAnswer,
-  id
+  id,
 }) => {
-  const handlChangeText = id => e => {
+  const handlChangeText = () => (e) => {
     updateAnswer(id, e.target.value);
   };
-  const handlCheck = id => e => {
+  const handlCheck = () => (e) => {
     updateCheckbox(id, e.target.checked);
   };
-  const CheckRadio = id => e => {
+  const CheckRadio = () => (e) => {
     updateRadio(id, e.target.checked);
   };
-  const handlChangeNumber = id => e => {
+  const handlChangeNumber = () => (e) => {
     updateNumericAnswer(id, e.target.value);
   };
-  const handlRemove = id => () => {
+  const handlRemove = () => () => {
     removeAnswer(id);
   };
   return (
-    <div className={Styles.checkBox} >
-      {type === "Single" && (
+    <div className={Styles.checkBox}>
+      {type === 'Single' && (
         <input
           name="radio"
           type="radio"
@@ -39,10 +39,10 @@ const Answer = ({
           onChange={CheckRadio(id)}
         />
       )}
-      {type === "Some" && (
+      {type === 'Some' && (
         <input type="checkbox" checked={currect} onChange={handlCheck(id)} />
       )}
-      {(type === "Single" || type === "Some") && (
+      {(type === 'Single' || type === 'Some') && (
         <input
           type="text"
           placeholder="Some answer here"
@@ -50,7 +50,7 @@ const Answer = ({
           onChange={handlChangeText(id)}
         />
       )}
-      {type === "Numeric" && (
+      {type === 'Numeric' && (
         <input
           placeholder="Type currect numeric answer here"
           type="number"
@@ -58,13 +58,29 @@ const Answer = ({
           onChange={handlChangeNumber(id)}
         />
       )}
-      {(type === "Single" || type === "Some") && (
-        <button onClick={handlRemove(id)} className={Styles.removeAnswer}>
+      {(type === 'Single' || type === 'Some') && (
+        <button onClick={handlRemove(id)} className={Styles.removeAnswer} type="button">
           <SvgX />
         </button>
       )}
     </div>
   );
+};
+
+Answer.propTypes = {
+  type: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  currect: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
+  updateRadio: PropTypes.func.isRequired,
+  updateCheckbox: PropTypes.func.isRequired,
+  updateAnswer: PropTypes.func.isRequired,
+  updateNumericAnswer: PropTypes.func.isRequired,
+  removeAnswer: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+
 };
 
 export default Answer;

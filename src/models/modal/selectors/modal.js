@@ -1,17 +1,17 @@
-import rootSelector from "models/selectors/root";
-import { createSelector } from "reselect";
+import rootSelector from 'models/selectors/root';
+import { createSelector } from 'reselect';
 
 export const modalRootSelector = createSelector(
   rootSelector,
-  ({ modal }) => modal
+  ({ modal }) => modal,
 );
 
 export const isModalSelector = createSelector(
   modalRootSelector,
-  ({ isModal }) => isModal
+  ({ isModal }) => isModal,
 );
 
 export const modalTypeSelector = createSelector(
   modalRootSelector,
-  ({ modalType }) => modalType
+  ({ modalType }) => modalType,
 );

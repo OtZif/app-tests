@@ -1,15 +1,39 @@
-import React, { Component } from "react";
-import style from "./Autorisation.module.scss";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import FormButton from 'components/FormButton/FormButton';
+import style from './Autorisation.module.scss';
 
-import FormButton from "components/FormButton/FormButton";
 
 class Autorisation extends Component {
-  state = {
-    login: "",
-    pass: "",
-    error: false
-  };
+  constructor() {
+    super();
+    this.state = {
+      login: '',
+      pass: '',
+      error: false,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { users, actions, history } = this.props;
+    const { login } = this.state;
+    if (users !== prevProps.users) {
+      if (users.length > 0) {
+        actions.setUserNameAction(users[0].name);
+        if (login === 'admin') {
+          actions.adminAction();
+        }
+        actions.authorizedAction();
+        actions.closeModalAction();
+        history.push('/tests');
+      } else {
+        this.setState({
+          error: true,
+        });
+      }
+    }
+  }
 
   checkLogin = () => {
     const { actions } = this.props;
@@ -17,54 +41,30 @@ class Autorisation extends Component {
     actions.fetchUserAction(login, pass);
   };
 
-  handleSetLogin = e => {
+  handleSetLogin = (e) => {
     this.setState({
-      login: e.target.value
+      login: e.target.value,
     });
   };
 
-  handleSetPass = e => {
+  handleSetPass = (e) => {
     this.setState({
-      pass: e.target.value
+      pass: e.target.value,
     });
   };
-
-  componentDidMount() {
-    const { users } = this.props;
-    if (users.length === 0) {
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { users, actions, history } = this.props;
-    if (users !== prevProps.users) {
-      if (users.length > 0) {
-        actions.setUserNameAction(users[0].name);
-        if (this.state.login === "admin") {
-          actions.adminAction();
-        }
-        actions.authorizedAction();
-        actions.closeModalAction();
-        history.push("/tests");
-      } else {
-        this.setState({
-          error: true
-        });
-      }
-    }
-  }
 
   render() {
+    const { error } = this.state;
     return (
       <form
         action=""
         className={style.autorisationForm}
-        onSubmit={event => {
+        onSubmit={(event) => {
           event.preventDefault();
           this.checkLogin();
         }}
       >
-        <h2 className={style.title} autoFocus>
+        <h2 className={style.title}>
           LOGIN
         </h2>
         <input
@@ -80,15 +80,21 @@ class Autorisation extends Component {
         />
         <p
           className={`${style.error} ${
-            this.state.error ? style.errorText : ""
+            error ? style.errorText : ''
           }`}
         >
           User not found
         </p>
-        <FormButton text={"Login"} />
+        <FormButton text="Login" />
       </form>
     );
   }
 }
+
+Autorisation.propTypes = {
+  users: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
 
 export default withRouter(Autorisation);

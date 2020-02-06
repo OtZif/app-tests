@@ -1,151 +1,166 @@
-import React, { Component } from "react";
-import Styles from "./Answers.module.scss";
-import Answer from "./Answer/Answer";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import styles from './Answers.module.scss';
+import Answer from './Answer/Answer';
 
 class Answers extends Component {
-  state = {
-    array: [{ id: +new Date(), answer: "", currect: false }]
-  };
+  constructor() {
+    super();
+    this.state = {
+      answersArray: [{ id: +new Date(), answer: '', currect: false }],
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { type, updateAnswers, answers } = this.props;
+    const { answersArray } = this.state;
+    if (type !== prevProps.type) {
+      if (type === 'Numeric') {
+        this.setState({
+          arranswersArrayay: [{ id: +new Date(), answer: '', currect: '' }],
+        });
+      } else {
+        this.setState({
+          answersArray: answersArray.map((el) => ({
+            ...el,
+            currect: false,
+          })),
+        });
+      }
+    }
+    if (answers !== prevProps.answers) {
+      this.setState({
+        answersArray: answers,
+      });
+    }
+
+    if (answersArray !== prevState.answersArray) {
+      updateAnswers(answersArray);
+    }
+  }
 
   updateCheckbox = (id, currect) => {
+    const { answersArray } = this.state;
     this.setState({
-      array: this.state.array.map(el => {
+      answersArray: answersArray.map((el) => {
         if (el.id === id) {
           return {
             ...el,
-            currect: currect
+            currect,
           };
         }
         return el;
-      })
+      }),
     });
   };
 
   updateRadio = (id, currect) => {
+    const { answersArray } = this.state;
     this.setState({
-      array: this.state.array.map(el => {
+      answersArray: answersArray.map((el) => {
         if (el.id !== id) {
           return {
             ...el,
-            currect: false
-          };
-        } else {
-          return {
-            ...el,
-            currect: currect
+            currect: false,
           };
         }
-      })
+        return {
+          ...el,
+          currect,
+        };
+      }),
     });
   };
 
   updateAnswer = (id, text) => {
+    const { answersArray } = this.state;
     this.setState({
-      array: this.state.array.map(el => {
+      answersArray: answersArray.map((el) => {
         if (el.id === id) {
           return {
             ...el,
-            answer: text
+            answer: text,
           };
         }
         return el;
-      })
+      }),
     });
   };
 
   updateNumericAnswer = (id, text) => {
+    const { answersArray } = this.state;
     this.setState({
-      array: this.state.array.map(el => {
+      answersArray: answersArray.map((el) => {
         if (el.id === id) {
           return {
             ...el,
-            currect: text
+            currect: text,
           };
         }
         return el;
-      })
+      }),
     });
   };
 
   addAnswer = () => {
+    const { answersArray } = this.state;
     const id = +new Date();
-    let x = {
-      id: id,
-      answer: "",
-      currect: false
+    const x = {
+      id,
+      answer: '',
+      currect: false,
     };
-    const newArr = [...this.state.array];
+    const newArr = [...answersArray];
     newArr.push(x);
     if (newArr.length <= 10) {
       this.setState({
-        array: newArr
+        answersArray: newArr,
       });
     }
   };
 
-  removeAnswer = id => {
+  removeAnswer = (id) => {
+    const { answersArray } = this.state;
     this.setState({
-      array: this.state.array.filter(el => el.id !== id)
+      answersArray: answersArray.filter((el) => el.id !== id),
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { type, updateAnswers, answers } = this.props;
-    if (type !== prevProps.type) {
-      if (type === "Numeric") {
-        this.setState({
-          array: [{ id: +new Date(), answer: "", currect: "" }]
-        });
-      } else {
-        this.setState({
-          array: this.state.array.map(el => {
-            return {
-              ...el,
-              currect: false
-            };
-          })
-        });
-      }
-    }
-    if(answers !== prevProps.answers) {
-      this.setState({
-        array: answers
-      })
-    }
-
-    if (this.state.array !== prevState.array) {
-      updateAnswers(this.state.array)
-    }
-  }
-
   render() {
     const { type } = this.props;
-    const { array } = this.state;
+    const { answersArray } = this.state;
 
     return (
-      <div className={Styles.answers}>
-        {this.state.array.map(el => {
-          return (
-            <Answer
-              key={el.id}
-              id={el.id}
-              type={type}
-              answer={el.answer}
-              currect={el.currect}
-              updateRadio={this.updateRadio}
-              updateCheckbox={this.updateCheckbox}
-              updateAnswer={this.updateAnswer}
-              updateNumericAnswer={this.updateNumericAnswer}
-              removeAnswer={this.removeAnswer}
-            />
-          );
-        })}
-        {type !== "Numeric" && type !== "Choose Type" && array.length <= 9 && (
-          <button onClick={this.addAnswer} type='button'>Add answer</button>
+      <div className={styles.root}>
+        {answersArray.map((el) => (
+          <Answer
+            key={el.id}
+            id={el.id}
+            type={type}
+            answer={el.answer}
+            currect={el.currect}
+            updateRadio={this.updateRadio}
+            updateCheckbox={this.updateCheckbox}
+            updateAnswer={this.updateAnswer}
+            updateNumericAnswer={this.updateNumericAnswer}
+            removeAnswer={this.removeAnswer}
+          />
+        ))}
+        {type !== 'Numeric' && type !== 'Choose Type' && answersArray.length <= 9 && (
+          <button className={styles.button} onClick={this.addAnswer} type="button">
+            Add answer
+          </button>
         )}
       </div>
     );
   }
 }
-
+Answers.propTypes = {
+  type: PropTypes.string.isRequired,
+  answers: PropTypes.oneOfType([
+    PropTypes.array.isRequired,
+    PropTypes.object.isRequired,
+  ]),
+  updateAnswers: PropTypes.func.isRequired,
+};
 export default Answers;
