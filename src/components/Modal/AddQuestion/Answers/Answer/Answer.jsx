@@ -5,15 +5,9 @@ import style from './Answer.module.scss';
 
 class Answer extends PureComponent {
   handleCheck = (e) => {
-    const {
-      id, updateRadio, updateCheckbox, updateAnswer, updateNumericAnswer,
-    } = this.props;
-    const { type, checked, value } = e.target;
+    const { id, updateData } = this.props;
 
-    if (type === 'radio') updateRadio(id, checked);
-    if (type === 'checkbox') updateCheckbox(id, checked);
-    if (type === 'text') updateAnswer(id, value);
-    if (type === 'number') updateNumericAnswer(id, value);
+    updateData(id, e.target);
   };
 
   handleRemoveClick = () => {
@@ -74,10 +68,7 @@ Answer.propTypes = {
     PropTypes.bool,
     PropTypes.string,
   ]),
-  updateRadio: PropTypes.func.isRequired,
-  updateCheckbox: PropTypes.func.isRequired,
-  updateAnswer: PropTypes.func.isRequired,
-  updateNumericAnswer: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
   removeAnswer: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
 

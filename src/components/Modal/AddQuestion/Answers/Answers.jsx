@@ -123,6 +123,14 @@ class Answers extends PureComponent {
     });
   };
 
+  updateData = (id, target) => {
+    const { type, checked, value } = target;
+    if (type === 'radio') this.updateRadio(id, checked);
+    if (type === 'checkbox') this.updateCheckbox(id, checked);
+    if (type === 'text') this.updateAnswer(id, value);
+    if (type === 'number') this.updateNumericAnswer(id, value);
+  }
+
   render() {
     const { type } = this.props;
     const { answersArray } = this.state;
@@ -136,10 +144,7 @@ class Answers extends PureComponent {
             type={type}
             answer={el.answer}
             currect={el.currect}
-            updateRadio={this.updateRadio}
-            updateCheckbox={this.updateCheckbox}
-            updateAnswer={this.updateAnswer}
-            updateNumericAnswer={this.updateNumericAnswer}
+            updateData={this.updateData}
             removeAnswer={this.removeAnswer}
           />
         ))}
