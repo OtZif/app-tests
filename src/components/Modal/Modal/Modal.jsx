@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Autorisation from 'components/Modal/Autorisation/Autorisation';
 import TestTitle from 'components/Modal/TestTitle/TestTitle';
@@ -9,32 +9,37 @@ import TestResults from 'components/Modal/TestResult/TestResult';
 import Confirmation from 'components/Modal/Confirmation/Confirmation';
 import style from './Modal.module.scss';
 
-const Modal = ({
-  actions,
-  users,
-  currentEdit,
-  idTest,
-  questionId,
-  isQuestionEdit,
-  testResult,
-  modalType,
-}) => {
-  const handleCloseClick = () => {
+class Modal extends PureComponent {
+  handleCloseClick = () => {
+    const { actions } = this.props;
     actions.closeModalAction();
   };
-  const handleCloseKeyUp = (e) => {
+
+  handleCloseKeyUp = (e) => {
+    const { actions } = this.props;
     if (e.keyCode === ESC_KEY) {
       actions.closeModalAction();
     }
   };
 
-  const element = (text) => {
+  element = (text) => {
+    const {
+      actions,
+      users,
+      currentEdit,
+      idTest,
+      questionId,
+      isQuestionEdit,
+      testResult,
+    } = this.props;
+
     switch (text) {
       case 'Autorisation':
         return <Autorisation users={users} actions={actions} />;
 
       case 'AddingTestTitle':
         return <TestTitle actions={actions} />;
+
       case 'AddQuestion':
         return (
           <AddQuestion
@@ -64,19 +69,23 @@ const Modal = ({
     return text;
   };
 
-  return (
-    <div className={style.modal} onKeyUp={handleCloseKeyUp} tabIndex="-1" role="button">
-      <div className={style.modalBg} onClick={handleCloseClick} />
-      <div className={style.modalInfo}>
-        <div className={style.modalContent}>
-          <button className={style.modalClose} onClick={handleCloseClick} type="button">
-            <SvgX />
-          </button>
-          <div className={style.modalBody}>{element(modalType)}</div>
+  render() {
+    const { modalType } = this.props;
+
+    return (
+      <div className={style.modal} onKeyUp={this.handleCloseKeyUp} tabIndex="-1" role="button">
+        <div className={style.modalBg} onClick={this.handleCloseClick} />
+        <div className={style.modalInfo}>
+          <div className={style.modalContent}>
+            <button className={style.modalClose} onClick={this.handleCloseClick} type="button">
+              <SvgX />
+            </button>
+            <div className={style.modalBody}>{this.element(modalType)}</div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 Modal.propTypes = {

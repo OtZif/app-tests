@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import styles from './Answers.module.scss';
+import style from './Answers.module.scss';
 import Answer from './Answer/Answer';
 
-class Answers extends Component {
-  constructor() {
-    super();
-    this.state = {
-      answersArray: [{ id: +new Date(), answer: '', currect: false }],
-    };
-  }
+class Answers extends PureComponent {
+  state = {
+    answersArray: [{ id: +new Date(), answer: '', currect: false }],
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { type, updateAnswers, answers } = this.props;
@@ -17,7 +14,7 @@ class Answers extends Component {
     if (type !== prevProps.type) {
       if (type === 'Numeric') {
         this.setState({
-          arranswersArrayay: [{ id: +new Date(), answer: '', currect: '' }],
+          answersArray: [{ id: +new Date(), answer: '', currect: '' }],
         });
       } else {
         this.setState({
@@ -131,7 +128,7 @@ class Answers extends Component {
     const { answersArray } = this.state;
 
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         {answersArray.map((el) => (
           <Answer
             key={el.id}
@@ -147,7 +144,7 @@ class Answers extends Component {
           />
         ))}
         {type !== 'Numeric' && type !== 'Choose Type' && answersArray.length <= 9 && (
-          <button className={styles.button} onClick={this.addAnswer} type="button">
+          <button className={style.button} onClick={this.addAnswer} type="button">
             Add answer
           </button>
         )}

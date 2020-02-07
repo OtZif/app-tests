@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FormButton from 'components/FormButton/FormButton';
 import style from './Confirmation.module.scss';
 
-const Confirmation = ({
-  actions, idTest, questionId, currentEdit,
-}) => {
-  const handleClickYes = () => {
+class Confirmation extends PureComponent {
+  handleClickYes = () => {
+    const {
+      idTest, actions, questionId, currentEdit,
+    } = this.props;
     if (currentEdit === 'test') {
       actions.removeTestAction(idTest);
     }
@@ -15,20 +16,24 @@ const Confirmation = ({
     }
   };
 
-  const handleClickNo = () => {
+  handleClickNo = () => {
+    const { actions } = this.props;
     actions.closeModalAction();
   };
 
-  return (
-    <div className={style.confirmation}>
-      <h2 className={style.title}>
-        Add You Sure?
-      </h2>
-      <FormButton click={handleClickYes} text="Yes" />
-      <FormButton click={handleClickNo} text="No" color="red" />
-    </div>
-  );
+  render() {
+    return (
+      <div className={style.confirmation}>
+        <h2 className={style.title}>
+          Add You Sure?
+        </h2>
+        <FormButton click={this.handleClickYes} text="Yes" />
+        <FormButton click={this.handleClickNo} text="No" color="red" />
+      </div>
+    );
+  }
 };
+
 Confirmation.propTypes = {
   actions: PropTypes.object.isRequired,
   idTest: PropTypes.number,

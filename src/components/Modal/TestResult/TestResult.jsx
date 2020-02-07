@@ -15,7 +15,7 @@ const TestResult = ({ actions, testResult }) => {
       </h2>
 
       <p className={style.description}>{`${testResult}%`}</p>
-      <Link to="/" onClick={handleClose}>
+      <Link to="/tests" onClick={handleClose}>
         Go to main page
       </Link>
     </div>

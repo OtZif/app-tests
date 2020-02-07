@@ -6,13 +6,13 @@ import { openModalAction } from 'models/actions/index';
 import {
   isAuthorizedSelector,
 } from 'models/selectors/index';
-import WelcomePage from './WelcomePage/WelcomePage';
+import Welcome from './Welcome/Welcome';
 
-const WelcomePageContainer = ({
+const WelcomeContainer = ({
   openModal,
   isAuthorized,
 }) => (
-  <WelcomePage openModal={openModal} isAuthorized={isAuthorized} />
+  <Welcome openModal={openModal} isAuthorized={isAuthorized} />
 );
 
 const mapStateToProps = (state) => ({
@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
   openModal: bindActionCreators(openModalAction, dispatch),
 });
 
-WelcomePageContainer.propTypes = {
+WelcomeContainer.propTypes = {
   isAuthorized: PropTypes.bool.isRequired,
   openModal: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WelcomePageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeContainer);

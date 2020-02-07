@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import shark from 'images/shark.png';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import style from './WelcomePage.module.scss';
+import style from './Welcome.module.scss';
 
-class WelcomePage extends Component {
+class Welcome extends PureComponent {
   componentDidMount() {
     const { isAuthorized, history } = this.props;
     if (isAuthorized) {
@@ -36,10 +36,10 @@ class WelcomePage extends Component {
   }
 }
 
-WelcomePage.propTypes = {
+Welcome.propTypes = {
   openModal: PropTypes.func.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(WelcomePage);
+export default withRouter(Welcome);

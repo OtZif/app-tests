@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Answers from 'components/Answers/Answers';
 import FormButton from 'components/FormButton/FormButton';
+import Answers from './Answers/Answers';
 import style from './AddQuestion.module.scss';
 
-class AddQuestion extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isOpen: false,
-      answerType: 'Choose Type',
-      question: '',
-      answers: {},
-    };
-  }
+class AddQuestion extends PureComponent {
+  state = {
+    isOpen: false,
+    answerType: 'Choose Type',
+    question: '',
+    answers: {},
+  };
 
   componentDidMount() {
     const { isQuestionEdit, currentEdit } = this.props;

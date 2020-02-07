@@ -1,12 +1,12 @@
-import WelcomePageContainer from 'components/WelcomePage/WelcomePageContainer';
-import TestsContainer from 'components/Tests/TestsContainer';
-import TestContainer from 'components/Test/TestContainer';
+import WelcomeContainer from 'pages/WelcomePage/WelcomeContainer';
+import TestsContainer from 'pages/TestsPage/TestsContainer';
+import TestContainer from 'pages/TestPage/TestContainer';
 
 export default [
   {
     path: '/welcome',
     exact: true,
-    component: WelcomePageContainer,
+    component: WelcomeContainer,
   },
   {
     path: '/tests',
