@@ -1,5 +1,4 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ModalContainer from 'components/Modal/ModalContainer';
 import HeaderContainer from 'components/Header/HeaderContainer';
@@ -11,9 +10,7 @@ const App = ({ isModal }) => (
   <div className={`${style.app} ${isModal ? style.appOverflow : ''}`}>
     {isModal && <ModalContainer />}
     <HeaderContainer />
-    <Switch>
-      {renderRoutes(routes)}
-    </Switch>
+    {renderRoutes(routes)}
   </div>
 );
 

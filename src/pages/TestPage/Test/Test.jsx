@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { ENTER_KEY } from 'models/constants/index';
-import SvgX from 'components/SvgX/SvgX';
+import SvgCross from 'components/SvgCross/SvgCross';
 import CreateQuestion from '../CreateQuestion/CreateQuestion';
 import style from './Test.module.scss';
 
@@ -22,7 +22,7 @@ class Test extends PureComponent {
       actions.fetchTestsAction();
     }
     if (!isAuthorized) {
-      history.push('/welcome');
+      history.push('/');
     }
   }
 
@@ -394,7 +394,7 @@ class Test extends PureComponent {
                     className={style.remove}
                     onClick={this.handleDeleteQuestion(testId, el.id)}
                   >
-                    <SvgX key={+new Date() * Math.random(100)} />
+                    <SvgCross key={+new Date() * Math.random(100)} />
                   </button>
                 </div>
               )}

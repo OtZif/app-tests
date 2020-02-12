@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Autorisation from 'components/Modal/Autorisation/Autorisation';
 import TestTitle from 'components/Modal/TestTitle/TestTitle';
 import { ESC_KEY } from 'models/constants/index';
-import SvgX from 'components/SvgX/SvgX';
+import SvgCross from 'components/SvgCross/SvgCross';
 import AddQuestion from 'components/Modal/AddQuestion/AddQuestion';
 import TestResults from 'components/Modal/TestResult/TestResult';
 import Confirmation from 'components/Modal/Confirmation/Confirmation';
@@ -78,7 +78,7 @@ class Modal extends PureComponent {
         <div className={style.modalInfo}>
           <div className={style.modalContent}>
             <button className={style.modalClose} onClick={this.handleCloseClick} type="button">
-              <SvgX />
+              <SvgCross />
             </button>
             <div className={style.modalBody}>{this.element(modalType)}</div>
           </div>

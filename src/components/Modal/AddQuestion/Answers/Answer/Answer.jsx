@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import SvgX from 'components/SvgX/SvgX';
+import SvgCross from 'components/SvgCross/SvgCross';
 import style from './Answer.module.scss';
 
 class Answer extends PureComponent {
@@ -53,7 +53,7 @@ class Answer extends PureComponent {
         )}
         {(type === 'Single' || type === 'Some') && (
           <button onClick={this.handleRemoveClick} className={style.removeAnswer} type="button">
-            <SvgX />
+            <SvgCross />
           </button>
         )}
       </div>

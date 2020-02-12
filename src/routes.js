@@ -4,7 +4,7 @@ import TestContainer from 'pages/TestPage/TestContainer';
 
 export default [
   {
-    path: '/welcome',
+    path: '/',
     exact: true,
     component: WelcomeContainer,
   },

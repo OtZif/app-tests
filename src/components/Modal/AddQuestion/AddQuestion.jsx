@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FormButton from 'components/FormButton/FormButton';
 import Answers from './Answers/Answers';
+import DropdownButtons from './DropdownButtons/DropdownButtons';
 import style from './AddQuestion.module.scss';
 
 class AddQuestion extends PureComponent {
@@ -55,45 +56,51 @@ class AddQuestion extends PureComponent {
     });
   };
 
-  render() {
-    const {
-      answerType, question, answers, isOpen,
-    } = this.state;
+  onSubmit = () => {
+    const { answerType, question, answers } = this.state;
     const {
       actions, idTest, isQuestionEdit, currentEdit,
     } = this.props;
 
+    if (question !== '') {
+      const isTrue = answers.filter((el) => el.currect === true).length;
+      const isAns = answers.filter((el) => el.currect !== '').length;
+      if (
+        (answers.length >= 2 && answerType !== 'Numeric' && isTrue > 0)
+        || (answerType === 'Numeric' && isAns > 0)
+      ) {
+        if (isQuestionEdit) {
+          actions.editQuestionsServAction(
+            currentEdit.testsId,
+            currentEdit.id,
+            question,
+            answerType,
+            answers,
+          );
+        } else {
+          actions.addQuestionAction(
+            idTest,
+            question,
+            answerType,
+            answers,
+          );
+        }
+      }
+    }
+  }
+
+  render() {
+    const {
+      answerType, question, answers, isOpen,
+    } = this.state;
+    const { isQuestionEdit } = this.props;
+
     return (
       <form
-        action=""
         className={style.addQuestion}
-        onSubmit={(event) => {
-          if (question !== '') {
-            const isTrue = answers.filter((el) => el.currect === true).length;
-            const isAns = answers.filter((el) => el.currect !== '').length;
-            if (
-              (answers.length >= 2 && answerType !== 'Numeric' && isTrue > 0)
-              || (answerType === 'Numeric' && isAns > 0)
-            ) {
-              if (isQuestionEdit) {
-                actions.editQuestionsServAction(
-                  currentEdit.testsId,
-                  currentEdit.id,
-                  question,
-                  answerType,
-                  answers,
-                );
-              } else {
-                actions.addQuestionAction(
-                  idTest,
-                  question,
-                  answerType,
-                  answers,
-                );
-              }
-            }
-          }
-          event.preventDefault();
+        onSubmit={(e) => {
+          this.onSubmit();
+          e.preventDefault();
         }}
       >
         <h2 className={style.title}>
@@ -117,24 +124,7 @@ class AddQuestion extends PureComponent {
           </div>
           <div className={style.dropdownContent}>
             <div className={style.buttonBox}>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Single')}
-              >
-                Single
-              </button>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Some')}
-              >
-                Some
-              </button>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Numeric')}
-              >
-                Numeric
-              </button>
+              <DropdownButtons click={this.handleChoseQuestionType} />
             </div>
           </div>
         </div>

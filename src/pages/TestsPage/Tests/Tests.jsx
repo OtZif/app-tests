@@ -17,7 +17,7 @@ class Tests extends PureComponent {
     }
 
     if (!isAuthorized) {
-      history.push('/welcome');
+      history.push('/');
     }
   }
 

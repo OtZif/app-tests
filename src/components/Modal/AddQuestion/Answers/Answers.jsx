@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash.isequal';
 import style from './Answers.module.scss';
 import Answer from './Answer/Answer';
 
@@ -25,13 +26,14 @@ class Answers extends PureComponent {
         });
       }
     }
-    if (answers !== prevProps.answers) {
+
+    if (!isEqual(answers, prevProps.answers)) {
       this.setState({
         answersArray: answers,
       });
     }
 
-    if (answersArray !== prevState.answersArray) {
+    if (!isEqual(answersArray, prevState.answersArray)) {
       updateAnswers(answersArray);
     }
   }

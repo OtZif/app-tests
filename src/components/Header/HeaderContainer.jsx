@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,19 +10,31 @@ import {
 } from 'models/selectors/index';
 import Header from './Header/Header';
 
-const HeaderContainer = ({
-  isAuthorized,
-  userName,
-  actions,
-  searchLineText,
-}) => (
-  <Header
-    actions={actions}
-    userName={userName}
-    isAuthorized={isAuthorized}
-    searchLineText={searchLineText}
-  />
-);
+class HeaderContainer extends PureComponent {
+  render() {
+    const {
+      isAuthorized,
+      userName,
+      actions,
+      searchLineText,
+    } = this.props;
+    const {
+      logoutAction, resetFilterTrackAction, openModalAction, searchTestAction, sortByDateAction,
+    } = actions;
+    return (
+      <Header
+        userName={userName}
+        isAuthorized={isAuthorized}
+        logout={logoutAction}
+        resetFilterTrack={resetFilterTrackAction}
+        openModal={openModalAction}
+        searchTest={searchTestAction}
+        sortByDate={sortByDateAction}
+        searchLineText={searchLineText}
+      />
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({
   isAuthorized: isAuthorizedSelector(state),

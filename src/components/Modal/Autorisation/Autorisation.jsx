@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import FormButton from 'components/FormButton/FormButton';
 import style from './Autorisation.module.scss';
@@ -14,7 +15,7 @@ class Autorisation extends PureComponent {
   componentDidUpdate(prevProps) {
     const { users, actions, history } = this.props;
     const { login } = this.state;
-    if (users !== prevProps.users) {
+    if (!isEqual(users, prevProps.users)) {
       if (users.length > 0) {
         actions.setUserNameAction(users[0].name);
         if (login === 'admin') {
