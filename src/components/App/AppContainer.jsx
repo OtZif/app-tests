@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as actions from 'models/actions/index';
 import {
@@ -16,13 +15,11 @@ const AppContainer = ({
   isModal,
   openModal,
 }) => (
-  <Router>
-    <App
-      isModal={isModal}
-      isAuthorized={isAuthorized}
-      openModal={openModal}
-    />
-  </Router>
+  <App
+    isModal={isModal}
+    isAuthorized={isAuthorized}
+    openModal={openModal}
+  />
 );
 
 const mapStateToProps = (state) => ({

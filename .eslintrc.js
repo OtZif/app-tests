@@ -36,6 +36,7 @@ module.exports = {
         allow: ["warn", "error"]
       }
     ],
+    "react/state-in-constructor": 0,
     "react/forbid-prop-types": [
       2,
       { forbid: ["any"], checkContextTypes: true, checkChildContextTypes: true }

@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import FormButton from 'components/FormButton/FormButton';
 import style from './Autorisation.module.scss';
 
-
-class Autorisation extends Component {
-  constructor() {
-    super();
-    this.state = {
-      login: '',
-      pass: '',
-      error: false,
-    };
-  }
+class Autorisation extends PureComponent {
+  state = {
+    login: '',
+    pass: '',
+    error: false,
+  };
 
   componentDidUpdate(prevProps) {
     const { users, actions, history } = this.props;
     const { login } = this.state;
-    if (users !== prevProps.users) {
+    if (!isEqual(users, prevProps.users)) {
       if (users.length > 0) {
         actions.setUserNameAction(users[0].name);
         if (login === 'admin') {
@@ -41,16 +38,10 @@ class Autorisation extends Component {
     actions.fetchUserAction(login, pass);
   };
 
-  handleSetLogin = (e) => {
-    this.setState({
-      login: e.target.value,
-    });
-  };
-
-  handleSetPass = (e) => {
-    this.setState({
-      pass: e.target.value,
-    });
+  handleSetData = (e) => {
+    const { type, value } = e.target;
+    if (type === 'text') this.setState({ login: value });
+    if (type === 'password') this.setState({ pass: value });
   };
 
   render() {
@@ -71,12 +62,12 @@ class Autorisation extends Component {
           type="text"
           placeholder="Username"
           autoFocus
-          onChange={this.handleSetLogin}
+          onChange={this.handleSetData}
         />
         <input
           type="password"
           placeholder="Password"
-          onChange={this.handleSetPass}
+          onChange={this.handleSetData}
         />
         <p
           className={`${style.error} ${

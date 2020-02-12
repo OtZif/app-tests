@@ -6,7 +6,7 @@ import style from './FormButton.module.scss';
 const FormButton = ({ color, text, click }) => {
   const btnClass = classNames(
     style.root,
-    color === 'green' ? style.green : style.red,
+    style[color],
   );
 
   return (

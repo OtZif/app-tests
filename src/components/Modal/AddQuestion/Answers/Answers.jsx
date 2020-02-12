@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
+import isEqual from 'lodash.isequal';
 import Answer from './Answer/Answer';
-import styles from './Answers.module.scss';
+import style from './Answers.module.scss';
 
 
-class Answers extends Component {
-  constructor() {
-    super();
-    this.state = {
-      answersArray: [{ id: +new Date(), answer: '', currect: false }]
-    };
-  }
+class Answers extends PureComponent {
+  state = {
+    answersArray: [{ id: +new Date(), answer: '', currect: false }],
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { type, updateAnswers, answers } = this.props;
@@ -19,7 +17,7 @@ class Answers extends Component {
     if (type !== prevProps.type) {
       if (type === 'Numeric') {
         this.setState({
-          arranswersArrayay: [{ id: +new Date(), answer: '', currect: '' }]
+          answersArray: [{ id: +new Date(), answer: '', currect: '' }],
         });
       } else {
         this.setState({
@@ -30,13 +28,14 @@ class Answers extends Component {
         });
       }
     }
-    if (answers !== prevProps.answers) {
+
+    if (!isEqual(answers, prevProps.answers)) {
       this.setState({
         answersArray: answers,
       });
     }
 
-    if (answersArray !== prevState.answersArray) {
+    if (!isEqual(answersArray, prevState.answersArray)) {
       updateAnswers(answersArray);
     }
   }
@@ -144,12 +143,20 @@ class Answers extends Component {
     );
   };
 
+  updateData = (id, target) => {
+    const { type, checked, value } = target;
+    if (type === 'radio') this.updateRadio(id, checked);
+    if (type === 'checkbox') this.updateCheckbox(id, checked);
+    if (type === 'text') this.updateAnswer(id, value);
+    if (type === 'number') this.updateNumericAnswer(id, value);
+  }
+
   render() {
     const { type } = this.props;
     const { answersArray } = this.state;
 
     return (
-      <div className={styles.root}>
+      <div className={style.root}>
         {answersArray.map((el, i) => (
           <Answer
             key={el.id}
@@ -158,20 +165,15 @@ class Answers extends Component {
             type={type}
             answer={el.answer}
             currect={el.currect}
-            updateRadio={this.updateRadio}
-            updateCheckbox={this.updateCheckbox}
-            updateAnswer={this.updateAnswer}
-            updateNumericAnswer={this.updateNumericAnswer}
+            updateData={this.updateData}
             removeAnswer={this.removeAnswer}
             moveAnswer={this.moveAnswer}
           />
         ))}
-        {type !== 'Numeric'
-        && type !== 'Choose Type'
-          && answersArray.length <= 9 && (
-            <button onClick={this.addAnswer} className={styles.button} type="button">
-              Add answer
-            </button>
+        {type !== 'Numeric' && type !== 'Choose Type' && answersArray.length <= 9 && (
+          <button className={style.button} onClick={this.addAnswer} type="button">
+            Add answer
+          </button>
         )}
       </div>
     );

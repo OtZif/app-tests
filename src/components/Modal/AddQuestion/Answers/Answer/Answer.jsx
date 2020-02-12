@@ -1,38 +1,26 @@
 import React, { useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
 import PropTypes from 'prop-types';
-import SvgX from 'components/SvgX/SvgX';
+import { useDrag, useDrop } from 'react-dnd';
+import SvgCross from 'components/SvgCross/SvgCross';
 import style from './Answer.module.scss';
 
 const Answer = ({
-  type,
   answer,
   currect,
-  updateRadio,
-  updateCheckbox,
-  updateAnswer,
-  updateNumericAnswer,
-  removeAnswer,
+  type,
   id,
   index,
   moveAnswer,
+  updateData,
+  removeAnswer,
 }) => {
-  const handlChangeText = () => (e) => {
-    updateAnswer(id, e.target.value);
-  };
-  const handlCheck = () => (e) => {
-    updateCheckbox(id, e.target.checked);
-  };
-  const CheckRadio = () => (e) => {
-    updateRadio(id, e.target.checked);
-  };
-  const handlChangeNumber = () => (e) => {
-    updateNumericAnswer(id, e.target.value);
-  };
-  const handlRemove = () => () => {
-    removeAnswer(id);
+  const handleCheck = (e) => {
+    updateData(id, e.target);
   };
 
+  const handleRemoveClick = () => {
+    removeAnswer(id);
+  };
   const ref = useRef(null);
   const [, drop] = useDrop({
     accept: 'answer',
@@ -74,6 +62,7 @@ const Answer = ({
       item.index = hoverIndex;
     },
   });
+
   const [{ isDragging }, drag] = useDrag({
     item: { type: 'answer', id, index },
     collect: (monitor) => ({
@@ -92,18 +81,18 @@ const Answer = ({
           name="radio"
           type="radio"
           checked={currect}
-          onChange={CheckRadio(id)}
+          onChange={handleCheck}
         />
       )}
       {type === 'Some' && (
-        <input type="checkbox" checked={currect} onChange={handlCheck(id)} />
+        <input type="checkbox" checked={currect} onChange={handleCheck} />
       )}
       {(type === 'Single' || type === 'Some') && (
         <input
           type="text"
           placeholder="Some answer here"
           defaultValue={answer}
-          onChange={handlChangeText(id)}
+          onChange={handleCheck}
         />
       )}
       {type === 'Numeric' && (
@@ -111,16 +100,12 @@ const Answer = ({
           placeholder="Type currect numeric answer here"
           type="number"
           defaultValue={currect}
-          onChange={handlChangeNumber(id)}
+          onChange={handleCheck}
         />
       )}
       {(type === 'Single' || type === 'Some') && (
-        <button
-          onClick={handlRemove(id)}
-          className={style.removeAnswer}
-          type="button"
-        >
-          <SvgX />
+        <button onClick={handleRemoveClick} className={style.removeAnswer} type="button">
+          <SvgCross />
         </button>
       )}
       {(type === 'Single' || type === 'Some') && (
@@ -139,15 +124,11 @@ Answer.propTypes = {
     PropTypes.bool,
     PropTypes.string,
   ]),
-  updateRadio: PropTypes.func.isRequired,
-  updateCheckbox: PropTypes.func.isRequired,
-  updateAnswer: PropTypes.func.isRequired,
-  updateNumericAnswer: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
   removeAnswer: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   moveAnswer: PropTypes.func.isRequired,
-
 };
 
 export default Answer;

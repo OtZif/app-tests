@@ -40,7 +40,7 @@ export function* addNewTestSaga(action) {
     const { title } = action.payload;
     const newDate = new Date();
     const response = yield call(addTestApi, newDate, title);
-    yield put(addTestSuccsessAction(response));
+    yield put(addTestSuccsessAction(response.data));
   } catch (err) {
     console.error(err);
   }

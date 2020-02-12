@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import SvgX from 'components/SvgX/SvgX';
-import CreateQuestion from 'components/CreateQuestion/CreateQuestion';
 import { ENTER_KEY } from 'models/constants/index';
+import SvgCross from 'components/SvgCross/SvgCross';
+import CreateQuestion from '../CreateQuestion/CreateQuestion';
 import style from './Test.module.scss';
 
-class Test extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currentAnswersArray: [],
-      currectAnswersCount: 0,
-    };
-  }
+class Test extends PureComponent {
+  state = {
+    currentAnswersArray: [],
+    currectAnswersCount: 0,
+  };
 
   componentDidMount() {
     const {
@@ -25,7 +22,7 @@ class Test extends Component {
       actions.fetchTestsAction();
     }
     if (!isAuthorized) {
-      history.push('/welcome');
+      history.push('/');
     }
   }
 
@@ -397,7 +394,7 @@ class Test extends Component {
                     className={style.remove}
                     onClick={this.handleDeleteQuestion(testId, el.id)}
                   >
-                    <SvgX key={+new Date() * Math.random(100)} />
+                    <SvgCross key={+new Date() * Math.random(100)} />
                   </button>
                 </div>
               )}

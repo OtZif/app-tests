@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Answers from 'components/Answers/Answers';
 import FormButton from 'components/FormButton/FormButton';
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
+import Answers from './Answers/Answers';
+import DropdownButtons from './DropdownButtons/DropdownButtons';
 import style from './AddQuestion.module.scss';
 
-import {DndProvider} from 'react-dnd'
-import Backend from 'react-dnd-html5-backend'
 
-class AddQuestion extends Component {
+class AddQuestion extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -55,51 +56,57 @@ class AddQuestion extends Component {
     });
   };
 
-  updateAnswers = (array) => {
+  updateAnswers = (data) => {
     this.setState({
-      answers: array,
+      answers: data,
     });
   };
+
+  onSubmit = () => {
+    const { answerType, question, answers } = this.state;
+    const {
+      actions, idTest, isQuestionEdit, currentEdit,
+    } = this.props;
+
+    if (question !== '') {
+      const isTrue = answers.filter((el) => el.currect === true).length;
+      const isAns = answers.filter((el) => el.currect !== '').length;
+      if (
+        (answers.length >= 2 && answerType !== 'Numeric' && isTrue > 0)
+        || (answerType === 'Numeric' && isAns > 0)
+      ) {
+        if (isQuestionEdit) {
+          actions.editQuestionsServAction(
+            currentEdit.testsId,
+            currentEdit.id,
+            question,
+            answerType,
+            answers,
+          );
+        } else {
+          actions.addQuestionAction(
+            idTest,
+            question,
+            answerType,
+            answers,
+          );
+        }
+      }
+    }
+  }
 
   render() {
     const {
       answerType, question, answers, isOpen,
     } = this.state;
-    const {
-      actions, idTest, isQuestionEdit, currentEdit,
-    } = this.props;
+    const { isQuestionEdit } = this.props;
 
     return (
       <form
-        action=""
         className={style.addQuestion}
-        onSubmit={(event) => {
-          if (question !== '') {
-            const isTrue = answers.filter((el) => el.currect === true).length;
-            const isAns = answers.filter((el) => el.currect !== '').length;
-            if (
-              (answers.length >= 2 && answerType !== 'Numeric' && isTrue > 0)
-              || (answerType === 'Numeric' && isAns > 0)
-            ) {
-              if (isQuestionEdit) {
-                actions.editQuestionsServAction(
-                  currentEdit.testsId,
-                  currentEdit.id,
-                  question,
-                  answerType,
-                  answers,
-                );
-              } else {
-                actions.addQuestionAction(
-                  idTest,
-                  question,
-                  answerType,
-                  answers,
-                );
-              }
-            }
-          }
-          event.preventDefault();
+        onSubmit={(e) => {
+          this.onSubmit();
+          e.preventDefault();
         }}
       >
         <h2 className={style.title}>
@@ -123,24 +130,7 @@ class AddQuestion extends Component {
           </div>
           <div className={style.dropdownContent}>
             <div className={style.buttonBox}>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Single')}
-              >
-                Single
-              </button>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Some')}
-              >
-                Some
-              </button>
-              <button
-                type="button"
-                onClick={this.handleChoseQuestionType('Numeric')}
-              >
-                Numeric
-              </button>
+              <DropdownButtons click={this.handleChoseQuestionType} />
             </div>
           </div>
         </div>

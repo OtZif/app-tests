@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,7 @@ import logo from 'images/file.png';
 import logo2 from 'images/document.png';
 import style from './Tests.module.scss';
 
-class Tests extends Component {
+class Tests extends PureComponent {
   componentDidMount() {
     const {
       tests, actions, isAuthorized, history,
@@ -17,7 +17,7 @@ class Tests extends Component {
     }
 
     if (!isAuthorized) {
-      history.push('/welcome');
+      history.push('/');
     }
   }
 

@@ -1,58 +1,66 @@
-import React, { useState } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ENTER_KEY } from 'models/constants/index';
 import FormButton from 'components/FormButton/FormButton';
 import style from './TestTitle.module.scss';
 
-const TestTitle = ({ actions }) => {
-  const [value, setValue] = useState('');
-  const [error, setError] = useState('');
+class TestTitle extends PureComponent {
+  state = {
+    testTitle: '',
+    isError: false,
+  }
 
-  const handleClickSave = () => {
-    if (value !== '') {
-      actions.addTestAction(value);
-    } else {
-      setError(true);
-    }
+  handleClickSave = () => {
+    const { actions } = this.props;
+    const { testTitle } = this.state;
+
+    if (testTitle.trim() !== '') {
+      actions.addTestAction(testTitle);
+    } else this.setState({ isError: true });
   };
 
-  const handlKeyUp = (e) => {
+  handleKeyUp = (e) => {
+    const { actions } = this.props;
+    const { testTitle } = this.state;
+
     if (e.keyCode === ENTER_KEY) {
-      if (e.target.value.trim() === '') {
-        setError(true);
-      } else {
-        actions.addTestAction(e.target.value);
-        e.target.value = '';
-      }
+      if (testTitle.trim() !== '') {
+        actions.addTestAction(testTitle);
+      } else this.setState({ isError: true });
     }
   };
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
+  handleTitleChange = (e) => {
+    const { value } = e.target;
+    this.setState({ testTitle: value });
   };
 
-  const handleClickCancel = () => {
+  handleClickCancel = () => {
+    const { actions } = this.props;
     actions.closeModalAction();
   };
 
-  return (
-    <div className={style.testTitle}>
-      <h2 className={style.title}>
-        Add Test Title
-      </h2>
-      <input
-        type="text"
-        onKeyUp={handlKeyUp}
-        onChange={handleChange}
-        autoFocus
-      />
-      <p className={`${style.error} ${error ? style.errorText : ''}`}>
-        Title field is empty or has invalid format
-      </p>
-      <FormButton text="Save" click={handleClickSave} />
-      <FormButton text="Cancel" click={handleClickCancel} color="red" />
-    </div>
-  );
+  render() {
+    const { isError } = this.state;
+    return (
+      <div className={style.testTitle}>
+        <h2 className={style.title}>
+          Add Test Title
+        </h2>
+        <input
+          type="text"
+          onKeyUp={this.handleKeyUp}
+          onChange={this.handleTitleChange}
+          autoFocus
+        />
+        <p className={`${style.error} ${isError && style.errorText}`}>
+          Title field is empty or has invalid format
+        </p>
+        <FormButton text="Save" click={this.handleClickSave} />
+        <FormButton text="Cancel" click={this.handleClickCancel} color="red" />
+      </div>
+    );
+  }
 };
 
 TestTitle.propTypes = {
